@@ -187,6 +187,15 @@ const pageContentCollection = defineCollection({
         identity: z.string().optional(),
         currentFocus: z.string().optional(),
         profileImage: z.string().optional(),
+        floatingCards: z
+          .array(
+            z.object({
+              label: z.string(),
+              value: z.string(),
+              icon: z.string().optional(),
+            })
+          )
+          .optional(),
         actions: z
           .array(
             z.object({

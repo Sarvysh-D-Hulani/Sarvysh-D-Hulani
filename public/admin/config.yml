@@ -31,8 +31,9 @@ logo_url: https://decapbridge.com/decapcms-with-bridge.svg
 # Add site links in Decap CMS (optional)
 site_url: https://sarvysh-d-hulani.vercel.app
 
-media_folder: 'src/assets/images'
-public_folder: '/_astro'
+# Uploaded media (JPG/PNG/etc.) is stored in `public/` and served directly.
+media_folder: 'public/images/uploads'
+public_folder: '/images/uploads'
 
 local_backend: true
 
@@ -56,7 +57,7 @@ collections:
           - { label: 'Tagline', name: 'tagline', widget: 'string' }
           - { label: 'Identity Statement', name: 'identity', widget: 'text' }
           - { label: 'Current Focus', name: 'currentFocus', widget: 'text' }
-          - { label: 'Profile Image URL', name: 'profileImage', widget: 'string' }
+          - { label: 'Profile Image', name: 'profileImage', widget: 'image', choose_url: true, hint: 'Upload a JPG/PNG or paste an image URL.' }
           - label: 'Floating Cards'
             name: 'floatingCards'
             widget: 'list'
@@ -182,12 +183,12 @@ collections:
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Excerpt', name: 'excerpt', widget: 'text', required: false }
-      - { label: 'Cover Image URL', name: 'coverImage', widget: 'string', required: false }
+      - { label: 'Cover Image', name: 'coverImage', widget: 'image', required: false, choose_url: true, hint: 'Upload a JPG/PNG or paste an image URL.' }
       - label: 'Gallery Images'
         name: 'gallery'
         widget: 'list'
         required: false
-        field: { label: 'Image URL', name: 'image', widget: 'string' }
+        field: { label: 'Image', name: 'image', widget: 'image', choose_url: true }
       - label: 'Tags'
         name: 'tags'
         widget: 'list'
@@ -227,7 +228,7 @@ collections:
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Date', name: 'date', widget: 'datetime' }
       - { label: 'Type', name: 'type', widget: 'select', options: ['milestone', 'failure', 'lesson', 'achievement'], default: 'milestone' }
-      - { label: 'Image URL', name: 'image', widget: 'string', required: false }
+      - { label: 'Image', name: 'image', widget: 'image', required: false, choose_url: true, hint: 'Upload a JPG/PNG or paste an image URL.' }
       - { label: 'Description', name: 'description', widget: 'text', required: false }
       - { label: 'Reflection', name: 'reflection', widget: 'text', required: false }
       - { label: 'Is Achievement', name: 'achievement', widget: 'boolean', default: false }
@@ -248,7 +249,7 @@ collections:
     slug: '{{slug}}'
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
-      - { label: 'Image URL', name: 'image', widget: 'string' }
+      - { label: 'Image', name: 'image', widget: 'image', choose_url: true, hint: 'Upload a JPG/PNG or paste an image URL.' }
       - { label: 'Caption', name: 'caption', widget: 'string', required: false }
       - { label: 'Album', name: 'album', widget: 'string', required: false }
       - { label: 'Category', name: 'category', widget: 'string', required: false }
@@ -275,7 +276,7 @@ collections:
         widget: 'list'
         required: false
         field: { label: 'Tag', name: 'tag', widget: 'string' }
-      - { label: 'Image URL', name: 'image', widget: 'string', required: false }
+      - { label: 'Image', name: 'image', widget: 'image', required: false, choose_url: true, hint: 'Upload a JPG/PNG or paste an image URL.' }
       - { label: 'Publish Date', name: 'publishDate', widget: 'datetime', required: false }
       - { label: 'Difficulty', name: 'difficulty', widget: 'select', options: ['Beginner', 'Intermediate', 'Advanced'], default: 'Beginner' }
       - { label: 'Draft', name: 'draft', widget: 'boolean', default: false }
@@ -298,7 +299,7 @@ collections:
       - { label: 'Recommendation', name: 'recommendation', widget: 'select', options: ['Essential', 'Highly Recommended', 'Recommended'], default: 'Recommended' }
       - { label: 'Personal Notes', name: 'personalNotes', widget: 'text', required: false }
       - { label: 'Link', name: 'link', widget: 'string', required: false }
-      - { label: 'Image URL', name: 'image', widget: 'string', required: false }
+      - { label: 'Image', name: 'image', widget: 'image', required: false, choose_url: true, hint: 'Upload a JPG/PNG or paste an image URL.' }
       - { label: 'Display Order', name: 'order', widget: 'number', default: 100, required: false }
       - { label: 'Draft', name: 'draft', widget: 'boolean', default: false }
       - { label: 'Content', name: 'body', widget: 'markdown', required: false }
@@ -317,7 +318,7 @@ collections:
       - { label: 'Author', name: 'author', widget: 'string', required: false }
       - { label: 'Status', name: 'status', widget: 'select', options: ['Currently Reading', 'Finished', 'Want to Read'], default: 'Want to Read' }
       - { label: 'Rating (1-5)', name: 'rating', widget: 'number', min: 1, max: 5, required: false }
-      - { label: 'Cover Image URL', name: 'coverImage', widget: 'string', required: false }
+      - { label: 'Cover Image', name: 'coverImage', widget: 'image', required: false, choose_url: true, hint: 'Upload a JPG/PNG or paste an image URL.' }
       - { label: 'Start Date', name: 'startDate', widget: 'datetime', required: false }
       - { label: 'Finish Date', name: 'finishDate', widget: 'datetime', required: false }
       - { label: 'Notes', name: 'notes', widget: 'text', required: false }
@@ -366,7 +367,7 @@ collections:
         widget: 'list'
         required: false
         field: { label: 'Tag', name: 'tag', widget: 'string' }
-      - { label: 'Image URL', name: 'image', widget: 'string', required: false }
+      - { label: 'Image', name: 'image', widget: 'image', required: false, choose_url: true, hint: 'Upload a JPG/PNG or paste an image URL.' }
       - { label: 'Publish Date', name: 'publishDate', widget: 'datetime', required: false }
       - { label: 'Author', name: 'author', widget: 'string', required: false }
       - { label: 'Draft', name: 'draft', widget: 'boolean', default: false }

@@ -20,6 +20,27 @@
         "profileImage": {
           "type": "string"
         },
+        "floatingCards": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              },
+              "icon": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "label",
+              "value"
+            ]
+          }
+        },
         "actions": {
           "type": "array",
           "items": {

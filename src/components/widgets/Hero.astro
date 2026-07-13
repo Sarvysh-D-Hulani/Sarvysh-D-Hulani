@@ -10,6 +10,7 @@ export interface Props {
   currentFocus?: string;
   profileImage?: string;
   actions?: Array<{ text: string; href: string; variant?: string; icon?: string }>;
+  floatingCards?: Array<{ label: string; value: string; icon?: string }>;
 }
 
 const {
@@ -19,9 +20,16 @@ const {
   currentFocus = '',
   profileImage = '',
   actions = [],
+  floatingCards = [],
 } = Astro.props;
 
 const taglineParts = tagline.split('·').map((s) => s.trim());
+
+// Alternating visual styles for the floating accent cards
+const cardStyles = [
+  { position: '-top-3 -right-3', delay: '0s', ring: 'from-sapphire to-cyan2', iconColor: 'text-white' },
+  { position: '-bottom-3 -left-3', delay: '2.5s', ring: 'from-gold to-amber', iconColor: 'text-midnight' },
+];
 ---
 
 <section class="relative overflow-hidden min-h-screen flex items-center bg-midnight dark:bg-midnight noise-overlay">
@@ -121,30 +129,26 @@ const taglineParts = tagline.split('·').map((s) => s.trim());
             </div>
           )}
 
-          <!-- Floating accent cards -->
-          <div class="absolute -top-3 -right-3 glass rounded-2xl px-4 py-2.5 shadow-xl animate-float" style="animation-delay: 0s;">
-            <div class="flex items-center gap-2">
-              <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-sapphire to-cyan2 flex items-center justify-center">
-                <Icon name="tabler:school" class="w-4 h-4 text-white" />
+          <!-- Floating accent cards (editable via Decap CMS) -->
+          {floatingCards.slice(0, 2).map((card, i) => {
+            const style = cardStyles[i] || cardStyles[0];
+            return (
+              <div
+                class={`absolute ${style.position} glass rounded-2xl px-4 py-2.5 shadow-xl animate-float`}
+                style={`animation-delay: ${style.delay};`}
+              >
+                <div class="flex items-center gap-2">
+                  <div class={`w-7 h-7 rounded-lg bg-gradient-to-br ${style.ring} flex items-center justify-center`}>
+                    <Icon name={card.icon || 'tabler:sparkles'} class={`w-4 h-4 ${style.iconColor}`} />
+                  </div>
+                  <div>
+                    <p class="text-[0.7rem] text-ivory/50 font-medium uppercase tracking-wider">{card.label}</p>
+                    <p class="text-sm font-semibold text-ivory">{card.value}</p>
+                  </div>
+                </div>
               </div>
-              <div>
-                <p class="text-[0.7rem] text-ivory/50 font-medium uppercase tracking-wider">Studying at</p>
-                <p class="text-sm font-semibold text-ivory">BITS Pilani</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="absolute -bottom-3 -left-3 glass rounded-2xl px-4 py-2.5 shadow-xl animate-float" style="animation-delay: 2.5s;">
-            <div class="flex items-center gap-2">
-              <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-gold to-amber flex items-center justify-center">
-                <Icon name="tabler:brain" class="w-4 h-4 text-midnight" />
-              </div>
-              <div>
-                <p class="text-[0.7rem] text-ivory/50 font-medium uppercase tracking-wider">Focus</p>
-                <p class="text-sm font-semibold text-ivory">AI Engineering</p>
-              </div>
-            </div>
-          </div>
+            );
+          })}
         </div>
       </div>
     </div>

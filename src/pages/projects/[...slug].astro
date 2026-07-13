@@ -2,6 +2,7 @@
 import PageLayout from '~/layouts/PageLayout.astro';
 import { Icon } from 'astro-icon/components';
 import Image from '~/components/common/Image.astro';
+import ProjectFiles from '~/components/widgets/ProjectFiles.astro';
 import { fetchProjects } from '~/utils/collections';
 
 export async function getStaticPaths() {
@@ -122,6 +123,11 @@ const formatDate = (date?: Date) => date ? new Intl.DateTimeFormat('en', { month
           </div>
         )}
       </div>
+
+      <!-- Documents (PDF, Word, Excel, PowerPoint) -->
+      {project.files && project.files.length > 0 && (
+        <ProjectFiles files={project.files} siteUrl={Astro.site?.href} />
+      )}
 
       <!-- Gallery -->
       {project.gallery && project.gallery.length > 0 && (

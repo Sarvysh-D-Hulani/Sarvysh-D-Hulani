@@ -1,0 +1,21 @@
+---
+// Decap CMS admin page served as a real Astro route so it resolves reliably
+// in both `astro dev` and the static Vercel build (no directory-index /
+// trailing-slash guesswork). The config lives at /decapcms/config.yml and is
+// referenced explicitly below.
+export const prerender = true;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Content Manager</title>
+    <link href="/decapcms/config.yml" type="text/yaml" rel="cms-config-url" />
+  </head>
+  <body>
+    <script src="https://unpkg.com/decap-cms@^3.7.2/dist/decap-cms.js" is:inline></script>
+  </body>
+</html>

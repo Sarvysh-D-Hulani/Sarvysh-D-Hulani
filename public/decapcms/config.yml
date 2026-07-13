@@ -1,9 +1,19 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: Sarvysh-D-Hulani/Sarvysh-D-Hulani
   branch: main
+  base_url: https://sarvysh.vercel.app
+  auth_endpoint: api/auth
 
-media_folder: 'src/assets/images'
-public_folder: '/_astro'
+# Uploaded images (JPEG/PNG/etc.) are committed to public/images and
+# served unchanged at /images/... — reliable for a static Astro build.
+media_folder: 'public/images'
+public_folder: '/images'
+
+# Accepts JPEG and PNG images plus PDF/Office documents (max 20 MB) via the
+# built-in media library.
+media_library:
+  max_file_size: 20971520
 
 local_backend: true
 
@@ -27,7 +37,8 @@ collections:
           - { label: 'Tagline', name: 'tagline', widget: 'string' }
           - { label: 'Identity Statement', name: 'identity', widget: 'text' }
           - { label: 'Current Focus', name: 'currentFocus', widget: 'text' }
-          - { label: 'Profile Image URL', name: 'profileImage', widget: 'string' }
+          - { label: 'Profile Image (JPEG/PNG)', name: 'profileImage', widget: 'image', required: false, choose_url: true }
+          - { label: 'Show Rotating Ring Around Photo', name: 'showRing', widget: 'boolean', default: true }
           - label: 'Action Buttons'
             name: 'actions'
             widget: 'list'
@@ -39,6 +50,17 @@ collections:
               - { label: 'Link', name: 'href', widget: 'string' }
               - { label: 'Style', name: 'variant', widget: 'select', options: ['primary', 'secondary'], default: 'secondary' }
               - { label: 'Icon (Tabler icon name)', name: 'icon', widget: 'string', required: false }
+          - label: 'Floating Cards (the two badges on the photo)'
+            name: 'cards'
+            widget: 'list'
+            allow_add: true
+            allow_delete: true
+            collapsed: false
+            max: 2
+            fields:
+              - { label: 'Icon (Tabler icon name)', name: 'icon', widget: 'string', default: 'tabler:school' }
+              - { label: 'Small Label', name: 'label', widget: 'string' }
+              - { label: 'Value', name: 'value', widget: 'string' }
       - label: 'Now Section'
         name: 'now'
         widget: 'object'
@@ -78,7 +100,7 @@ collections:
             allow_delete: true
             collapsed: false
             field: { label: 'Goal', name: 'goal', widget: 'string' }
-          - label: 'Things I'm Learning'
+          - label: "Things I'm Learning"
             name: 'learning'
             widget: 'list'
             allow_add: true
@@ -141,12 +163,27 @@ collections:
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Excerpt', name: 'excerpt', widget: 'text', required: false }
-      - { label: 'Cover Image URL', name: 'coverImage', widget: 'string', required: false }
-      - label: 'Gallery Images'
+      - { label: 'Cover Image (JPEG/PNG)', name: 'coverImage', widget: 'image', required: false, choose_url: true }
+      - label: 'Gallery Images (JPEG/PNG)'
         name: 'gallery'
         widget: 'list'
         required: false
-        field: { label: 'Image URL', name: 'image', widget: 'string' }
+        field: { label: 'Image', name: 'image', widget: 'image', choose_url: true }
+      - label: 'Documents (PDF, Word, Excel, PowerPoint)'
+        name: 'files'
+        widget: 'list'
+        required: false
+        allow_add: true
+        allow_delete: true
+        collapsed: false
+        summary: '{{fields.label}}'
+        fields:
+          - { label: 'File Label', name: 'label', widget: 'string' }
+          - label: 'File'
+            name: 'file'
+            widget: 'file'
+            media_folder: '/public/documents'
+            public_folder: '/documents'
       - label: 'Tags'
         name: 'tags'
         widget: 'list'
@@ -186,7 +223,7 @@ collections:
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Date', name: 'date', widget: 'datetime' }
       - { label: 'Type', name: 'type', widget: 'select', options: ['milestone', 'failure', 'lesson', 'achievement'], default: 'milestone' }
-      - { label: 'Image URL', name: 'image', widget: 'string', required: false }
+      - { label: 'Image (JPEG/PNG)', name: 'image', widget: 'image', required: false, choose_url: true }
       - { label: 'Description', name: 'description', widget: 'text', required: false }
       - { label: 'Reflection', name: 'reflection', widget: 'text', required: false }
       - { label: 'Is Achievement', name: 'achievement', widget: 'boolean', default: false }
@@ -207,7 +244,7 @@ collections:
     slug: '{{slug}}'
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
-      - { label: 'Image URL', name: 'image', widget: 'string' }
+      - { label: 'Image (JPEG/PNG)', name: 'image', widget: 'image', choose_url: true }
       - { label: 'Caption', name: 'caption', widget: 'string', required: false }
       - { label: 'Album', name: 'album', widget: 'string', required: false }
       - { label: 'Category', name: 'category', widget: 'string', required: false }
@@ -234,7 +271,7 @@ collections:
         widget: 'list'
         required: false
         field: { label: 'Tag', name: 'tag', widget: 'string' }
-      - { label: 'Image URL', name: 'image', widget: 'string', required: false }
+      - { label: 'Image (JPEG/PNG)', name: 'image', widget: 'image', required: false, choose_url: true }
       - { label: 'Publish Date', name: 'publishDate', widget: 'datetime', required: false }
       - { label: 'Difficulty', name: 'difficulty', widget: 'select', options: ['Beginner', 'Intermediate', 'Advanced'], default: 'Beginner' }
       - { label: 'Draft', name: 'draft', widget: 'boolean', default: false }
@@ -257,7 +294,7 @@ collections:
       - { label: 'Recommendation', name: 'recommendation', widget: 'select', options: ['Essential', 'Highly Recommended', 'Recommended'], default: 'Recommended' }
       - { label: 'Personal Notes', name: 'personalNotes', widget: 'text', required: false }
       - { label: 'Link', name: 'link', widget: 'string', required: false }
-      - { label: 'Image URL', name: 'image', widget: 'string', required: false }
+      - { label: 'Image (JPEG/PNG)', name: 'image', widget: 'image', required: false, choose_url: true }
       - { label: 'Display Order', name: 'order', widget: 'number', default: 100, required: false }
       - { label: 'Draft', name: 'draft', widget: 'boolean', default: false }
       - { label: 'Content', name: 'body', widget: 'markdown', required: false }
@@ -276,7 +313,7 @@ collections:
       - { label: 'Author', name: 'author', widget: 'string', required: false }
       - { label: 'Status', name: 'status', widget: 'select', options: ['Currently Reading', 'Finished', 'Want to Read'], default: 'Want to Read' }
       - { label: 'Rating (1-5)', name: 'rating', widget: 'number', min: 1, max: 5, required: false }
-      - { label: 'Cover Image URL', name: 'coverImage', widget: 'string', required: false }
+      - { label: 'Cover Image (JPEG/PNG)', name: 'coverImage', widget: 'image', required: false, choose_url: true }
       - { label: 'Start Date', name: 'startDate', widget: 'datetime', required: false }
       - { label: 'Finish Date', name: 'finishDate', widget: 'datetime', required: false }
       - { label: 'Notes', name: 'notes', widget: 'text', required: false }
@@ -325,7 +362,7 @@ collections:
         widget: 'list'
         required: false
         field: { label: 'Tag', name: 'tag', widget: 'string' }
-      - { label: 'Image URL', name: 'image', widget: 'string', required: false }
+      - { label: 'Image (JPEG/PNG)', name: 'image', widget: 'image', required: false, choose_url: true }
       - { label: 'Publish Date', name: 'publishDate', widget: 'datetime', required: false }
       - { label: 'Author', name: 'author', widget: 'string', required: false }
       - { label: 'Draft', name: 'draft', widget: 'boolean', default: false }

@@ -20,6 +20,9 @@
         "profileImage": {
           "type": "string"
         },
+        "showRing": {
+          "type": "boolean"
+        },
         "actions": {
           "type": "array",
           "items": {
@@ -42,6 +45,23 @@
               "text",
               "href"
             ]
+          }
+        },
+        "cards": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "icon": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            }
           }
         }
       }

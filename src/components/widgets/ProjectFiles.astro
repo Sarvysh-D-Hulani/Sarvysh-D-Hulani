@@ -1,0 +1,121 @@
+---
+import { Icon } from 'astro-icon/components';
+
+export interface Props {
+  files?: Array<{ label?: string; file: string }>;
+  siteUrl?: string;
+}
+
+const { files = [], siteUrl = '' } = Astro.props;
+
+// Build an absolute, public URL for a stored file path (needed by the
+// Microsoft Office Online viewer, which fetches the file server-side).
+const toAbsolute = (src: string): string => {
+  if (/^https?:\/\//i.test(src)) return src;
+  try {
+    return new URL(src, siteUrl || 'https://sarvysh.vercel.app').href;
+  } catch {
+    return src;
+  }
+};
+
+const extOf = (src: string): string => {
+  const clean = src.split('?')[0].split('#')[0];
+  const dot = clean.lastIndexOf('.');
+  return dot === -1 ? '' : clean.slice(dot + 1).toLowerCase();
+};
+
+type Kind = 'pdf' | 'office' | 'image' | 'other';
+const kindOf = (ext: string): Kind => {
+  if (ext === 'pdf') return 'pdf';
+  if (['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'].includes(ext)) return 'office';
+  if (['png', 'jpg', 'jpeg', 'gif', 'webp', 'svg'].includes(ext)) return 'image';
+  return 'other';
+};
+
+const iconOf = (ext: string): string => {
+  if (ext === 'pdf') return 'tabler:file-type-pdf';
+  if (['doc', 'docx'].includes(ext)) return 'tabler:file-type-doc';
+  if (['xls', 'xlsx'].includes(ext)) return 'tabler:file-type-xls';
+  if (['ppt', 'pptx'].includes(ext)) return 'tabler:file-type-ppt';
+  return 'tabler:file';
+};
+
+const items = files
+  .filter((f) => f && f.file)
+  .map((f) => {
+    const ext = extOf(f.file);
+    return {
+      label: f.label || f.file.split('/').pop() || 'Document',
+      href: f.file,
+      absolute: toAbsolute(f.file),
+      ext,
+      kind: kindOf(ext),
+      icon: iconOf(ext),
+    };
+  });
+---
+
+{
+  items.length > 0 && (
+    <div class="mt-12 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+      <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text mb-4">Documents</p>
+      <div class="space-y-8">
+        {items.map((item) => (
+          <div class="premium-card overflow-hidden">
+            <div class="flex flex-wrap items-center justify-between gap-3 px-5 py-4 border-b border-navy/5 dark:border-ivory/10">
+              <div class="flex items-center gap-3 min-w-0">
+                <span class="flex-shrink-0 w-10 h-10 rounded-xl bg-sapphire/10 text-sapphire dark:text-cyan2 flex items-center justify-center">
+                  <Icon name={item.icon} class="w-5 h-5" />
+                </span>
+                <div class="min-w-0">
+                  <p class="text-sm font-semibold text-heading truncate">{item.label}</p>
+                  <p class="text-xs text-muted uppercase tracking-wider">{item.ext || 'file'}</p>
+                </div>
+              </div>
+              <a
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                download
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-navy/5 dark:bg-sapphire/10 text-sapphire dark:text-cyan2 text-sm font-medium hover:bg-navy/10 transition"
+              >
+                <Icon name="tabler:download" class="w-4 h-4" /> Download
+              </a>
+            </div>
+
+            {item.kind === 'pdf' && (
+              <iframe
+                src={item.href}
+                title={item.label}
+                loading="lazy"
+                class="w-full h-[600px] bg-white"
+              />
+            )}
+
+            {item.kind === 'office' && (
+              <iframe
+                src={`https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(item.absolute)}`}
+                title={item.label}
+                loading="lazy"
+                class="w-full h-[600px] bg-white"
+              />
+            )}
+
+            {item.kind === 'image' && (
+              <div class="p-4 bg-white dark:bg-midnight">
+                <img src={item.href} alt={item.label} class="w-full h-auto rounded-lg" loading="lazy" />
+              </div>
+            )}
+
+            {item.kind === 'other' && (
+              <div class="px-5 py-6 text-sm text-muted">
+                Preview isn't available for this file type. Use the download button above to open it.
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}

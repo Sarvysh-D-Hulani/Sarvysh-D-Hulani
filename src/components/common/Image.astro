@@ -68,6 +68,10 @@ const isCdnUrl =
   (resolved.startsWith('http://') || resolved.startsWith('https://')) &&
   (parseUrl(resolved) !== undefined || resolved.includes('images.pexels.com'));
 
+// Root-relative path served straight from /public (e.g. CMS uploads at
+// /images/…). Astro's <Image /> can't process these, so emit a plain <img>.
+const isLocalPublic = typeof resolved === 'string' && resolved.startsWith('/');
+
 // Infer missing dimension(s) from ESM-imported ImageMetadata. If only one of
 // width/height is provided, derive the other from the source aspect ratio.
 if (resolved && typeof resolved === 'object' && 'width' in resolved && 'height' in resolved) {
@@ -159,7 +163,9 @@ const cdnSrcSet =
 ---
 
 {
-  isCdnUrl ? (
+  isLocalPublic ? (
+    <img src={resolved as string} width={w} height={h} alt={alt} {...rest} style={finalStyle} />
+  ) : isCdnUrl ? (
     <img
       src={cdnSrc}
       srcset={cdnSrcSet}

@@ -9,7 +9,9 @@ export interface Props {
   identity?: string;
   currentFocus?: string;
   profileImage?: string;
+  showRing?: boolean;
   actions?: Array<{ text: string; href: string; variant?: string; icon?: string }>;
+  cards?: Array<{ icon?: string; label?: string; value?: string }>;
 }
 
 const {
@@ -18,10 +20,24 @@ const {
   identity = '',
   currentFocus = '',
   profileImage = '',
+  showRing = true,
   actions = [],
+  cards = [],
 } = Astro.props;
 
 const taglineParts = tagline.split('·').map((s) => s.trim());
+
+// The two floating badges over the portrait — first renders top-right,
+// second renders bottom-left. Falls back to sensible defaults.
+const fallbackCards = [
+  { icon: 'tabler:school', label: 'Studying at', value: 'BITS Pilani' },
+  { icon: 'tabler:brain', label: 'Focus', value: 'AI Engineering' },
+];
+const heroCards = (cards && cards.length ? cards : fallbackCards).slice(0, 2);
+const cardPositions = ['-top-3 -right-3', '-bottom-3 -left-3'];
+const cardDelays = ['0s', '2.5s'];
+const cardGradients = ['from-sapphire to-cyan2', 'from-gold to-amber'];
+const cardIconColors = ['text-white', 'text-midnight'];
 ---
 
 <section class="relative overflow-hidden min-h-screen flex items-center bg-midnight dark:bg-midnight noise-overlay">
@@ -103,7 +119,9 @@ const taglineParts = tagline.split('·').map((s) => s.trim());
           <div class="absolute -inset-6 rounded-[2.5rem] bg-gradient-to-tr from-sapphire/20 via-cyan2/10 to-gold/10 blur-3xl animate-glow"></div>
 
           <!-- Rotating gradient ring -->
-          <div class="absolute -inset-1 rounded-[2rem] opacity-30" style="background: conic-gradient(from 0deg, rgb(15 76 160), rgb(6 182 212), rgb(218 165 32), rgb(15 76 160)); animation: spin 12s linear infinite;"></div>
+          {showRing && (
+            <div class="absolute -inset-1 rounded-[2rem] opacity-30" style="background: conic-gradient(from 0deg, rgb(15 76 160), rgb(6 182 212), rgb(218 165 32), rgb(15 76 160)); animation: spin 12s linear infinite;"></div>
+          )}
 
           <!-- Image container -->
           {profileImage && (
@@ -121,30 +139,20 @@ const taglineParts = tagline.split('·').map((s) => s.trim());
             </div>
           )}
 
-          <!-- Floating accent cards -->
-          <div class="absolute -top-3 -right-3 glass rounded-2xl px-4 py-2.5 shadow-xl animate-float" style="animation-delay: 0s;">
-            <div class="flex items-center gap-2">
-              <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-sapphire to-cyan2 flex items-center justify-center">
-                <Icon name="tabler:school" class="w-4 h-4 text-white" />
-              </div>
-              <div>
-                <p class="text-[0.7rem] text-ivory/50 font-medium uppercase tracking-wider">Studying at</p>
-                <p class="text-sm font-semibold text-ivory">BITS Pilani</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="absolute -bottom-3 -left-3 glass rounded-2xl px-4 py-2.5 shadow-xl animate-float" style="animation-delay: 2.5s;">
-            <div class="flex items-center gap-2">
-              <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-gold to-amber flex items-center justify-center">
-                <Icon name="tabler:brain" class="w-4 h-4 text-midnight" />
-              </div>
-              <div>
-                <p class="text-[0.7rem] text-ivory/50 font-medium uppercase tracking-wider">Focus</p>
-                <p class="text-sm font-semibold text-ivory">AI Engineering</p>
+          <!-- Floating accent cards (CMS-editable) -->
+          {heroCards.map((card, i) => (
+            <div class={`absolute ${cardPositions[i]} glass rounded-2xl px-4 py-2.5 shadow-xl animate-float`} style={`animation-delay: ${cardDelays[i]};`}>
+              <div class="flex items-center gap-2">
+                <div class={`w-7 h-7 rounded-lg bg-gradient-to-br ${cardGradients[i]} flex items-center justify-center`}>
+                  <Icon name={card.icon || 'tabler:sparkles'} class={`w-4 h-4 ${cardIconColors[i]}`} />
+                </div>
+                <div>
+                  <p class="text-[0.7rem] text-ivory/50 font-medium uppercase tracking-wider">{card.label}</p>
+                  <p class="text-sm font-semibold text-ivory">{card.value}</p>
+                </div>
               </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>

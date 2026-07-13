@@ -65,6 +65,14 @@ const projectCollection = defineCollection({
     excerpt: z.string().optional(),
     coverImage: z.string().optional(),
     gallery: z.array(z.string()).optional(),
+    files: z
+      .array(
+        z.object({
+          label: z.string().optional(),
+          file: z.string(),
+        })
+      )
+      .optional(),
     tags: z.array(z.string()).optional(),
     technologies: z.array(z.string()).optional(),
     status: z.string().optional(),
@@ -187,6 +195,7 @@ const pageContentCollection = defineCollection({
         identity: z.string().optional(),
         currentFocus: z.string().optional(),
         profileImage: z.string().optional(),
+        showRing: z.boolean().optional(),
         actions: z
           .array(
             z.object({
@@ -194,6 +203,15 @@ const pageContentCollection = defineCollection({
               href: z.string(),
               variant: z.string().optional(),
               icon: z.string().optional(),
+            })
+          )
+          .optional(),
+        cards: z
+          .array(
+            z.object({
+              icon: z.string().optional(),
+              label: z.string().optional(),
+              value: z.string().optional(),
             })
           )
           .optional(),

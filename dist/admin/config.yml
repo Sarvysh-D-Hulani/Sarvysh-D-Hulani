@@ -131,7 +131,7 @@ collections:
             allow_delete: true
             collapsed: false
             field: { label: 'Goal', name: 'goal', widget: 'string' }
-          - label: 'Things I'm Learning'
+          - label: 'Things I''m Learning'
             name: 'learning'
             widget: 'list'
             allow_add: true

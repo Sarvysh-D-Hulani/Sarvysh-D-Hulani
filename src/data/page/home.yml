@@ -4,6 +4,13 @@ hero:
   identity: 'I build AI systems that solve real problems. Currently studying at BITS Pilani, shipping projects, and documenting everything I learn along the way.'
   currentFocus: 'Exploring LLMs, agentic systems, and the intersection of AI with real-world products.'
   profileImage: 'https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg?auto=compress&cs=tinysrgb&w=800'
+  floatingCards:
+    - label: 'Studying at'
+      value: 'BITS Pilani'
+      icon: 'tabler:school'
+    - label: 'Focus'
+      value: 'AI Engineering'
+      icon: 'tabler:brain'
   actions:
     - text: 'View My Work'
       href: '/projects'

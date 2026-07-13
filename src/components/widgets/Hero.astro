@@ -9,6 +9,9 @@ export interface Props {
   identity?: string;
   currentFocus?: string;
   profileImage?: string;
+  badge?: { visible?: boolean; text?: string };
+  showRotatingRing?: boolean;
+  cards?: Array<{ label: string; value: string; icon?: string }>;
   actions?: Array<{ text: string; href: string; variant?: string; icon?: string }>;
 }
 
@@ -18,10 +21,23 @@ const {
   identity = '',
   currentFocus = '',
   profileImage = '',
+  badge,
+  showRotatingRing = true,
+  cards,
   actions = [],
 } = Astro.props;
 
 const taglineParts = tagline.split('·').map((s) => s.trim());
+
+const showBadge = badge?.visible !== false;
+const badgeText = badge?.text ?? 'Available for opportunities';
+
+// Fall back to the original two cards when none are configured in the CMS.
+const defaultCards = [
+  { label: 'Studying at', value: 'BITS Pilani', icon: 'tabler:school' },
+  { label: 'Focus', value: 'AI Engineering', icon: 'tabler:brain' },
+];
+const heroCards = cards && cards.length ? cards : defaultCards;
 ---
 
 <section class="relative overflow-hidden min-h-screen flex items-center bg-midnight dark:bg-midnight noise-overlay">
@@ -48,13 +64,15 @@ const taglineParts = tagline.split('·').map((s) => s.trim());
       <!-- ─── Left: Identity ─── -->
       <div class="text-center lg:text-left order-2 lg:order-1">
         <!-- Status badge -->
-        <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass mb-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-blur-in">
-          <span class="relative flex w-2 h-2">
-            <span class="absolute inline-flex w-full h-full rounded-full bg-emerald2 opacity-75 animate-ping"></span>
-            <span class="relative inline-flex w-2 h-2 rounded-full bg-emerald2"></span>
-          </span>
-          <span class="text-sm text-ivory/85 font-medium tracking-wide">Available for opportunities</span>
-        </div>
+        {showBadge && (
+          <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass mb-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-blur-in">
+            <span class="relative flex w-2 h-2">
+              <span class="absolute inline-flex w-full h-full rounded-full bg-emerald2 opacity-75 animate-ping"></span>
+              <span class="relative inline-flex w-2 h-2 rounded-full bg-emerald2"></span>
+            </span>
+            <span class="text-sm text-ivory/85 font-medium tracking-wide">{badgeText}</span>
+          </div>
+        )}
 
         <!-- Name with refined typography -->
         <h1 class="text-5xl sm:text-6xl lg:text-7xl xl:text-[5.5rem] font-bold tracking-tight text-ivory leading-[1.05] mb-6 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-blur-in">
@@ -103,7 +121,9 @@ const taglineParts = tagline.split('·').map((s) => s.trim());
           <div class="absolute -inset-6 rounded-[2.5rem] bg-gradient-to-tr from-sapphire/20 via-cyan2/10 to-gold/10 blur-3xl animate-glow"></div>
 
           <!-- Rotating gradient ring -->
-          <div class="absolute -inset-1 rounded-[2rem] opacity-30" style="background: conic-gradient(from 0deg, rgb(15 76 160), rgb(6 182 212), rgb(218 165 32), rgb(15 76 160)); animation: spin 12s linear infinite;"></div>
+          {showRotatingRing && (
+            <div class="absolute -inset-1 rounded-[2rem] opacity-30" style="background: conic-gradient(from 0deg, rgb(15 76 160), rgb(6 182 212), rgb(218 165 32), rgb(15 76 160)); animation: spin 12s linear infinite;"></div>
+          )}
 
           <!-- Image container -->
           {profileImage && (
@@ -121,30 +141,23 @@ const taglineParts = tagline.split('·').map((s) => s.trim());
             </div>
           )}
 
-          <!-- Floating accent cards -->
-          <div class="absolute -top-3 -right-3 glass rounded-2xl px-4 py-2.5 shadow-xl animate-float" style="animation-delay: 0s;">
-            <div class="flex items-center gap-2">
-              <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-sapphire to-cyan2 flex items-center justify-center">
-                <Icon name="tabler:school" class="w-4 h-4 text-white" />
-              </div>
-              <div>
-                <p class="text-[0.7rem] text-ivory/50 font-medium uppercase tracking-wider">Studying at</p>
-                <p class="text-sm font-semibold text-ivory">BITS Pilani</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="absolute -bottom-3 -left-3 glass rounded-2xl px-4 py-2.5 shadow-xl animate-float" style="animation-delay: 2.5s;">
-            <div class="flex items-center gap-2">
-              <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-gold to-amber flex items-center justify-center">
-                <Icon name="tabler:brain" class="w-4 h-4 text-midnight" />
-              </div>
-              <div>
-                <p class="text-[0.7rem] text-ivory/50 font-medium uppercase tracking-wider">Focus</p>
-                <p class="text-sm font-semibold text-ivory">AI Engineering</p>
+          <!-- Floating accent cards (editable via CMS) -->
+          {heroCards.map((card, i) => (
+            <div
+              class={`absolute glass rounded-2xl px-4 py-2.5 shadow-xl animate-float ${i === 0 ? '-top-3 -right-3' : '-bottom-3 -left-3'}`}
+              style={`animation-delay: ${i * 2.5}s;`}
+            >
+              <div class="flex items-center gap-2">
+                <div class={`w-7 h-7 rounded-lg flex items-center justify-center ${i === 0 ? 'bg-gradient-to-br from-sapphire to-cyan2' : 'bg-gradient-to-br from-gold to-amber'}`}>
+                  <Icon name={card.icon || 'tabler:sparkles'} class={`w-4 h-4 ${i === 0 ? 'text-white' : 'text-midnight'}`} />
+                </div>
+                <div>
+                  <p class="text-[0.7rem] text-ivory/50 font-medium uppercase tracking-wider">{card.label}</p>
+                  <p class="text-sm font-semibold text-ivory">{card.value}</p>
+                </div>
               </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>

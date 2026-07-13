@@ -8,6 +8,7 @@ export interface Project {
   excerpt?: string;
   coverImage?: string;
   gallery?: string[];
+  documents?: { title: string; file: string }[];
   tags?: string[];
   technologies?: string[];
   status?: string;

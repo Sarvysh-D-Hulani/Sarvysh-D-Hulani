@@ -24,6 +24,19 @@ const metadata = {
 };
 
 const formatDate = (date?: Date) => date ? new Intl.DateTimeFormat('en', { month: 'short', year: 'numeric' }).format(date) : '';
+
+// ─── Document helpers ──────────────────────────────────────────────────────
+const siteOrigin = Astro.site ? Astro.site.toString().replace(/\/$/, '') : '';
+const officeExts = ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'];
+const getExt = (p = '') => (p.split('?')[0].split('.').pop() || '').toLowerCase();
+const absoluteUrl = (p = '') => (p.startsWith('http') ? p : `${siteOrigin}${p}`);
+const docIcon = (ext: string) => {
+  if (ext === 'pdf') return 'tabler:file-type-pdf';
+  if (ext === 'doc' || ext === 'docx') return 'tabler:file-type-doc';
+  if (ext === 'xls' || ext === 'xlsx') return 'tabler:file-type-xls';
+  if (ext === 'ppt' || ext === 'pptx') return 'tabler:file-type-ppt';
+  return 'tabler:file';
+};
 ---
 
 <PageLayout metadata={metadata}>
@@ -122,6 +135,64 @@ const formatDate = (date?: Date) => date ? new Intl.DateTimeFormat('en', { month
           </div>
         )}
       </div>
+
+      <!-- Documents (PDF / Word / Excel / PowerPoint) -->
+      {project.documents && project.documents.length > 0 && (
+        <div class="mt-12">
+          <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text mb-2">Documents</p>
+          <h2 class="text-2xl md:text-3xl font-bold text-heading mb-6">Project Files</h2>
+          <div class="space-y-6">
+            {project.documents.map((doc) => {
+              const ext = getExt(doc.file);
+              const isPdf = ext === 'pdf';
+              const isOffice = officeExts.includes(ext);
+              const src = absoluteUrl(doc.file);
+              return (
+                <div class="premium-card overflow-hidden">
+                  <div class="flex items-center justify-between gap-4 p-4 md:p-5 border-b border-navy/10 dark:border-ivory/10">
+                    <div class="flex items-center gap-3 min-w-0">
+                      <Icon name={docIcon(ext)} class="w-7 h-7 text-sapphire dark:text-cyan2 flex-shrink-0" />
+                      <div class="min-w-0">
+                        <p class="font-semibold text-heading truncate">{doc.title}</p>
+                        {ext && <p class="text-xs text-muted uppercase tracking-wider">{ext} file</p>}
+                      </div>
+                    </div>
+                    <a
+                      href={doc.file}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-navy/5 dark:bg-sapphire/10 text-sapphire dark:text-cyan2 text-sm font-medium hover:bg-navy/10 transition flex-shrink-0"
+                    >
+                      <Icon name="tabler:download" class="w-4 h-4" /> Download
+                    </a>
+                  </div>
+                  {isPdf && (
+                    <iframe
+                      src={`${doc.file}#view=FitH`}
+                      title={doc.title}
+                      class="w-full h-[600px] bg-white"
+                      loading="lazy"
+                    />
+                  )}
+                  {isOffice && (
+                    <iframe
+                      src={`https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(src)}`}
+                      title={doc.title}
+                      class="w-full h-[600px] bg-white"
+                      loading="lazy"
+                    />
+                  )}
+                  {!isPdf && !isOffice && (
+                    <div class="p-5 text-sm text-muted">
+                      Inline preview is not available for this file type. Use the download button above to view it.
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       <!-- Gallery -->
       {project.gallery && project.gallery.length > 0 && (

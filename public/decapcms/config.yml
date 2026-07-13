@@ -10,10 +10,8 @@ backend:
 media_folder: 'public/images'
 public_folder: '/images'
 
-# Accepts JPEG and PNG images plus PDF/Office documents (max 20 MB) via the
-# built-in media library.
-media_library:
-  max_file_size: 20971520
+# Uploads (JPEG/PNG images and PDF/Office documents) use the built-in
+# media library, which accepts these file types by default.
 
 local_backend: true
 

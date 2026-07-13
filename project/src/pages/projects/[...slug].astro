@@ -1,0 +1,154 @@
+---
+import PageLayout from '~/layouts/PageLayout.astro';
+import { Icon } from 'astro-icon/components';
+import Image from '~/components/common/Image.astro';
+import { fetchProjects } from '~/utils/collections';
+
+export async function getStaticPaths() {
+  const projects = await fetchProjects();
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { getCollection, render } = await import('astro:content');
+const entries = await getCollection('project');
+const entry = entries.find((e) => e.id.replace(/\.md$/, '').replace(/\.mdx$/, '') === project.slug);
+const Content = entry ? (await render(entry)).Content : null;
+
+const metadata = {
+  title: project.title,
+  description: project.excerpt || '',
+};
+
+const formatDate = (date?: Date) => date ? new Intl.DateTimeFormat('en', { month: 'short', year: 'numeric' }).format(date) : '';
+---
+
+<PageLayout metadata={metadata}>
+  <!-- Hero header -->
+  <section class="relative pt-20 md:pt-28 pb-12 md:pb-16 bg-gradient-to-b from-section-alt to-page dark:from-midnight dark:to-midnight overflow-hidden">
+    <div class="absolute top-0 left-1/4 w-[400px] h-[300px] rounded-full bg-sapphire/5 blur-[120px] pointer-events-none" aria-hidden="true"></div>
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6">
+      <a href="/projects" class="inline-flex items-center gap-1.5 text-sm text-muted hover:text-sapphire dark:hover:text-cyan2 transition mb-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+        <Icon name="tabler:arrow-left" class="w-4 h-4" />
+        Back to Projects
+      </a>
+      <div class="flex items-center gap-3 mb-4 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+        {project.status && (
+          <span class="px-3 py-1 rounded-full text-xs font-semibold bg-sapphire/10 text-sapphire border border-sapphire/20">{project.status}</span>
+        )}
+        {project.startDate && (
+          <span class="text-sm text-muted">{formatDate(project.startDate)} — {project.endDate ? formatDate(project.endDate) : 'Present'}</span>
+        )}
+      </div>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-heading mb-4 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">{project.title}</h1>
+      {project.excerpt && <p class="text-lg lg:text-xl text-muted leading-relaxed max-w-3xl intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">{project.excerpt}</p>}
+    </div>
+  </section>
+
+  <article class="pb-20 bg-page dark:bg-midnight">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <!-- Cover image -->
+      {project.coverImage && (
+        <div class="rounded-2xl overflow-hidden mb-10 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-scale-in">
+          <Image src={project.coverImage} alt={project.title} layout="responsive" class="w-full h-64 md:h-80 object-cover" />
+        </div>
+      )}
+
+      <!-- Links -->
+      <div class="flex flex-wrap gap-3 mb-10 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+        {project.github && (
+          <a href={project.github} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-navy/5 dark:bg-sapphire/10 text-sapphire dark:text-cyan2 text-sm font-medium hover:bg-navy/10 transition">
+            <Icon name="tabler:brand-github" class="w-4 h-4" /> GitHub
+          </a>
+        )}
+        {project.demo && (
+          <a href={project.demo} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-navy/5 dark:bg-sapphire/10 text-sapphire dark:text-cyan2 text-sm font-medium hover:bg-navy/10 transition">
+            <Icon name="tabler:external-link" class="w-4 h-4" /> Live Demo
+          </a>
+        )}
+      </div>
+
+      <!-- Tech stack -->
+      {project.technologies && project.technologies.length > 0 && (
+        <div class="mb-10 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+          <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text mb-3">Tech Stack</p>
+          <div class="flex flex-wrap gap-2">
+            {project.technologies.map((tech) => (
+              <span class="px-3 py-1.5 rounded-full text-sm font-medium text-white bg-gradient-to-r from-sapphire to-cyan2 shadow-sm">{tech}</span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <!-- Content sections -->
+      <div class="space-y-6">
+        {project.problem && (
+          <div class="premium-card p-6 md:p-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+            <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text mb-2">The Problem</p>
+            <p class="text-base text-muted leading-relaxed">{project.problem}</p>
+          </div>
+        )}
+        {project.whyBuilt && (
+          <div class="premium-card p-6 md:p-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+            <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text mb-2">Why I Built It</p>
+            <p class="text-base text-muted leading-relaxed">{project.whyBuilt}</p>
+          </div>
+        )}
+        {project.process && (
+          <div class="premium-card p-6 md:p-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+            <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text mb-2">Process</p>
+            <p class="text-base text-muted leading-relaxed whitespace-pre-line">{project.process}</p>
+          </div>
+        )}
+        {project.challenges && (
+          <div class="premium-card p-6 md:p-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+            <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text mb-2">Challenges</p>
+            <p class="text-base text-muted leading-relaxed">{project.challenges}</p>
+          </div>
+        )}
+        {project.learnings && (
+          <div class="premium-card p-6 md:p-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+            <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text mb-2">What I Learned</p>
+            <p class="text-base text-muted leading-relaxed">{project.learnings}</p>
+          </div>
+        )}
+        {project.futureImprovements && (
+          <div class="premium-card p-6 md:p-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+            <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text mb-2">Future Improvements</p>
+            <p class="text-base text-muted leading-relaxed">{project.futureImprovements}</p>
+          </div>
+        )}
+      </div>
+
+      <!-- Gallery -->
+      {project.gallery && project.gallery.length > 0 && (
+        <div class="mt-10 grid grid-cols-2 gap-4">
+          {project.gallery.map((img) => (
+            <div class="rounded-xl overflow-hidden">
+              <Image src={img} alt={project.title} layout="responsive" class="w-full h-48 object-cover" />
+            </div>
+          ))}
+        </div>
+      )}
+
+      <!-- Tags -->
+      {project.tags && project.tags.length > 0 && (
+        <div class="mt-10 flex flex-wrap gap-2">
+          {project.tags.map((tag) => (
+            <span class="px-3 py-1.5 rounded-full text-sm text-muted bg-navy/5 dark:bg-sapphire/5">#{tag}</span>
+          ))}
+        </div>
+      )}
+
+      <!-- Rendered markdown content if any -->
+      {Content && (
+        <div class="prose prose-lg dark:prose-invert max-w-none mt-10">
+          <Content />
+        </div>
+      )}
+    </div>
+  </article>
+</PageLayout>

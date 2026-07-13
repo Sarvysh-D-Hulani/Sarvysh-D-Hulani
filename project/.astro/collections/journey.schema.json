@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "type": {
+      "type": "string"
+    },
+    "image": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "reflection": {
+      "type": "string"
+    },
+    "achievement": {
+      "type": "boolean"
+    },
+    "failure": {
+      "type": "boolean"
+    },
+    "lesson": {
+      "type": "string"
+    },
+    "order": {
+      "type": "number"
+    },
+    "draft": {
+      "type": "boolean"
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "date"
+  ]
+}

@@ -1,0 +1,143 @@
+hero:
+  name: 'Sarvysh D Hulani'
+  tagline: 'AI Engineer · Builder · BITS Pilani'
+  identity: 'I build AI systems that solve real problems. Currently studying at BITS Pilani, shipping projects, and documenting everything I learn along the way.'
+  currentFocus: 'Exploring LLMs, agentic systems, and the intersection of AI with real-world products.'
+  profileImage: 'https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg?auto=compress&cs=tinysrgb&w=800'
+  actions:
+    - text: 'View My Work'
+      href: '/projects'
+      variant: 'primary'
+      icon: 'tabler:rocket'
+    - text: 'About Me'
+      href: '/about'
+      variant: 'secondary'
+      icon: 'tabler:user'
+    - text: 'Read My Writing'
+      href: '/writing'
+      variant: 'secondary'
+      icon: 'tabler:article'
+
+now:
+  building: 'An AI-powered study companion for BITS students'
+  learning: 'Multi-agent orchestration patterns with LangGraph'
+  reading: 'Designing Machine Learning Systems by Chip Huyen'
+  goal: 'Ship three production-grade AI projects before semester end'
+  semester: 'Fourth Semester, BITS Pilani'
+  experiments: 'Testing fine-tuned embeddings vs. OpenAI embeddings for domain-specific RAG'
+
+about:
+  story: >-
+    I'm a student who believes the next decade will be defined by people who can bridge the gap between
+    ambitious ideas and real, working systems. I started like most curious kids — taking things apart,
+    reading too much, and dreaming too big. The difference is I never stopped. Today I'm at BITS Pilani,
+    studying, building, and documenting everything. This website is my way of making the journey public —
+    not to show off, but to hold myself accountable and maybe inspire someone else to start their own.
+  values:
+    - title: 'Curiosity Over Comfort'
+      description: 'I choose the harder path when it teaches me more.'
+    - title: 'Build in Public'
+      description: 'Ideas are cheap. Shipping is everything. I document as I go.'
+    - title: 'Depth Over Breadth'
+      description: 'I go deep on the things that matter rather than skimming everything.'
+    - title: 'Genuine Always'
+      description: 'No personas, no pretending. What you see is what you get.'
+  philosophy: >-
+    The best way to predict your future is to build it, one project at a time, one lesson at a time.
+    I believe in compounding: small daily improvements that, over years, create something remarkable.
+    I believe in sharing: the best way to learn is to teach, and the best way to grow is to give.
+    And I believe in patience: great things take time, and the journey is the destination.
+  interests:
+    - 'Artificial Intelligence & Machine Learning'
+    - 'Product Design & UX'
+    - 'Investing & Financial Markets'
+    - 'Philosophy & Psychology'
+    - 'Cricket & Chess'
+    - 'Science Fiction & Worldbuilding'
+  goals:
+    - 'Become an AI engineer who ships products people use'
+    - 'Build a company before graduation'
+    - 'Invest in 10+ startups as an angel investor'
+    - 'Write a book about the AI revolution from a student perspective'
+    - 'Speak at a major tech conference'
+    - 'Maintain this website for 10+ years'
+  learning:
+    - 'Advanced Deep Learning architectures'
+    - 'Distributed systems & infrastructure'
+    - 'Startup operations & venture capital'
+    - 'Technical writing & communication'
+    - 'Spanish (slowly but surely)'
+  beliefs:
+    - 'AI will amplify human creativity, not replace it'
+    - 'The best education is self-directed'
+    - 'Your network is your net worth, but only if you add value first'
+    - 'Failure is data — collect it, analyze it, move on'
+    - 'Time is the only non-renewable resource'
+  faq:
+    - question: 'Why BITS Pilani?'
+      answer: 'Because it is one of the few places in India where you can be both a serious student and a serious builder without choosing one over the other.'
+    - question: 'Why document everything publicly?'
+      answer: 'Because accountability works. Because someone else might be on the same path and feel less alone. Because future me will thank present me.'
+    - question: 'What is the end goal?'
+      answer: 'There is no end goal. The goal is to keep growing, keep building, and keep sharing. The journey is the destination.'
+    - question: 'How do you balance academics and building?'
+      answer: 'I do not balance them — I integrate them. Everything I build teaches me something academic, and everything I study informs what I build.'
+
+contact:
+  title: 'Get in Touch'
+  subtitle: 'Have a question, an idea, or just want to say hi? I read every message.'
+  email: 'sarvysh@example.com'
+  socials:
+    - label: 'X (Twitter)'
+      href: 'https://x.com'
+      icon: 'tabler:brand-x'
+    - label: 'GitHub'
+      href: 'https://github.com'
+      icon: 'tabler:brand-github'
+    - label: 'LinkedIn'
+      href: 'https://linkedin.com'
+      icon: 'tabler:brand-linkedin'
+    - label: 'Instagram'
+      href: 'https://instagram.com'
+      icon: 'tabler:brand-instagram'
+    - label: 'Email'
+      href: 'mailto:sarvysh@example.com'
+      icon: 'tabler:mail'
+
+sections:
+  - id: 'hero'
+    title: 'Hero'
+    visible: true
+  - id: 'now'
+    title: 'Now'
+    visible: true
+  - id: 'featured-projects'
+    title: 'Featured Projects'
+    visible: true
+  - id: 'journey-timeline'
+    title: 'Journey Timeline'
+    visible: true
+  - id: 'knowledge-hub'
+    title: 'Knowledge Hub'
+    visible: true
+  - id: 'resource-library'
+    title: 'Resource Library'
+    visible: true
+  - id: 'gallery'
+    title: 'Gallery'
+    visible: true
+  - id: 'latest-writing'
+    title: 'Latest Writing'
+    visible: true
+  - id: 'reading'
+    title: 'Reading'
+    visible: true
+  - id: 'newsletter'
+    title: 'Newsletter'
+    visible: true
+  - id: 'about-preview'
+    title: 'About Preview'
+    visible: true
+  - id: 'contact'
+    title: 'Contact'
+    visible: true

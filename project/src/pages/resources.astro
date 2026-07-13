@@ -1,0 +1,100 @@
+---
+import PageLayout from '~/layouts/PageLayout.astro';
+import { Icon } from 'astro-icon/components';
+import { fetchResources } from '~/utils/collections';
+
+const items = await fetchResources();
+const categories = [...new Set(items.map((i) => i.category).filter(Boolean))];
+
+const metadata = {
+  title: 'Resources',
+  description: 'Curated learning resources that have shaped my thinking.',
+};
+
+const recColors: Record<string, string> = {
+  Essential: 'bg-gold/10 text-gold border-gold/20',
+  'Highly Recommended': 'bg-sapphire/10 text-sapphire border-sapphire/20',
+  Recommended: 'bg-cyan2/10 text-cyan2 border-cyan2/20',
+};
+
+const diffColors: Record<string, string> = {
+  Beginner: 'bg-emerald2/10 text-emerald2',
+  Intermediate: 'bg-sapphire/10 text-sapphire',
+  Advanced: 'bg-gold/10 text-gold',
+};
+---
+
+<PageLayout metadata={metadata}>
+  <!-- Hero header -->
+  <section class="relative pt-20 md:pt-28 pb-16 md:pb-20 bg-gradient-to-b from-section-alt to-page dark:from-midnight dark:to-midnight overflow-hidden">
+    <div class="absolute top-0 left-1/4 w-[400px] h-[300px] rounded-full bg-sapphire/5 blur-[120px] pointer-events-none" aria-hidden="true"></div>
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 text-center">
+      <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text mb-4 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">Resources</p>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-heading mb-6 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">Resource Library</h1>
+      <p class="text-lg lg:text-xl text-muted leading-relaxed max-w-2xl mx-auto intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">Curated learning resources that have shaped my thinking. Each one comes with personal notes.</p>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-24 bg-page dark:bg-midnight">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      {categories.length > 0 && (
+        <div class="flex flex-wrap justify-center gap-2 mb-12 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+          <button class="px-5 py-2.5 rounded-full text-sm font-medium bg-gradient-to-r from-sapphire to-cyan2 text-white shadow-sm transition-all" data-filter="all">All</button>
+          {categories.map((cat) => (
+            <button class="px-5 py-2.5 rounded-full text-sm font-medium bg-navy/5 dark:bg-sapphire/10 text-sapphire dark:text-cyan2 hover:bg-navy/10 hover:shadow-md transition-all" data-filter={cat}>{cat}</button>
+          ))}
+        </div>
+      )}
+
+      <div class="grid md:grid-cols-2 gap-5 md:gap-6" id="resource-grid">
+        {items.map((item, index) => (
+          <div class="premium-card card-glow p-6 md:p-7 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade" style={`animation-delay: ${index * 80}ms;`} data-category={item.category || ''}>
+            <div class="flex items-start justify-between gap-4 mb-3">
+              <div class="flex items-center gap-3">
+                {item.category && <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-sapphire/10 to-cyan2/10 text-sapphire dark:text-cyan2 border border-sapphire/10 dark:border-cyan2/10">{item.category}</span>}
+                {item.difficulty && <span class={`px-2.5 py-0.5 rounded-full text-xs font-medium ${diffColors[item.difficulty] || diffColors.Beginner}`}>{item.difficulty}</span>}
+              </div>
+              {item.recommendation && <span class={`px-2.5 py-0.5 rounded-full text-xs font-semibold border ${recColors[item.recommendation] || recColors.Recommended}`}>{item.recommendation}</span>}
+            </div>
+            <h3 class="text-lg font-bold text-heading mb-2">{item.title}</h3>
+            {item.description && <p class="text-sm text-muted leading-relaxed mb-3">{item.description}</p>}
+            {item.personalNotes && (
+              <div class="relative p-4 rounded-xl bg-gradient-to-r from-gold/5 to-transparent border-l-2 border-gold/40 mb-3">
+                <div class="absolute -top-2 left-3 text-3xl font-serif text-gold/30 select-none leading-none">"</div>
+                <p class="text-xs font-bold tracking-wider uppercase text-gold mb-1.5">My Notes</p>
+                <p class="text-sm text-muted italic">{item.personalNotes}</p>
+              </div>
+            )}
+            {item.link && (
+              <a href={item.link} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-sm font-medium text-sapphire dark:text-cyan2 hover:gap-2.5 transition-all">
+                Visit Resource
+                <Icon name="tabler:external-link" class="w-4 h-4" />
+              </a>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<script is:inline>
+  document.querySelectorAll('[data-filter]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const filter = btn.getAttribute('data-filter');
+      document.querySelectorAll('[data-filter]').forEach((b) => {
+        b.classList.remove('bg-gradient-to-r', 'from-sapphire', 'to-cyan2', 'text-white', 'shadow-sm');
+        b.classList.add('bg-navy/5', 'dark:bg-sapphire/10', 'text-sapphire', 'dark:text-cyan2');
+      });
+      btn.classList.add('bg-gradient-to-r', 'from-sapphire', 'to-cyan2', 'text-white', 'shadow-sm');
+      btn.classList.remove('bg-navy/5', 'dark:bg-sapphire/10', 'text-sapphire', 'dark:text-cyan2');
+      document.querySelectorAll('#resource-grid > [data-category]').forEach((card) => {
+        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>

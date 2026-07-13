@@ -1,0 +1,57 @@
+---
+import PageLayout from '~/layouts/PageLayout.astro';
+import { Icon } from 'astro-icon/components';
+import { fetchNewsletters } from '~/utils/collections';
+
+export async function getStaticPaths() {
+  const items = await fetchNewsletters();
+  return items.map((item) => ({
+    params: { slug: item.slug },
+    props: { item },
+  }));
+}
+
+const { item } = Astro.props;
+const { getCollection, render } = await import('astro:content');
+const entries = await getCollection('newsletter');
+const entry = entries.find((e) => e.id.replace(/\.md$/, '').replace(/\.mdx$/, '') === item.slug);
+const Content = entry ? (await render(entry)).Content : null;
+
+const metadata = {
+  title: item.title,
+  description: item.excerpt || '',
+};
+
+const formatDate = (date: Date) => new Intl.DateTimeFormat('en', { month: 'long', day: 'numeric', year: 'numeric' }).format(date);
+---
+
+<PageLayout metadata={metadata}>
+  <!-- Hero header with gradient-deep-sea -->
+  <section class="relative pt-20 md:pt-28 pb-12 md:pb-16 gradient-deep-sea overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+      <div class="absolute top-0 left-1/3 w-[400px] h-[400px] rounded-full bg-sapphire/10 blur-[120px]"></div>
+    </div>
+    <div class="relative max-w-3xl mx-auto px-4 sm:px-6">
+      <a href="/newsletter" class="inline-flex items-center gap-1.5 text-sm text-ivory/60 hover:text-gold transition mb-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+        <Icon name="tabler:arrow-left" class="w-4 h-4" />
+        Back to Newsletter
+      </a>
+      <div class="flex items-center gap-2 mb-4 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+        {item.issue && <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gold/10 text-gold border border-gold/20">Issue #{item.issue}</span>}
+        <span class="text-sm text-ivory/60">{formatDate(item.publishDate)}</span>
+      </div>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-ivory mb-4 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">{item.title}</h1>
+      {item.excerpt && <p class="text-lg text-ivory/60 leading-relaxed intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">{item.excerpt}</p>}
+    </div>
+  </section>
+
+  <article class="py-16 md:py-24 bg-page dark:bg-midnight">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+      {Content && (
+        <div class="prose prose-lg dark:prose-invert max-w-none prose-headings:tracking-tight prose-headings:text-heading prose-a:text-sapphire prose-a:no-underline hover:prose-a:underline prose-img:rounded-2xl prose-code:text-sapphire prose-code:bg-navy/5 prose-code:rounded prose-code:px-1.5 prose-code:py-0.5 prose-code:before:content-none prose-code:after:content-none">
+          <Content />
+        </div>
+      )}
+    </div>
+  </article>
+</PageLayout>

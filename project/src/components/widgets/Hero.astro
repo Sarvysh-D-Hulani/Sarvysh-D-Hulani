@@ -1,0 +1,165 @@
+---
+import { Icon } from 'astro-icon/components';
+import Image from '~/components/common/Image.astro';
+import Button from '~/components/ui/Button.astro';
+
+export interface Props {
+  name?: string;
+  tagline?: string;
+  identity?: string;
+  currentFocus?: string;
+  profileImage?: string;
+  actions?: Array<{ text: string; href: string; variant?: string; icon?: string }>;
+}
+
+const {
+  name = '',
+  tagline = '',
+  identity = '',
+  currentFocus = '',
+  profileImage = '',
+  actions = [],
+} = Astro.props;
+
+const taglineParts = tagline.split('·').map((s) => s.trim());
+---
+
+<section class="relative overflow-hidden min-h-screen flex items-center bg-midnight dark:bg-midnight noise-overlay">
+  <!-- Layered background -->
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <!-- Base gradient -->
+    <div class="absolute inset-0 gradient-deep-sea"></div>
+
+    <!-- Aurora blobs -->
+    <div class="absolute top-[-10%] left-[10%] w-[600px] h-[600px] rounded-full bg-sapphire/15 blur-[140px] animate-pulse-slow"></div>
+    <div class="absolute bottom-[-5%] right-[5%] w-[500px] h-[500px] rounded-full bg-cyan2/8 blur-[120px] animate-pulse-slow" style="animation-delay: 2s;"></div>
+    <div class="absolute top-[40%] right-[20%] w-[300px] h-[300px] rounded-full bg-gold/4 blur-[100px] animate-pulse-slow" style="animation-delay: 4s;"></div>
+
+    <!-- Grid overlay -->
+    <div class="absolute inset-0 opacity-[0.025]" style="background-image: linear-gradient(rgb(255 255 255) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255) 1px, transparent 1px); background-size: 72px 72px;"></div>
+
+    <!-- Vignette -->
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse at center, transparent 40%, rgb(6 10 30 / 60%) 100%);"></div>
+  </div>
+
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 py-24 md:py-32 w-full">
+    <div class="grid lg:grid-cols-[1.2fr_1fr] gap-16 lg:gap-24 items-center">
+
+      <!-- ─── Left: Identity ─── -->
+      <div class="text-center lg:text-left order-2 lg:order-1">
+        <!-- Status badge -->
+        <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass mb-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-blur-in">
+          <span class="relative flex w-2 h-2">
+            <span class="absolute inline-flex w-full h-full rounded-full bg-emerald2 opacity-75 animate-ping"></span>
+            <span class="relative inline-flex w-2 h-2 rounded-full bg-emerald2"></span>
+          </span>
+          <span class="text-sm text-ivory/85 font-medium tracking-wide">Available for opportunities</span>
+        </div>
+
+        <!-- Name with refined typography -->
+        <h1 class="text-5xl sm:text-6xl lg:text-7xl xl:text-[5.5rem] font-bold tracking-tight text-ivory leading-[1.05] mb-6 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-blur-in">
+          {name}
+        </h1>
+
+        <!-- Tagline pills -->
+        <div class="flex flex-wrap gap-2.5 justify-center lg:justify-start mb-6 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+          {taglineParts.map((part, i) => (
+            <span class="text-sm font-medium px-3.5 py-1.5 rounded-full border border-ivory/10 bg-ivory/[0.03] text-ivory/70">
+              {part}
+            </span>
+          ))}
+        </div>
+
+        <!-- Identity statement -->
+        <p class="text-lg lg:text-xl text-ivory/65 leading-relaxed mb-5 max-w-xl mx-auto lg:mx-0 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+          {identity}
+        </p>
+
+        <!-- Current focus -->
+        <div class="flex items-start gap-2.5 mb-10 max-w-xl mx-auto lg:mx-0 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+          <Icon name="tabler:sparkles" class="w-5 h-5 text-cyan2 flex-shrink-0 mt-0.5" />
+          <p class="text-base text-cyan2/75 leading-relaxed">{currentFocus}</p>
+        </div>
+
+        <!-- CTAs -->
+        <div class="flex flex-wrap gap-3.5 justify-center lg:justify-start intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+          {actions.map((action) => (
+            <Button
+              variant={action.variant || 'secondary'}
+              href={action.href}
+              icon={action.icon}
+              class="!rounded-full !px-7 !py-3.5 !text-base !font-semibold !border-ivory/15 hover:!bg-ivory/10 hover:!border-ivory/25 !text-ivory transition-all duration-300"
+            >
+              {action.text}
+            </Button>
+          ))}
+        </div>
+      </div>
+
+      <!-- ─── Right: Portrait ─── -->
+      <div class="order-1 lg:order-2 flex justify-center intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-blur-in">
+        <div class="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-[22rem] lg:h-[22rem]">
+          <!-- Outer glow -->
+          <div class="absolute -inset-6 rounded-[2.5rem] bg-gradient-to-tr from-sapphire/20 via-cyan2/10 to-gold/10 blur-3xl animate-glow"></div>
+
+          <!-- Rotating gradient ring -->
+          <div class="absolute -inset-1 rounded-[2rem] opacity-30" style="background: conic-gradient(from 0deg, rgb(15 76 160), rgb(6 182 212), rgb(218 165 32), rgb(15 76 160)); animation: spin 12s linear infinite;"></div>
+
+          <!-- Image container -->
+          {profileImage && (
+            <div class="relative w-full h-full rounded-[1.75rem] overflow-hidden border border-ivory/10 shadow-2xl">
+              <Image
+                src={profileImage}
+                alt={name}
+                layout="cover"
+                class="w-full h-full object-cover"
+                loading="eager"
+                fetchpriority="high"
+              />
+              <!-- Subtle gradient overlay -->
+              <div class="absolute inset-0 bg-gradient-to-t from-midnight/30 via-transparent to-transparent"></div>
+            </div>
+          )}
+
+          <!-- Floating accent cards -->
+          <div class="absolute -top-3 -right-3 glass rounded-2xl px-4 py-2.5 shadow-xl animate-float" style="animation-delay: 0s;">
+            <div class="flex items-center gap-2">
+              <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-sapphire to-cyan2 flex items-center justify-center">
+                <Icon name="tabler:school" class="w-4 h-4 text-white" />
+              </div>
+              <div>
+                <p class="text-[0.7rem] text-ivory/50 font-medium uppercase tracking-wider">Studying at</p>
+                <p class="text-sm font-semibold text-ivory">BITS Pilani</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="absolute -bottom-3 -left-3 glass rounded-2xl px-4 py-2.5 shadow-xl animate-float" style="animation-delay: 2.5s;">
+            <div class="flex items-center gap-2">
+              <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-gold to-amber flex items-center justify-center">
+                <Icon name="tabler:brain" class="w-4 h-4 text-midnight" />
+              </div>
+              <div>
+                <p class="text-[0.7rem] text-ivory/50 font-medium uppercase tracking-wider">Focus</p>
+                <p class="text-sm font-semibold text-ivory">AI Engineering</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll cue -->
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2.5 text-ivory/30">
+      <span class="text-[0.65rem] uppercase tracking-[0.3em] font-medium">Scroll</span>
+      <div class="w-px h-14 bg-gradient-to-b from-ivory/30 to-transparent"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+</style>

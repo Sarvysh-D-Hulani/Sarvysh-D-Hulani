@@ -1,0 +1,83 @@
+---
+import PageLayout from '~/layouts/PageLayout.astro';
+import { Icon } from 'astro-icon/components';
+import Image from '~/components/common/Image.astro';
+import { fetchProjects } from '~/utils/collections';
+
+const projects = await fetchProjects();
+
+const metadata = {
+  title: 'Projects',
+  description: 'A collection of projects I have built. Each one taught me something new.',
+};
+
+const statusColors: Record<string, string> = {
+  'In Progress': 'bg-sapphire/10 text-sapphire border-sapphire/20',
+  Shipped: 'bg-emerald2/10 text-emerald2 border-emerald2/20',
+  Archived: 'bg-slate-400/10 text-slate-500 border-slate-400/20',
+};
+---
+
+<PageLayout metadata={metadata}>
+  <!-- Hero header -->
+  <section class="relative pt-20 md:pt-28 pb-16 md:pb-20 bg-gradient-to-b from-section-alt to-page dark:from-midnight dark:to-midnight overflow-hidden">
+    <div class="absolute top-0 left-1/4 w-[400px] h-[300px] rounded-full bg-sapphire/5 blur-[120px] pointer-events-none" aria-hidden="true"></div>
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 text-center">
+      <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text mb-4 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">Projects</p>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-heading mb-6 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">Things I've Built</h1>
+      <p class="text-lg lg:text-xl text-muted leading-relaxed max-w-2xl mx-auto intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">Every project is a story. Not just of what was built, but of what was learned.</p>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-24 bg-page dark:bg-midnight">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
+        {projects.map((project, index) => (
+          <a
+            href={`/projects/${project.slug}`}
+            class="premium-card card-glow rounded-2xl overflow-hidden group block intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
+            style={`animation-delay: ${index * 100}ms;`}
+          >
+            {project.coverImage && (
+              <div class="relative aspect-[16/9] overflow-hidden">
+                <Image
+                  src={project.coverImage}
+                  alt={project.title}
+                  layout="cover"
+                  class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                />
+                <!-- Gradient overlay on hover -->
+                <div class="absolute inset-0 bg-gradient-to-t from-midnight/80 via-midnight/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                {project.status && (
+                  <div class={`absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-semibold border backdrop-blur-sm ${statusColors[project.status] || statusColors['In Progress']}`}>
+                    {project.status}
+                  </div>
+                )}
+              </div>
+            )}
+            <div class="p-5 md:p-6">
+              <h3 class="text-xl font-bold text-heading mb-2 group-hover:text-sapphire transition-colors duration-300">{project.title}</h3>
+              {project.excerpt && <p class="text-sm text-muted leading-relaxed mb-4 line-clamp-2">{project.excerpt}</p>}
+              {project.technologies && project.technologies.length > 0 && (
+                <div class="flex flex-wrap gap-1.5 mb-4">
+                  {project.technologies.slice(0, 4).map((tech) => (
+                    <span class="px-2.5 py-1 rounded-full text-xs font-medium text-white bg-gradient-to-r from-sapphire to-cyan2 shadow-sm">{tech}</span>
+                  ))}
+                </div>
+              )}
+              {project.tags && project.tags.length > 0 && (
+                <div class="flex flex-wrap gap-1.5">
+                  {project.tags.map((tag) => <span class="text-xs text-muted">#{tag}</span>)}
+                </div>
+              )}
+              <div class="flex items-center gap-1 mt-4 text-sapphire dark:text-cyan2 text-sm font-semibold">
+                Read more
+                <Icon name="tabler:arrow-right" class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" />
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</PageLayout>

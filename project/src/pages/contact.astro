@@ -1,0 +1,22 @@
+---
+import PageLayout from '~/layouts/PageLayout.astro';
+import ContactSection from '~/components/widgets/ContactSection.astro';
+import { fetchPageContent } from '~/utils/collections';
+
+const pageContent = await fetchPageContent('home');
+const contact = pageContent?.contact || {};
+
+const metadata = {
+  title: 'Contact',
+  description: 'Get in touch. I read every message.',
+};
+---
+
+<PageLayout metadata={metadata}>
+  <ContactSection
+    title={contact.title}
+    subtitle={contact.subtitle}
+    email={contact.email}
+    socials={contact.socials}
+  />
+</PageLayout>

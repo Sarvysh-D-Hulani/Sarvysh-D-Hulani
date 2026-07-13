@@ -1,0 +1,108 @@
+---
+import { Icon } from 'astro-icon/components';
+import { SITE } from 'astrowind:config';
+import { getHomePermalink } from '~/utils/permalinks';
+
+interface Link {
+  text?: string;
+  href?: string;
+  ariaLabel?: string;
+  icon?: string;
+}
+
+interface Links {
+  title?: string;
+  links: Array<Link>;
+}
+
+export interface Props {
+  links: Array<Links>;
+  secondaryLinks: Array<Link>;
+  socialLinks: Array<Link>;
+  footNote?: string;
+  theme?: string;
+}
+
+const { socialLinks = [], secondaryLinks = [], links = [], footNote = '', theme = 'light' } = Astro.props;
+---
+
+<footer class:list={[{ dark: theme === 'dark' }, 'relative not-prose gradient-deep-sea overflow-hidden']}>
+  <!-- Subtle top border with gradient -->
+  <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" aria-hidden="true"></div>
+  <!-- Background glow -->
+  <div class="absolute top-0 left-1/3 w-[500px] h-[300px] rounded-full bg-sapphire/10 blur-[120px] pointer-events-none" aria-hidden="true"></div>
+
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 text-slate-300 intersect-once intersect-quarter intersect-no-queue motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+    <div class="grid grid-cols-12 gap-4 gap-y-8 sm:gap-8 py-10 md:py-14">
+      <div class="col-span-12 lg:col-span-4">
+        <div class="mb-2">
+          <a class="inline-block font-bold text-xl text-ivory" href={getHomePermalink()}>{SITE?.name}</a>
+        </div>
+        <p class="text-sm text-slate-400 max-w-xs mb-4">The evolving world of an ambitious BITS Pilani student. This is just the beginning.</p>
+        <div class="text-sm text-slate-400 flex gap-1">
+          {
+            secondaryLinks.map(({ text, href }, index) => (
+              <>
+                {index !== 0 ? ' · ' : ''}
+                <a class="text-slate-400 hover:text-gold transition-colors" href={href} set:html={text} />
+              </>
+            ))
+          }
+        </div>
+      </div>
+      {
+        links.map(({ title, links }) => (
+          <div class="col-span-6 md:col-span-3 lg:col-span-2">
+            <div class="text-ivory font-medium mb-3">{title}</div>
+            {links && Array.isArray(links) && links.length > 0 && (
+              <ul class="text-sm space-y-2">
+                {links.map(({ text, href, ariaLabel }) => (
+                  <li>
+                    <a class="text-slate-400 hover:text-gold transition-colors" href={href} aria-label={ariaLabel}>
+                      <Fragment set:html={text} />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ))
+      }
+    </div>
+    <div class="md:flex md:items-center md:justify-between py-6 md:py-8 border-t border-slate-800/50">
+      {
+        socialLinks?.length ? (
+          <ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0 rtl:ml-0 rtl:-mr-2 rtl:md:ml-0 rtl:md:mr-4">
+            {socialLinks.map(({ ariaLabel, href, text, icon }) => (
+              <li>
+                <a
+                  class="group relative text-slate-400 hover:text-white focus:outline-none focus:ring-4 focus:ring-sapphire/20 rounded-lg text-sm p-2.5 inline-flex items-center transition-all overflow-hidden"
+                  aria-label={ariaLabel}
+                  href={href}
+                >
+                  <span class="absolute inset-0 bg-gradient-to-br from-sapphire to-cyan2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></span>
+                  {icon && <Icon name={icon} class="relative w-5 h-5 group-hover:scale-110 transition-transform duration-300" />}
+                  <Fragment set:html={text} />
+                </a>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          ''
+        )
+      }
+
+      <div class="text-sm text-slate-400 flex items-center gap-2">
+        <Fragment set:html={footNote} />
+      </div>
+    </div>
+
+    <!-- Personal touch at the bottom -->
+    <div class="pb-8 text-center">
+      <p class="text-xs text-slate-500 flex items-center justify-center gap-1.5">
+        <Icon name="tabler:heart" class="w-3.5 h-3.5 text-gold/60" />
+        Built with care
+      </p>
+    </div>
+  </div>
+</footer>

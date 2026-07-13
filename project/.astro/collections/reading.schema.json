@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "author": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "rating": {
+      "type": "number"
+    },
+    "coverImage": {
+      "type": "string"
+    },
+    "startDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "finishDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "quotes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "category": {
+      "type": "string"
+    },
+    "order": {
+      "type": "number"
+    },
+    "draft": {
+      "type": "boolean"
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title"
+  ]
+}

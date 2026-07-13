@@ -1,0 +1,208 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "hero": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "tagline": {
+          "type": "string"
+        },
+        "identity": {
+          "type": "string"
+        },
+        "currentFocus": {
+          "type": "string"
+        },
+        "profileImage": {
+          "type": "string"
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "href": {
+                "type": "string"
+              },
+              "variant": {
+                "type": "string"
+              },
+              "icon": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "text",
+              "href"
+            ]
+          }
+        }
+      }
+    },
+    "now": {
+      "type": "object",
+      "properties": {
+        "building": {
+          "type": "string"
+        },
+        "learning": {
+          "type": "string"
+        },
+        "reading": {
+          "type": "string"
+        },
+        "goal": {
+          "type": "string"
+        },
+        "semester": {
+          "type": "string"
+        },
+        "experiments": {
+          "type": "string"
+        }
+      }
+    },
+    "about": {
+      "type": "object",
+      "properties": {
+        "story": {
+          "type": "string"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "description"
+            ]
+          }
+        },
+        "philosophy": {
+          "type": "string"
+        },
+        "interests": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "goals": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "learning": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "beliefs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "faq": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "question": {
+                "type": "string"
+              },
+              "answer": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "question",
+              "answer"
+            ]
+          }
+        }
+      }
+    },
+    "contact": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "subtitle": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "socials": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "href": {
+                "type": "string"
+              },
+              "icon": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "label",
+              "href"
+            ]
+          }
+        }
+      }
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "subtitle": {
+            "type": "string"
+          },
+          "tagline": {
+            "type": "string"
+          },
+          "visible": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      }
+    },
+    "$schema": {
+      "type": "string"
+    }
+  }
+}

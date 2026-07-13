@@ -1,0 +1,91 @@
+---
+import '@fontsource-variable/inter';
+---
+<style is:inline>
+  :root {
+    --aw-font-sans: 'Inter Variable';
+    --aw-font-serif: 'Inter Variable';
+    --aw-font-heading: 'Inter Variable';
+
+    /* Primary: Deep Navy → Royal Blue → Sapphire */
+    --aw-color-primary: rgb(15 76 160);
+    --aw-color-secondary: rgb(12 53 120);
+    --aw-color-accent: rgb(218 165 32);
+
+    --aw-color-text-heading: rgb(8 14 40);
+    --aw-color-text-default: rgb(20 28 55);
+    --aw-color-text-muted: rgb(20 28 55 / 55%);
+    --aw-color-bg-page: rgb(248 250 252);
+
+    --aw-color-bg-page-dark: rgb(6 10 30);
+
+    /* Extended palette */
+    --aw-color-navy: rgb(8 14 40);
+    --aw-color-midnight: rgb(6 10 30);
+    --aw-color-royal: rgb(15 76 160);
+    --aw-color-sapphire: rgb(30 100 200);
+    --aw-color-azure: rgb(56 130 230);
+    --aw-color-sky: rgb(96 165 250);
+    --aw-color-slate: rgb(100 116 139);
+    --aw-color-ivory: rgb(250 249 246);
+    --aw-color-softwhite: rgb(253 253 251);
+    --aw-color-gold: rgb(218 165 32);
+    --aw-color-amber: rgb(245 200 100);
+    --aw-color-emerald: rgb(16 185 129);
+    --aw-color-cyan: rgb(6 182 212);
+    --aw-color-teal: rgb(20 184 166);
+
+    /* Section accent backgrounds */
+    --aw-color-section-alt: rgb(243 245 251);
+    --aw-color-section-alt-dark: rgb(10 16 44);
+
+    ::selection {
+      background-color: rgb(15 76 160 / 20%);
+    }
+  }
+
+  .dark {
+    --aw-font-sans: 'Inter Variable';
+    --aw-font-serif: 'Inter Variable';
+    --aw-font-heading: 'Inter Variable';
+
+    --aw-color-primary: rgb(56 130 230);
+    --aw-color-secondary: rgb(30 100 200);
+    --aw-color-accent: rgb(232 184 71);
+
+    --aw-color-text-heading: rgb(241 245 249);
+    --aw-color-text-default: rgb(226 232 240);
+    --aw-color-text-muted: rgb(226 232 240 / 50%);
+    --aw-color-bg-page: rgb(6 10 30);
+
+    --aw-color-section-alt: rgb(10 16 44);
+
+    ::selection {
+      background-color: rgb(56 130 230 / 30%);
+      color: snow;
+    }
+  }
+
+  /* Letter-spacing refinements for headings */
+  h1, h2, h3, h4 {
+    letter-spacing: -0.025em;
+  }
+  h1 {
+    letter-spacing: -0.035em;
+  }
+
+  /* Fluid type scale */
+  html {
+    font-size: 16px;
+  }
+  @media (min-width: 768px) {
+    html {
+      font-size: 16.5px;
+    }
+  }
+  @media (min-width: 1280px) {
+    html {
+      font-size: 17px;
+    }
+  }
+</style>

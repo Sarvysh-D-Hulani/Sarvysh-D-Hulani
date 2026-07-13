@@ -1,0 +1,132 @@
+---
+import { Icon } from 'astro-icon/components';
+import Image from '~/components/common/Image.astro';
+import Button from '~/components/ui/Button.astro';
+
+export interface JourneyItem {
+  title: string;
+  date: Date;
+  type?: string;
+  image?: string;
+  description?: string;
+  reflection?: string;
+  achievement?: boolean;
+  failure?: boolean;
+  lesson?: string;
+}
+
+export interface Props {
+  items?: JourneyItem[];
+  title?: string;
+  subtitle?: string;
+  tagline?: string;
+  limit?: number;
+}
+
+const {
+  items = [],
+  title = 'Journey Timeline',
+  subtitle = 'Every milestone, every failure, every lesson. This is the path so far.',
+  tagline = 'Journey',
+  limit = 5,
+} = Astro.props;
+
+const sortedItems = [...items]
+  .sort((a, b) => b.date.valueOf() - a.date.valueOf())
+  .slice(0, limit);
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('en', { month: 'short', year: 'numeric' }).format(date);
+
+const typeConfig: Record<string, { icon: string; color: string; bg: string; label: string; dotGlow: string }> = {
+  milestone: { icon: 'tabler:trophy', color: 'text-gold', bg: 'bg-gold/10', label: 'Milestone', dotGlow: 'shadow-gold/40' },
+  failure: { icon: 'tabler:alert-circle', color: 'text-red-400', bg: 'bg-red-400/10', label: 'Failure', dotGlow: 'shadow-red-400/40' },
+  lesson: { icon: 'tabler:bulb', color: 'text-cyan2', bg: 'bg-cyan2/10', label: 'Lesson', dotGlow: 'shadow-cyan2/40' },
+  achievement: { icon: 'tabler:award', color: 'text-emerald2', bg: 'bg-emerald2/10', label: 'Achievement', dotGlow: 'shadow-emerald2/40' },
+};
+---
+
+<section class="relative py-20 md:py-28 bg-section-alt overflow-hidden">
+  <div class="absolute top-0 left-1/3 w-[400px] h-[300px] rounded-full bg-sapphire/5 blur-[120px] pointer-events-none" aria-hidden="true"></div>
+
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6">
+    <!-- Section header with number badge -->
+    <div class="flex flex-col items-center text-center mb-16 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="text-5xl md:text-6xl font-bold tracking-tighter gradient-text opacity-20 select-none">03</span>
+        <span class="h-px w-12 bg-gradient-to-r from-sapphire to-cyan2"></span>
+        <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text">{tagline}</p>
+      </div>
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-heading mb-4">{title}</h2>
+      <p class="text-lg text-muted max-w-2xl mx-auto">{subtitle}</p>
+    </div>
+
+    <div class="relative max-w-4xl mx-auto">
+      <!-- Timeline gradient line (sapphire to cyan to gold) -->
+      <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-sapphire via-cyan2 to-gold md:-translate-x-px rounded-full"></div>
+
+      {sortedItems.map((item, index) => {
+        const config = typeConfig[item.type || (item.failure ? 'failure' : item.achievement ? 'achievement' : 'milestone')] || typeConfig.milestone;
+        const isLeft = index % 2 === 0;
+        return (
+          <div
+            class="relative flex items-start gap-6 md:gap-0 mb-10 md:mb-14 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
+            style={`animation-delay: ${index * 120}ms;`}
+          >
+            <!-- Timeline dot with glow -->
+            <div class="absolute left-4 md:left-1/2 top-2 -translate-x-1/2 z-10">
+              <div class={`w-10 h-10 rounded-full ${config.bg} border-2 border-page dark:border-midnight flex items-center justify-center shadow-lg ${config.dotGlow} transition-transform duration-300 hover:scale-125`}>
+                <Icon name={config.icon} class={`w-5 h-5 ${config.color}`} />
+              </div>
+            </div>
+
+            <!-- Content -->
+            <div class={`w-full md:w-1/2 pl-16 md:pl-0 ${isLeft ? 'md:pr-14 md:text-right' : 'md:ml-auto md:pl-14'}`}>
+              <!-- Gradient border card -->
+              <div class="relative group">
+                <div class="absolute -inset-px rounded-2xl bg-gradient-to-br from-sapphire/20 via-cyan2/10 to-gold/10 opacity-0 group-hover:opacity-100 transition-opacity duration-400"></div>
+                <div class="relative premium-card rounded-2xl p-5 md:p-6">
+                  <div class={`flex items-center gap-2 mb-3 ${isLeft ? 'md:justify-end' : ''}`}>
+                    <span class={`px-2.5 py-0.5 rounded-full text-xs font-semibold ${config.bg} ${config.color}`}>
+                      {config.label}
+                    </span>
+                    <span class="text-xs text-muted">{formatDate(item.date)}</span>
+                  </div>
+                  <h3 class="text-lg font-bold text-heading mb-2">{item.title}</h3>
+                  {item.description && <p class="text-sm text-muted leading-relaxed mb-3">{item.description}</p>}
+                  {item.image && (
+                    <div class="rounded-xl overflow-hidden mb-3">
+                      <Image src={item.image} alt={item.title} layout="responsive" class="w-full h-32 object-cover" />
+                    </div>
+                  )}
+                  {item.reflection && (
+                    <blockquote class="text-sm italic text-sapphire dark:text-cyan2 border-l-2 border-gold/50 pl-4 ml-0 leading-relaxed">
+                      "{item.reflection}"
+                    </blockquote>
+                  )}
+                  {item.lesson && (
+                    <div class="mt-3 p-3 rounded-xl bg-cyan2/5 border border-cyan2/20">
+                      <p class="text-xs font-bold tracking-wider uppercase text-cyan2 mb-1">Lesson Learned</p>
+                      <p class="text-sm text-muted">{item.lesson}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+    <div class="text-center mt-12">
+      <a
+        href="/journey"
+        class="group inline-flex items-center gap-2 px-7 py-3.5 rounded-full border-2 border-sapphire/20 hover:border-sapphire/40 text-sapphire dark:text-cyan2 font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-sapphire/10 hover:-translate-y-0.5"
+      >
+        <Icon name="tabler:route" class="w-4 h-4" />
+        View Full Journey
+        <Icon name="tabler:arrow-right" class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" />
+      </a>
+    </div>
+  </div>
+</section>

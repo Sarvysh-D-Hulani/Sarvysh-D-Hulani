@@ -1,0 +1,125 @@
+---
+import { Icon } from 'astro-icon/components';
+import Image from '~/components/common/Image.astro';
+import Button from '~/components/ui/Button.astro';
+
+export interface ProjectItem {
+  title: string;
+  excerpt?: string;
+  coverImage?: string;
+  tags?: string[];
+  technologies?: string[];
+  status?: string;
+  slug?: string;
+}
+
+export interface Props {
+  projects?: ProjectItem[];
+  title?: string;
+  subtitle?: string;
+  tagline?: string;
+}
+
+const {
+  projects = [],
+  title = 'Featured Projects',
+  subtitle = 'Things I am building right now. Each project is a step toward becoming the engineer I want to be.',
+  tagline = 'Projects',
+} = Astro.props;
+
+const statusColors: Record<string, string> = {
+  'In Progress': 'bg-sapphire/10 text-sapphire border-sapphire/20',
+  Shipped: 'bg-emerald2/10 text-emerald2 border-emerald2/20',
+  Archived: 'bg-slate-400/10 text-slate-500 border-slate-400/20',
+};
+---
+
+<section class="relative py-20 md:py-28 bg-page dark:bg-midnight overflow-hidden">
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6">
+    <!-- Section header with number badge -->
+    <div class="flex flex-col items-center text-center mb-14 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="text-5xl md:text-6xl font-bold tracking-tighter gradient-text opacity-20 select-none">02</span>
+        <span class="h-px w-12 bg-gradient-to-r from-sapphire to-cyan2"></span>
+        <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text">{tagline}</p>
+      </div>
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-heading mb-4">{title}</h2>
+      <p class="text-lg text-muted max-w-2xl mx-auto">{subtitle}</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
+      {projects.map((project, index) => (
+        <a
+          href={project.slug ? `/projects/${project.slug}` : '#'}
+          class="premium-card card-glow rounded-2xl overflow-hidden group block intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
+          style={`animation-delay: ${index * 100}ms;`}
+        >
+          <!-- Cover image with 16:9 ratio -->
+          {project.coverImage && (
+            <div class="relative aspect-[16/9] overflow-hidden">
+              <Image
+                src={project.coverImage}
+                alt={project.title}
+                layout="cover"
+                class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+              />
+              <!-- Gradient overlay on hover -->
+              <div class="absolute inset-0 bg-gradient-to-t from-midnight/80 via-midnight/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              {project.status && (
+                <div class={`absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-semibold border backdrop-blur-sm ${statusColors[project.status] || statusColors['In Progress']}`}>
+                  {project.status}
+                </div>
+              )}
+            </div>
+          )}
+
+          <!-- Content -->
+          <div class="p-5 md:p-6">
+            <h3 class="text-xl font-bold text-heading mb-2 group-hover:text-sapphire transition-colors duration-300">
+              {project.title}
+            </h3>
+            {project.excerpt && (
+              <p class="text-sm text-muted leading-relaxed mb-4 line-clamp-2">{project.excerpt}</p>
+            )}
+
+            <!-- Technologies as gradient pills -->
+            {project.technologies && project.technologies.length > 0 && (
+              <div class="flex flex-wrap gap-1.5 mb-4">
+                {project.technologies.slice(0, 4).map((tech) => (
+                  <span class="px-2.5 py-1 rounded-full text-xs font-medium text-white bg-gradient-to-r from-sapphire to-cyan2 shadow-sm">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            )}
+
+            <!-- Tags -->
+            {project.tags && project.tags.length > 0 && (
+              <div class="flex flex-wrap gap-1.5">
+                {project.tags.map((tag) => (
+                  <span class="text-xs text-muted">#{tag}</span>
+                ))}
+              </div>
+            )}
+
+            <div class="flex items-center gap-1 mt-4 text-sapphire dark:text-cyan2 text-sm font-semibold">
+              Read more
+              <Icon name="tabler:arrow-right" class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" />
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <!-- View All button with arrow animation -->
+    <div class="text-center mt-12">
+      <a
+        href="/projects"
+        class="group inline-flex items-center gap-2 px-7 py-3.5 rounded-full border-2 border-sapphire/20 hover:border-sapphire/40 text-sapphire dark:text-cyan2 font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-sapphire/10 hover:-translate-y-0.5"
+      >
+        View All Projects
+        <Icon name="tabler:arrow-right" class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" />
+      </a>
+    </div>
+  </div>
+</section>

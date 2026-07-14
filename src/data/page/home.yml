@@ -6,7 +6,7 @@ hero:
     way.
   currentFocus: Exploring LLMs, agentic systems, and the intersection of AI with
     real-world products.
-  profileImage: https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg?auto=compress&cs=tinysrgb&w=800
+  profileImage: /images/uploads/chatgpt-image-jul-12-2026-05_11_58-pm.png
   floatingCards:
     - label: Studying at
       value: BITS Pilani

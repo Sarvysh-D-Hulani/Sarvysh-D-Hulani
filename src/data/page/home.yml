@@ -32,7 +32,7 @@ now:
   learning: Multi-agent orchestration patterns with LangGraph
   reading: Designing Machine Learning Systems by Chip Huyen
   goal: Ship three production-grade AI projects before semester end
-  semester: Fourth Semester, BITS Pilani
+  semester: Third Semester, BITS Pilani
   experiments: Testing fine-tuned embeddings vs. OpenAI embeddings for domain-specific RAG
 about:
   story: >-

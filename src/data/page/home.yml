@@ -34,8 +34,8 @@ hero:
       icon: tabler:article
 now:
   building: An AI-powered study companion for BITS students
-  learning: Multi-agent orchestration patterns with LangGraph
-  reading: Designing Machine Learning Systems by Chip Huyen
+  learning: "How to understand and analyze annual reports. "
+  reading: The Psychology of Money by Morgan Housel
   goal: Ship three production-grade AI projects before semester end
   semester: Third Semester, BITS Pilani
   experiments: Testing fine-tuned embeddings vs. OpenAI embeddings for domain-specific RAG

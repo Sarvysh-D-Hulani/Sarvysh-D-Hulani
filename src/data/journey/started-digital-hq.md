@@ -9,7 +9,7 @@ reflection: I wanted a place that was not a portfolio, not a blog, but a living,
   evolving record of my journey. This is it.
 achievement: true
 failure: true
-order: 5
+order: 2
 draft: false
 ---
 This website is my digital headquarters. Not a portfolio, not a blog — a living, evolving record of my journey. I committed to maintaining it for 3+ years, documenting everything: projects, learnings, failures, and growth.

@@ -35,13 +35,32 @@ now:
   semester: Fourth Semester, BITS Pilani
   experiments: Testing fine-tuned embeddings vs. OpenAI embeddings for domain-specific RAG
 about:
-  story: I'm a student who believes the next decade will be defined by people who
-    can bridge the gap between ambitious ideas and real, working systems. I
-    started like most curious kids — taking things apart, reading too much, and
-    dreaming too big. The difference is I never stopped. Today I'm at BITS
-    Pilani, studying, building, and documenting everything. This website is my
-    way of making the journey public — not to show off, but to hold myself
-    accountable and maybe inspire someone else to start their own.
+  story: >-
+    I was the kid who took things apart before I understood how they went
+    together. Radios, old motors, whatever I could get my hands on — and then
+    too many books, always reaching a little past what I could actually digest.
+    Most people grow out of that phase. I never did. I just got better tools.
+
+
+    I'm an engineering student at BITS Pilani, and for a long time I thought that meant I was supposed to pick a lane. Science pulled at me. Then investment banking. Then AI. Then this restless urge to stop reading about how other people build things and just build them myself. I kept waiting for the moment I'd narrow down to one thing.
+
+
+    That moment never came. Eventually, I stopped waiting for it.
+
+
+    What I noticed instead is that none of these things were ever really separate. Valuing a company and designing a system run on the same instinct — figure out what's actually true underneath the noise. A pitch deck and a well-written essay are both just attempts to make an idea land clearly in someone else's head. Once I saw that, specializing early started to feel like the wrong goal. Connecting felt like the right one.
+
+
+    So I started building the infrastructure for that — literally. This website isn't a resume. It's closer to a living archive: my projects, my writing, what I'm learning right now, and where all of it is headed. Nothing here is polished for an interviewer. It's just current.
+
+
+    Alongside it, there's In Search Of — my newsletter, where I write in public about whatever I'm actually wrestling with the moment I sit down to write it. No pretending to have it figured out. Just the thinking, in real time.
+
+
+    None of this is a side project running alongside my "real" path. This is the path. Proof, collected in public, that I'd rather understand something deeply and build with it than collect credentials and call that understanding.
+
+
+    I think the next decade belongs to people who can bridge the gap between ambitious ideas and real, working systems — the ones who can move from a whiteboard to a working prototype without losing the idea in translation. That's the person I'm trying to become, one project, one essay, one late night at a time
   values:
     - title: Curiosity Over Comfort
       description: I choose the harder path when it teaches me more.

@@ -1,9 +1,13 @@
 hero:
   name: Sarvysh D Hulani
   tagline: Explorer · Builder · BITS Pilani
-  identity: I build AI systems that solve real problems. Currently studying at
-    BITS Pilani, shipping projects, and documenting everything I learn along the
-    way.
+  identity: >-
+    I'm an engineering student at BITS Pilani with a deep curiosity about the
+    world and how it works. I'm fascinated by finance, technology, business,
+    creativity, and the ideas that shape our lives, but what really excites me
+    is learning how seemingly unrelated things connect.
+
+    This is my digital garden and field journal: a living record of what I'm learning, building, creating, and discovering along the way. It's a place to think out loud, share ideas, document experiments, and make sense of the world one thought at a time.
   currentFocus: Exploring LLMs, agentic systems, and the intersection of AI with
     real-world products.
   profileImage: /images/uploads/chatgpt-image-jul-12-2026-05_11_58-pm.png

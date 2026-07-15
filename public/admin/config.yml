@@ -101,12 +101,18 @@ collections:
         name: 'now'
         widget: 'object'
         fields:
-          - { label: 'Currently Building', name: 'building', widget: 'string' }
-          - { label: 'Currently Learning', name: 'learning', widget: 'string' }
-          - { label: 'Currently Reading', name: 'reading', widget: 'string' }
-          - { label: 'Current Goal', name: 'goal', widget: 'string' }
-          - { label: 'Current Semester', name: 'semester', widget: 'string' }
-          - { label: 'Current Experiments', name: 'experiments', widget: 'string' }
+          - { label: 'Currently Building (value)', name: 'building', widget: 'string' }
+          - { label: 'Currently Learning (value)', name: 'learning', widget: 'string' }
+          - { label: 'Currently Reading (value)', name: 'reading', widget: 'string' }
+          - { label: 'Current Goal (value)', name: 'goal', widget: 'string' }
+          - { label: 'Current Semester (value)', name: 'semester', widget: 'string' }
+          - { label: 'Current Experiments (value)', name: 'experiments', widget: 'string' }
+          - { label: 'Building — Card Label', name: 'buildingLabel', widget: 'string', default: 'Currently Building', required: false }
+          - { label: 'Learning — Card Label', name: 'learningLabel', widget: 'string', default: 'Currently Learning', required: false }
+          - { label: 'Reading — Card Label', name: 'readingLabel', widget: 'string', default: 'Currently Reading', required: false }
+          - { label: 'Goal — Card Label', name: 'goalLabel', widget: 'string', default: 'Current Goal', required: false }
+          - { label: 'Semester — Card Label', name: 'semesterLabel', widget: 'string', default: 'Current Semester', required: false }
+          - { label: 'Experiments — Card Label', name: 'experimentsLabel', widget: 'string', default: 'Current Experiments', required: false }
       - label: 'About Section'
         name: 'about'
         widget: 'object'
@@ -176,15 +182,28 @@ collections:
               - { label: 'Label', name: 'label', widget: 'string' }
               - { label: 'URL', name: 'href', widget: 'string' }
               - { label: 'Icon (Tabler icon name)', name: 'icon', widget: 'string', required: false }
-      - label: 'Homepage Sections Visibility'
+      - label: 'Explore More Divider'
+        name: 'exploreDivider'
+        widget: 'object'
+        hint: 'The "Explore More" divider between the primary content (hero/projects/now) and secondary content (journey, gallery, etc.).'
+        fields:
+          - { label: 'Label (pill text)', name: 'label', widget: 'string', default: 'Explore More' }
+          - { label: 'Description (line below pill)', name: 'description', widget: 'string', default: "Journey, knowledge, gallery, writing and more — there's a lot going on. Dig in." }
+      - label: 'Homepage Sections'
         name: 'sections'
         widget: 'list'
         allow_add: true
         allow_delete: true
         collapsed: false
+        hint: 'Controls order, visibility, and all text for each homepage section.'
         fields:
-          - { label: 'Section ID', name: 'id', widget: 'string' }
-          - { label: 'Title', name: 'title', widget: 'string' }
+          - { label: 'Section ID', name: 'id', widget: 'string', hint: 'e.g. hero, featured-projects, now, journey-timeline' }
+          - { label: 'Display Title (section heading)', name: 'title', widget: 'string', required: false }
+          - { label: 'Subtitle / Description', name: 'subtitle', widget: 'string', required: false }
+          - { label: 'Tagline (small caps label above title)', name: 'tagline', widget: 'string', required: false }
+          - { label: 'Section Number (e.g. 01, 02)', name: 'sectionNumber', widget: 'string', required: false, hint: 'The large watermark number shown in the section header.' }
+          - { label: '"View All" Button Text', name: 'viewAllText', widget: 'string', required: false, hint: 'e.g. View All Projects' }
+          - { label: '"View All" Button Link', name: 'viewAllHref', widget: 'string', required: false, hint: 'e.g. /projects' }
           - { label: 'Visible', name: 'visible', widget: 'boolean', default: true }
 
   # ─── Projects ───

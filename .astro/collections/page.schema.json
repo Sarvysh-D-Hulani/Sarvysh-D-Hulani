@@ -87,6 +87,24 @@
         },
         "experiments": {
           "type": "string"
+        },
+        "buildingLabel": {
+          "type": "string"
+        },
+        "learningLabel": {
+          "type": "string"
+        },
+        "readingLabel": {
+          "type": "string"
+        },
+        "goalLabel": {
+          "type": "string"
+        },
+        "semesterLabel": {
+          "type": "string"
+        },
+        "experimentsLabel": {
+          "type": "string"
         }
       }
     },
@@ -196,6 +214,17 @@
         }
       }
     },
+    "exploreDivider": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
     "sections": {
       "type": "array",
       "items": {
@@ -211,6 +240,15 @@
             "type": "string"
           },
           "tagline": {
+            "type": "string"
+          },
+          "sectionNumber": {
+            "type": "string"
+          },
+          "viewAllText": {
+            "type": "string"
+          },
+          "viewAllHref": {
             "type": "string"
           },
           "visible": {

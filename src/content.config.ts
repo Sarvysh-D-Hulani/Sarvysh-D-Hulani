@@ -256,6 +256,12 @@ const pageContentCollection = defineCollection({
         goal: z.string().optional(),
         semester: z.string().optional(),
         experiments: z.string().optional(),
+        buildingLabel: z.string().optional(),
+        learningLabel: z.string().optional(),
+        readingLabel: z.string().optional(),
+        goalLabel: z.string().optional(),
+        semesterLabel: z.string().optional(),
+        experimentsLabel: z.string().optional(),
       })
       .optional(),
     about: z
@@ -286,6 +292,12 @@ const pageContentCollection = defineCollection({
           .optional(),
       })
       .optional(),
+    exploreDivider: z
+      .object({
+        label: z.string().optional(),
+        description: z.string().optional(),
+      })
+      .optional(),
     sections: z
       .array(
         z.object({
@@ -293,6 +305,9 @@ const pageContentCollection = defineCollection({
           title: z.string().optional(),
           subtitle: z.string().optional(),
           tagline: z.string().optional(),
+          sectionNumber: z.string().optional(),
+          viewAllText: z.string().optional(),
+          viewAllHref: z.string().optional(),
           visible: z.boolean().optional(),
         })
       )

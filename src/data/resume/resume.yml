@@ -1,0 +1,66 @@
+title: Resume
+subtitle: Seeking internships in AI Engineering & Product
+
+education:
+  - school: BITS Pilani
+    degree: B.E. Computer Science (Hons.)
+    graduationYear: "Expected May 2027"
+    coursework:
+      - Data Structures & Algorithms
+      - Machine Learning
+      - Operating Systems
+      - Database Management Systems
+      - Software Engineering
+      - Probability & Statistics
+
+experience:
+  - role: Software Engineering Intern
+    company: "[Company Name]"
+    startDate: "Jun 2025"
+    endDate: "Aug 2025"
+    description: >
+      Built end-to-end features for [product], improving key metrics by X%.
+      Collaborated with cross-functional teams across engineering and design.
+  - role: Research Assistant
+    company: "[Lab / Institute]"
+    startDate: "Jan 2025"
+    endDate: "May 2025"
+    description: >
+      Contributed to research on [topic]. Implemented experiments using Python
+      and PyTorch, and co-authored a report on findings.
+
+skills:
+  - category: Technical
+    items:
+      - Python
+      - TypeScript
+      - React
+      - Next.js
+      - Astro
+      - Node.js
+  - category: AI / ML
+    items:
+      - PyTorch
+      - scikit-learn
+      - Hugging Face Transformers
+      - LangChain
+      - Prompt Engineering
+  - category: Finance
+    items:
+      - Financial Modelling
+      - Valuation
+      - Excel
+  - category: Tools
+    items:
+      - Git & GitHub
+      - Docker
+      - Figma
+      - Notion
+      - VS Code
+
+lookingFor: >
+  I'm looking for an internship where I can work at the intersection of
+  AI and product — ideally on something that ships to real users and
+  moves fast. I want to be in rooms where decisions get made, learn
+  from people who've built things at scale, and contribute meaningfully
+  from day one. If you're building something ambitious, I'd love to talk.

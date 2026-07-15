@@ -210,6 +210,21 @@ export async function fetchNewsletters(): Promise<NewsletterIssue[]> {
     .sort((a, b) => b.publishDate.valueOf() - a.publishDate.valueOf()) as NewsletterIssue[];
 }
 
+export interface ResumeData {
+  title?: string;
+  subtitle?: string;
+  education?: { school: string; degree: string; graduationYear?: string; coursework?: string[] }[];
+  experience?: { role: string; company: string; startDate?: string; endDate?: string; description?: string }[];
+  skills?: { category: string; items: string[] }[];
+  lookingFor?: string;
+}
+
+export async function fetchResume(): Promise<ResumeData | null> {
+  const items = await getCollection('resume');
+  const entry = items.find((r) => r.id.replace(/\.ya?ml$/, '') === 'resume');
+  return entry?.data || null;
+}
+
 export async function fetchPageContent(pageId: string) {
   const pages = await getCollection('page');
   const page = pages.find((p) => p.id.replace(/\.yml$/, '').replace(/\.yaml$/, '') === pageId);

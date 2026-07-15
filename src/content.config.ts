@@ -178,6 +178,44 @@ const newsletterCollection = defineCollection({
   }),
 });
 
+const resumeCollection = defineCollection({
+  loader: glob({ pattern: ['*.yml', '*.yaml'], base: 'src/data/resume' }),
+  schema: z.object({
+    title: z.string().optional(),
+    subtitle: z.string().optional(),
+    education: z
+      .array(
+        z.object({
+          school: z.string(),
+          degree: z.string(),
+          graduationYear: z.string().optional(),
+          coursework: z.array(z.string()).optional(),
+        })
+      )
+      .optional(),
+    experience: z
+      .array(
+        z.object({
+          role: z.string(),
+          company: z.string(),
+          startDate: z.string().optional(),
+          endDate: z.string().optional(),
+          description: z.string().optional(),
+        })
+      )
+      .optional(),
+    skills: z
+      .array(
+        z.object({
+          category: z.string(),
+          items: z.array(z.string()),
+        })
+      )
+      .optional(),
+    lookingFor: z.string().optional(),
+  }),
+});
+
 const pageContentCollection = defineCollection({
   loader: glob({ pattern: ['*.yml', '*.yaml'], base: 'src/data/page' }),
   schema: z.object({
@@ -270,5 +308,6 @@ export const collections = {
   resource: resourceCollection,
   reading: readingCollection,
   newsletter: newsletterCollection,
+  resume: resumeCollection,
   page: pageContentCollection,
 };

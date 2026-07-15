@@ -54,6 +54,12 @@ now:
   goal: Ship three production-grade AI projects before semester end
   semester: Third Semester, BITS Pilani
   experiments: Testing fine-tuned embeddings vs. OpenAI embeddings for domain-specific RAG
+  buildingLabel: Currently Building
+  learningLabel: Currently Learning
+  readingLabel: Currently Reading
+  goalLabel: Current Goal
+  semesterLabel: Current Semester
+  experimentsLabel: Current Experiments
 about:
   story: >-
     I was the kid who took things apart before I understood how they went
@@ -156,15 +162,26 @@ contact:
     - label: Email
       href: mailto:sarvysh@example.com
       icon: tabler:mail
+exploreDivider:
+  label: Explore More
+  description: "Journey, knowledge, gallery, writing and more — there's a lot going on. Dig in."
 sections:
   - id: hero
     title: Hero
     visible: true
-  - id: now
-    title: Now
-    visible: true
   - id: featured-projects
     title: Featured Projects
+    tagline: Projects
+    sectionNumber: '01'
+    subtitle: Things I am building right now. Each project is a step toward becoming the engineer I want to be.
+    viewAllText: View All Projects
+    viewAllHref: /projects
+    visible: true
+  - id: now
+    title: "What I'm Doing Right Now"
+    tagline: Now
+    sectionNumber: '02'
+    subtitle: A living snapshot of my current focus, updated as things change.
     visible: true
   - id: journey-timeline
     title: Journey Timeline

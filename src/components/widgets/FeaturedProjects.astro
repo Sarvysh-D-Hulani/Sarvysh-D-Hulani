@@ -20,6 +20,9 @@ export interface Props {
   title?: string;
   subtitle?: string;
   tagline?: string;
+  sectionNumber?: string;
+  viewAllText?: string;
+  viewAllHref?: string;
 }
 
 const {
@@ -27,6 +30,9 @@ const {
   title = 'Featured Projects',
   subtitle = 'Things I am building right now. Each project is a step toward becoming the engineer I want to be.',
   tagline = 'Projects',
+  sectionNumber = '01',
+  viewAllText = 'View All Projects',
+  viewAllHref = '/projects',
 } = Astro.props;
 
 const statusColors: Record<string, string> = {
@@ -41,7 +47,7 @@ const statusColors: Record<string, string> = {
     <!-- Section header with number badge -->
     <div class="flex flex-col items-center text-center mb-14 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
       <div class="flex items-center gap-3 mb-4">
-        <span class="text-5xl md:text-6xl font-bold tracking-tighter gradient-text opacity-20 select-none">02</span>
+        <span class="text-5xl md:text-6xl font-bold tracking-tighter gradient-text opacity-20 select-none">{sectionNumber}</span>
         <span class="h-px w-12 bg-gradient-to-r from-sapphire to-cyan2"></span>
         <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text">{tagline}</p>
       </div>
@@ -146,10 +152,10 @@ const statusColors: Record<string, string> = {
     <!-- View All button with arrow animation -->
     <div class="text-center mt-12">
       <a
-        href="/projects"
+        href={viewAllHref}
         class="group inline-flex items-center gap-2 px-7 py-3.5 rounded-full border-2 border-sapphire/20 hover:border-sapphire/40 text-sapphire dark:text-cyan2 font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-sapphire/10 hover:-translate-y-0.5"
       >
-        View All Projects
+        {viewAllText}
         <Icon name="tabler:arrow-right" class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" />
       </a>
     </div>

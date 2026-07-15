@@ -8,6 +8,16 @@ export interface Props {
   goal?: string;
   semester?: string;
   experiments?: string;
+  sectionNumber?: string;
+  tagline?: string;
+  title?: string;
+  subtitle?: string;
+  buildingLabel?: string;
+  learningLabel?: string;
+  readingLabel?: string;
+  goalLabel?: string;
+  semesterLabel?: string;
+  experimentsLabel?: string;
 }
 
 const {
@@ -17,15 +27,25 @@ const {
   goal = '',
   semester = '',
   experiments = '',
+  sectionNumber = '02',
+  tagline = 'Now',
+  title = "What I'm Doing Right Now",
+  subtitle = 'A living snapshot of my current focus, updated as things change.',
+  buildingLabel = 'Currently Building',
+  learningLabel = 'Currently Learning',
+  readingLabel = 'Currently Reading',
+  goalLabel = 'Current Goal',
+  semesterLabel = 'Current Semester',
+  experimentsLabel = 'Current Experiments',
 } = Astro.props;
 
 const items = [
-  { label: 'Currently Building', value: building, icon: 'tabler:hammer', color: 'text-sapphire', gradient: 'from-sapphire to-azure' },
-  { label: 'Currently Learning', value: learning, icon: 'tabler:book-2', color: 'text-cyan2', gradient: 'from-cyan2 to-sapphire' },
-  { label: 'Currently Reading', value: reading, icon: 'tabler:bookmarks', color: 'text-gold', gradient: 'from-gold to-amber' },
-  { label: 'Current Goal', value: goal, icon: 'tabler:target-arrow', color: 'text-emerald2', gradient: 'from-emerald2 to-cyan2' },
-  { label: 'Current Semester', value: semester, icon: 'tabler:school', color: 'text-sapphire', gradient: 'from-sapphire to-cyan2' },
-  { label: 'Current Experiments', value: experiments, icon: 'tabler:flask', color: 'text-cyan2', gradient: 'from-cyan2 to-emerald2' },
+  { label: buildingLabel, value: building, icon: 'tabler:hammer', color: 'text-sapphire', gradient: 'from-sapphire to-azure' },
+  { label: learningLabel, value: learning, icon: 'tabler:book-2', color: 'text-cyan2', gradient: 'from-cyan2 to-sapphire' },
+  { label: readingLabel, value: reading, icon: 'tabler:bookmarks', color: 'text-gold', gradient: 'from-gold to-amber' },
+  { label: goalLabel, value: goal, icon: 'tabler:target-arrow', color: 'text-emerald2', gradient: 'from-emerald2 to-cyan2' },
+  { label: semesterLabel, value: semester, icon: 'tabler:school', color: 'text-sapphire', gradient: 'from-sapphire to-cyan2' },
+  { label: experimentsLabel, value: experiments, icon: 'tabler:flask', color: 'text-cyan2', gradient: 'from-cyan2 to-emerald2' },
 ].filter((item) => item.value);
 ---
 
@@ -38,15 +58,15 @@ const items = [
     <!-- Section header with number badge -->
     <div class="flex flex-col items-center text-center mb-14 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
       <div class="flex items-center gap-3 mb-4">
-        <span class="text-5xl md:text-6xl font-bold tracking-tighter gradient-text opacity-20 select-none">01</span>
+        <span class="text-5xl md:text-6xl font-bold tracking-tighter gradient-text opacity-20 select-none">{sectionNumber}</span>
         <span class="h-px w-12 bg-gradient-to-r from-sapphire to-cyan2"></span>
-        <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text">Now</p>
+        <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text">{tagline}</p>
       </div>
       <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-heading mb-4">
-        What I'm Doing Right Now
+        {title}
       </h2>
       <p class="text-lg text-muted max-w-2xl mx-auto">
-        A living snapshot of my current focus, updated as things change.
+        {subtitle}
       </p>
     </div>
 

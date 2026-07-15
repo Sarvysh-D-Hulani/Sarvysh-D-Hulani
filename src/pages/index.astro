@@ -32,7 +32,10 @@ const now = pageContent?.now || {};
 const about = pageContent?.about || {};
 const contact = pageContent?.contact || {};
 const credentials = pageContent?.credentials || {};
+const exploreDivider = pageContent?.exploreDivider || {};
 const sections = pageContent?.sections || [];
+
+const getSectionData = (id: string) => sections.find((s: any) => s.id === id) || {};
 
 const isVisible = (id: string) => !sections.length || sections.find((s: any) => s.id === id)?.visible !== false;
 
@@ -63,7 +66,15 @@ const metadata = {
 
   {/* Featured Projects moved up — immediately after credentials */}
   {isVisible('featured-projects') && featuredProjects.length > 0 && (
-    <FeaturedProjects projects={featuredProjects} />
+    <FeaturedProjects
+      projects={featuredProjects}
+      title={getSectionData('featured-projects').title}
+      subtitle={getSectionData('featured-projects').subtitle}
+      tagline={getSectionData('featured-projects').tagline}
+      sectionNumber={getSectionData('featured-projects').sectionNumber}
+      viewAllText={getSectionData('featured-projects').viewAllText}
+      viewAllHref={getSectionData('featured-projects').viewAllHref}
+    />
   )}
 
   {isVisible('now') && (
@@ -74,6 +85,16 @@ const metadata = {
       goal={now.goal}
       semester={now.semester}
       experiments={now.experiments}
+      sectionNumber={getSectionData('now').sectionNumber}
+      tagline={getSectionData('now').tagline}
+      title={getSectionData('now').title}
+      subtitle={getSectionData('now').subtitle}
+      buildingLabel={now.buildingLabel}
+      learningLabel={now.learningLabel}
+      readingLabel={now.readingLabel}
+      goalLabel={now.goalLabel}
+      semesterLabel={now.semesterLabel}
+      experimentsLabel={now.experimentsLabel}
     />
   )}
 
@@ -82,11 +103,11 @@ const metadata = {
     <div class="flex items-center gap-4 w-full max-w-2xl px-6">
       <div class="flex-1 h-px bg-gradient-to-r from-transparent via-sapphire/30 to-transparent"></div>
       <span class="px-5 py-2 rounded-full border border-sapphire/20 bg-sapphire/5 text-xs font-bold tracking-[0.2em] uppercase text-sapphire dark:text-cyan2">
-        Explore More
+        {exploreDivider.label || 'Explore More'}
       </span>
       <div class="flex-1 h-px bg-gradient-to-r from-transparent via-cyan2/30 to-transparent"></div>
     </div>
-    <p class="text-sm text-muted text-center max-w-md px-6">Journey, knowledge, gallery, writing and more — there&apos;s a lot going on. Dig in.</p>
+    <p class="text-sm text-muted text-center max-w-md px-6">{exploreDivider.description || "Journey, knowledge, gallery, writing and more — there's a lot going on. Dig in."}</p>
   </div>
 
   {isVisible('journey-timeline') && journeyItems.length > 0 && (

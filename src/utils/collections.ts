@@ -25,6 +25,7 @@ export interface Project {
   order?: number;
   draft?: boolean;
   attachedFile?: string;
+  outcome?: string;
   Content?: any;
 }
 

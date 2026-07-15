@@ -12,6 +12,7 @@ export interface ProjectItem {
   status?: string;
   slug?: string;
   attachedFile?: string;
+  outcome?: string;
 }
 
 export interface Props {
@@ -51,7 +52,7 @@ const statusColors: Record<string, string> = {
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
       {projects.map((project, index) => (
         <div
-          class="premium-card card-glow rounded-2xl overflow-hidden group flex flex-col intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
+          class="premium-card card-glow rounded-2xl overflow-hidden group flex flex-col intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade hover:border-sapphire/40 dark:hover:border-cyan2/30 hover:shadow-[0_8px_40px_rgb(15_76_160/0.18)]"
           style={`animation-delay: ${index * 100}ms;`}
         >
           {/* Clickable image + content area */}
@@ -81,7 +82,15 @@ const statusColors: Record<string, string> = {
                 {project.title}
               </h3>
               {project.excerpt && (
-                <p class="text-sm text-muted leading-relaxed mb-4 line-clamp-2">{project.excerpt}</p>
+                <p class="text-sm text-muted leading-relaxed mb-3 line-clamp-2">{project.excerpt}</p>
+              )}
+
+              {/* Outcome metric line */}
+              {project.outcome && (
+                <p class="text-xs font-bold text-emerald2 mb-4 flex items-start gap-1.5 leading-snug">
+                  <span class="text-emerald2 mt-0.5 shrink-0">&#9650;</span>
+                  {project.outcome}
+                </p>
               )}
 
               {/* Technologies as gradient pills */}

@@ -78,6 +78,12 @@ const cardStyles = [
           ))}
         </div>
 
+        <!-- Animated rotating role line -->
+        <div class="flex items-center gap-2 mb-5 justify-center lg:justify-start intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+          <span class="text-ivory/50 text-base font-medium">I am a</span>
+          <span id="rotating-role" class="text-base font-bold text-cyan2 min-w-[14ch] inline-block transition-all duration-500"></span>
+        </div>
+
         <!-- Identity statement -->
         <p class="text-lg lg:text-xl text-ivory/65 leading-relaxed mb-5 max-w-xl mx-auto lg:mx-0 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
           {identity}
@@ -167,3 +173,22 @@ const cardStyles = [
     to { transform: rotate(360deg); }
   }
 </style>
+
+<script>
+  const roles = ['Builder', 'AI Engineer', 'Explorer', 'Student Investor', 'Creator'];
+  let idx = 0;
+  const el = document.getElementById('rotating-role');
+  if (el) {
+    el.textContent = roles[0];
+    setInterval(() => {
+      idx = (idx + 1) % roles.length;
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(-6px)';
+      setTimeout(() => {
+        el.textContent = roles[idx];
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      }, 280);
+    }, 2200);
+  }
+</script>

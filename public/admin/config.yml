@@ -81,6 +81,22 @@ collections:
               - { label: 'Link', name: 'href', widget: 'string' }
               - { label: 'Style', name: 'variant', widget: 'select', options: ['primary', 'secondary'], default: 'secondary' }
               - { label: 'Icon (Tabler icon name)', name: 'icon', widget: 'string', required: false }
+      - label: 'Credentials Strip'
+        name: 'credentials'
+        widget: 'object'
+        hint: 'The compact stats bar shown directly below the hero — school, grad year, focus area, open-to status.'
+        fields:
+          - label: 'Stats'
+            name: 'stats'
+            widget: 'list'
+            allow_add: true
+            allow_delete: true
+            collapsed: false
+            max: 5
+            fields:
+              - { label: 'Label', name: 'label', widget: 'string', hint: 'Short label shown in small caps, e.g. University' }
+              - { label: 'Value', name: 'value', widget: 'string', hint: 'Bold text, e.g. BITS Pilani' }
+              - { label: 'Icon (Tabler icon name)', name: 'icon', widget: 'string', required: false, default: 'tabler:sparkles' }
       - label: 'Now Section'
         name: 'now'
         widget: 'object'
@@ -208,6 +224,7 @@ collections:
       - { label: 'Challenges', name: 'challenges', widget: 'text', required: false }
       - { label: 'Learnings', name: 'learnings', widget: 'text', required: false }
       - { label: 'Future Improvements', name: 'futureImprovements', widget: 'text', required: false }
+      - { label: 'Key Outcome / Metric', name: 'outcome', widget: 'string', required: false, hint: 'One bold result line shown on the homepage card — e.g. "68% directional accuracy on 30-day backtest".' }
       - { label: 'Start Date', name: 'startDate', widget: 'datetime', required: false }
       - { label: 'End Date', name: 'endDate', widget: 'datetime', required: false }
       - { label: 'Featured', name: 'featured', widget: 'boolean', default: false }

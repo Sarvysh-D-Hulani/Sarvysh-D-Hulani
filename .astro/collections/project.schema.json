@@ -76,6 +76,9 @@
     "attachedFile": {
       "type": "string"
     },
+    "outcome": {
+      "type": "string"
+    },
     "metadata": {
       "type": "object",
       "properties": {

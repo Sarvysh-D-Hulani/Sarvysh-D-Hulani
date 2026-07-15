@@ -1,6 +1,7 @@
 ---
 import PageLayout from '~/layouts/PageLayout.astro';
 import Hero from '~/components/widgets/Hero.astro';
+import CredentialsStrip from '~/components/widgets/CredentialsStrip.astro';
 import NowSection from '~/components/widgets/NowSection.astro';
 import FeaturedProjects from '~/components/widgets/FeaturedProjects.astro';
 import JourneyTimeline from '~/components/widgets/JourneyTimeline.astro';
@@ -12,7 +13,7 @@ import NewsletterSection from '~/components/widgets/NewsletterSection.astro';
 import AboutPreview from '~/components/widgets/AboutPreview.astro';
 import ContactSection from '~/components/widgets/ContactSection.astro';
 
-import { fetchPageContent, fetchFeaturedProjects, fetchJourney, fetchKnowledge, fetchResources, fetchGallery, fetchReading, fetchNewsletters } from '~/utils/collections';
+import { fetchPageContent, fetchFeaturedProjects, fetchJourney, fetchKnowledge, fetchResources, fetchGallery, fetchReading, fetchNewsletters, fetchResume } from '~/utils/collections';
 import { findLatestPosts } from '~/utils/blog';
 import { APP_BLOG } from 'astrowind:config';
 
@@ -30,6 +31,7 @@ const hero = pageContent?.hero || {};
 const now = pageContent?.now || {};
 const about = pageContent?.about || {};
 const contact = pageContent?.contact || {};
+const credentials = pageContent?.credentials || {};
 const sections = pageContent?.sections || [];
 
 const isVisible = (id: string) => !sections.length || sections.find((s: any) => s.id === id)?.visible !== false;
@@ -54,6 +56,16 @@ const metadata = {
     />
   )}
 
+  {/* Compact credentials strip directly below hero */}
+  {credentials.stats && credentials.stats.length > 0 && (
+    <CredentialsStrip stats={credentials.stats} />
+  )}
+
+  {/* Featured Projects moved up — immediately after credentials */}
+  {isVisible('featured-projects') && featuredProjects.length > 0 && (
+    <FeaturedProjects projects={featuredProjects} />
+  )}
+
   {isVisible('now') && (
     <NowSection
       building={now.building}
@@ -65,9 +77,17 @@ const metadata = {
     />
   )}
 
-  {isVisible('featured-projects') && featuredProjects.length > 0 && (
-    <FeaturedProjects projects={featuredProjects} />
-  )}
+  {/* ── Explore More divider ── */}
+  <div class="relative py-12 md:py-16 flex flex-col items-center gap-4 bg-page dark:bg-midnight">
+    <div class="flex items-center gap-4 w-full max-w-2xl px-6">
+      <div class="flex-1 h-px bg-gradient-to-r from-transparent via-sapphire/30 to-transparent"></div>
+      <span class="px-5 py-2 rounded-full border border-sapphire/20 bg-sapphire/5 text-xs font-bold tracking-[0.2em] uppercase text-sapphire dark:text-cyan2">
+        Explore More
+      </span>
+      <div class="flex-1 h-px bg-gradient-to-r from-transparent via-cyan2/30 to-transparent"></div>
+    </div>
+    <p class="text-sm text-muted text-center max-w-md px-6">Journey, knowledge, gallery, writing and more — there&apos;s a lot going on. Dig in.</p>
+  </div>
 
   {isVisible('journey-timeline') && journeyItems.length > 0 && (
     <JourneyTimeline items={journeyItems} limit={4} />

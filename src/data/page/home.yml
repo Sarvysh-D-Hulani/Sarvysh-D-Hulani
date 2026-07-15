@@ -25,14 +25,28 @@ hero:
       href: /projects
       variant: primary
       icon: tabler:rocket
+    - text: Download Resume
+      href: /resume
+      variant: secondary
+      icon: tabler:download
     - text: About Me
       href: /about
       variant: secondary
       icon: tabler:user
-    - text: Read My Writing
-      href: /writing
-      variant: secondary
-      icon: tabler:article
+credentials:
+  stats:
+    - label: University
+      value: BITS Pilani
+      icon: tabler:school
+    - label: Expected Grad
+      value: 2027
+      icon: tabler:calendar-event
+    - label: Focus
+      value: AI Engineering
+      icon: tabler:brain
+    - label: Open to
+      value: Internships & Collabs
+      icon: tabler:rocket
 now:
   building: An AI-powered study companion for BITS students
   learning: "How to understand and analyze annual reports. "

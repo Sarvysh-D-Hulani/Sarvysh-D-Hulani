@@ -25,6 +25,7 @@ challenges: 'Getting good retrieval accuracy on technical content was harder tha
 learnings: 'Fine-tuned embeddings significantly outperform generic ones for domain-specific RAG. Chunking strategy matters more than the model choice.'
 futureImprovements: 'Add multi-modal support for diagrams and equations. Implement collaborative study rooms.'
 startDate: 2025-01-15
+outcome: 'Reduced avg. time-to-answer for course queries from 40 min to under 90 sec in pilot testing with 20 students.'
 featured: true
 order: 1
 ---

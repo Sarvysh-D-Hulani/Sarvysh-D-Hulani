@@ -20,6 +20,7 @@ challenges: 'Cold start problem — getting enough users for the platform to be 
 learnings: 'Community-driven products need a critical mass before they become useful. Start small and focused.'
 startDate: 2024-06-01
 endDate: 2024-08-30
+outcome: 'Onboarded 80+ students in first month; 12 project collaborations formed within 6 weeks of launch.'
 featured: true
 order: 3
 ---

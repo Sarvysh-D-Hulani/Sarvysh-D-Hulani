@@ -1,6 +1,7 @@
 ---
 import PageLayout from '~/layouts/PageLayout.astro';
 import Hero from '~/components/widgets/Hero.astro';
+import StatsStrip from '~/components/widgets/StatsStrip.astro';
 import NowSection from '~/components/widgets/NowSection.astro';
 import FeaturedProjects from '~/components/widgets/FeaturedProjects.astro';
 import JourneyTimeline from '~/components/widgets/JourneyTimeline.astro';
@@ -27,12 +28,16 @@ const newsletterItems = await fetchNewsletters();
 const latestPosts = APP_BLOG.isEnabled ? await findLatestPosts({ count: 3 }) : [];
 
 const hero = pageContent?.hero || {};
+const stats = pageContent?.stats || [];
+const exploreMore = pageContent?.exploreMore || {};
 const now = pageContent?.now || {};
 const about = pageContent?.about || {};
 const contact = pageContent?.contact || {};
 const sections = pageContent?.sections || [];
 
 const isVisible = (id: string) => !sections.length || sections.find((s: any) => s.id === id)?.visible !== false;
+// Returns the CMS-editable heading fields (title/subtitle/tagline) for a section id.
+const heading = (id: string) => sections.find((s: any) => s.id === id) || {};
 
 const metadata = {
   title: 'Digital HQ — The Evolving World of an Ambitious Student',
@@ -54,8 +59,22 @@ const metadata = {
     />
   )}
 
+  {isVisible('hero') && <StatsStrip items={stats} />}
+
+  {isVisible('featured-projects') && featuredProjects.length > 0 && (
+    <FeaturedProjects
+      projects={featuredProjects}
+      title={heading('featured-projects').title}
+      subtitle={heading('featured-projects').subtitle}
+      tagline={heading('featured-projects').tagline}
+    />
+  )}
+
   {isVisible('now') && (
     <NowSection
+      title={heading('now').title}
+      subtitle={heading('now').subtitle}
+      tagline={heading('now').tagline}
       building={now.building}
       learning={now.learning}
       reading={now.reading}
@@ -65,33 +84,69 @@ const metadata = {
     />
   )}
 
-  {isVisible('featured-projects') && featuredProjects.length > 0 && (
-    <FeaturedProjects projects={featuredProjects} />
+  {(exploreMore.label || exploreMore.subtitle) && (
+    <div class="relative bg-page dark:bg-midnight">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="flex flex-col items-center text-center gap-4 py-12 md:py-16 border-t border-heading/10">
+          <span class="h-px w-12 bg-gradient-to-r from-transparent via-sapphire to-transparent"></span>
+          {exploreMore.label && (
+            <p class="text-xs font-bold tracking-[0.25em] uppercase gradient-text">{exploreMore.label}</p>
+          )}
+          {exploreMore.subtitle && (
+            <p class="text-base text-muted max-w-2xl mx-auto text-pretty">{exploreMore.subtitle}</p>
+          )}
+        </div>
+      </div>
+    </div>
   )}
 
   {isVisible('journey-timeline') && journeyItems.length > 0 && (
-    <JourneyTimeline items={journeyItems} limit={4} />
+    <JourneyTimeline
+      items={journeyItems}
+      limit={4}
+      title={heading('journey-timeline').title}
+      subtitle={heading('journey-timeline').subtitle}
+      tagline={heading('journey-timeline').tagline}
+    />
   )}
 
   {isVisible('knowledge-hub') && knowledgeItems.length > 0 && (
-    <KnowledgeHub items={knowledgeItems} limit={6} />
+    <KnowledgeHub
+      items={knowledgeItems}
+      limit={6}
+      title={heading('knowledge-hub').title}
+      subtitle={heading('knowledge-hub').subtitle}
+      tagline={heading('knowledge-hub').tagline}
+    />
   )}
 
   {isVisible('resource-library') && resourceItems.length > 0 && (
-    <ResourceLibrary items={resourceItems} limit={4} />
+    <ResourceLibrary
+      items={resourceItems}
+      limit={4}
+      title={heading('resource-library').title}
+      subtitle={heading('resource-library').subtitle}
+      tagline={heading('resource-library').tagline}
+    />
   )}
 
   {isVisible('gallery') && galleryItems.length > 0 && (
-    <GallerySection items={galleryItems} limit={6} />
+    <GallerySection
+      items={galleryItems}
+      limit={6}
+      title={heading('gallery').title}
+      subtitle={heading('gallery').subtitle}
+      tagline={heading('gallery').tagline}
+    />
   )}
 
   {isVisible('latest-writing') && latestPosts.length > 0 && (
     <section class="relative py-16 md:py-24 bg-page dark:bg-midnight">
       <div class="max-w-7xl mx-auto px-4 sm:px-6">
         <div class="text-center mb-12 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
-          <p class="text-sm font-bold tracking-widest uppercase gradient-text mb-3">Writing</p>
-          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-heading mb-4">Latest Writing</h2>
-          <p class="text-lg text-muted max-w-2xl mx-auto">Thoughts, reflections, and lessons from the journey.</p>
+          <p class="text-sm font-bold tracking-widest uppercase gradient-text mb-3">{heading('latest-writing').tagline || 'Writing'}</p>
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-heading mb-4">{heading('latest-writing').title || 'Latest Writing'}</h2>
+          <p class="text-lg text-muted max-w-2xl mx-auto">{heading('latest-writing').subtitle || 'Thoughts, reflections, and lessons from the journey.'}</p>
         </div>
         <div class="grid md:grid-cols-3 gap-6">
           {latestPosts.map((post, index) => (
@@ -123,11 +178,23 @@ const metadata = {
   )}
 
   {isVisible('reading') && readingItems.length > 0 && (
-    <ReadingSection items={readingItems} limit={4} />
+    <ReadingSection
+      items={readingItems}
+      limit={4}
+      title={heading('reading').title}
+      subtitle={heading('reading').subtitle}
+      tagline={heading('reading').tagline}
+    />
   )}
 
   {isVisible('newsletter') && (
-    <NewsletterSection items={newsletterItems} limit={3} />
+    <NewsletterSection
+      items={newsletterItems}
+      limit={3}
+      title={heading('newsletter').title}
+      subtitle={heading('newsletter').subtitle}
+      tagline={heading('newsletter').tagline}
+    />
   )}
 
   {isVisible('about-preview') && (
@@ -141,8 +208,9 @@ const metadata = {
 
   {isVisible('contact') && (
     <ContactSection
-      title={contact.title}
-      subtitle={contact.subtitle}
+      title={heading('contact').title || contact.title}
+      subtitle={heading('contact').subtitle || contact.subtitle}
+      tagline={heading('contact').tagline}
       email={contact.email}
       socials={contact.socials}
     />

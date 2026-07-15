@@ -23,6 +23,7 @@ startDate: 2024-09-01
 endDate: 2024-12-15
 featured: true
 order: 2
+metric: '87% sentiment accuracy on backtests'
 ---
 
 ## Overview

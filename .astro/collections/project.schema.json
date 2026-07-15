@@ -32,6 +32,9 @@
     "status": {
       "type": "string"
     },
+    "metric": {
+      "type": "string"
+    },
     "github": {
       "type": "string"
     },

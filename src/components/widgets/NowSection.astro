@@ -2,6 +2,9 @@
 import { Icon } from 'astro-icon/components';
 
 export interface Props {
+  title?: string;
+  subtitle?: string;
+  tagline?: string;
   building?: string;
   learning?: string;
   reading?: string;
@@ -11,6 +14,9 @@ export interface Props {
 }
 
 const {
+  title = "What I'm Doing Right Now",
+  subtitle = 'A living snapshot of my current focus, updated as things change.',
+  tagline = 'Now',
   building = '',
   learning = '',
   reading = '',
@@ -38,15 +44,15 @@ const items = [
     <!-- Section header with number badge -->
     <div class="flex flex-col items-center text-center mb-14 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
       <div class="flex items-center gap-3 mb-4">
-        <span class="text-5xl md:text-6xl font-bold tracking-tighter gradient-text opacity-20 select-none">01</span>
+        <span class="text-5xl md:text-6xl font-bold tracking-tighter gradient-text opacity-20 select-none">02</span>
         <span class="h-px w-12 bg-gradient-to-r from-sapphire to-cyan2"></span>
-        <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text">Now</p>
+        <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text">{tagline}</p>
       </div>
       <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-heading mb-4">
-        What I'm Doing Right Now
+        {title}
       </h2>
       <p class="text-lg text-muted max-w-2xl mx-auto">
-        A living snapshot of my current focus, updated as things change.
+        {subtitle}
       </p>
     </div>
 

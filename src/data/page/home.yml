@@ -29,10 +29,30 @@ hero:
       href: /about
       variant: secondary
       icon: tabler:user
+    - text: Download Resume
+      href: /resume.pdf
+      variant: secondary
+      icon: tabler:download
     - text: Read My Writing
       href: /writing
       variant: secondary
       icon: tabler:article
+stats:
+  - label: BITS Pilani
+    value: Engineering
+    icon: tabler:school
+  - label: Expected
+    value: "2027"
+    icon: tabler:calendar
+  - label: Focus
+    value: AI Engineering
+    icon: tabler:brain
+  - label: Open to
+    value: Internships
+    icon: tabler:briefcase
+exploreMore:
+  label: Explore More
+  subtitle: The rest of the world I'm documenting — what I'm doing now, my journey, and everything I'm learning along the way.
 now:
   building: An AI-powered study companion for BITS students
   learning: "How to understand and analyze annual reports. "
@@ -146,36 +166,57 @@ sections:
   - id: hero
     title: Hero
     visible: true
-  - id: now
-    title: Now
-    visible: true
   - id: featured-projects
     title: Featured Projects
+    subtitle: Things I am building right now. Each project is a step toward
+      becoming the engineer I want to be.
+    tagline: Projects
+    visible: true
+  - id: now
+    title: What I'm Doing Right Now
+    subtitle: A living snapshot of my current focus, updated as things change.
+    tagline: Now
     visible: true
   - id: journey-timeline
-    title: Journey Timeline
+    title: The Journey
+    subtitle: Milestones, failures, and lessons from the road so far.
+    tagline: Journey
     visible: true
   - id: knowledge-hub
     title: Knowledge Hub
+    subtitle: Notes, breakdowns, and things I am figuring out in public.
+    tagline: Learning
     visible: true
   - id: resource-library
     title: Resource Library
+    subtitle: The books, courses, and tools I actually recommend.
+    tagline: Resources
     visible: true
   - id: gallery
     title: Gallery
+    subtitle: Moments, builds, and snapshots from the process.
+    tagline: Gallery
     visible: true
   - id: latest-writing
     title: Latest Writing
+    subtitle: Thoughts, reflections, and lessons from the journey.
+    tagline: Writing
     visible: true
   - id: reading
     title: Reading
+    subtitle: What is on my shelf and what I am reading right now.
+    tagline: Reading
     visible: true
   - id: newsletter
     title: Newsletter
+    subtitle: In Search Of — writing in public about what I am wrestling with.
+    tagline: Newsletter
     visible: true
   - id: about-preview
     title: About Preview
     visible: true
   - id: contact
-    title: Contact
+    title: Get in Touch
+    subtitle: Have a question, an idea, or just want to say hi? I read every message.
+    tagline: Contact
     visible: true

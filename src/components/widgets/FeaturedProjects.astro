@@ -10,6 +10,7 @@ export interface ProjectItem {
   tags?: string[];
   technologies?: string[];
   status?: string;
+  metric?: string;
   slug?: string;
 }
 
@@ -39,7 +40,7 @@ const statusColors: Record<string, string> = {
     <!-- Section header with number badge -->
     <div class="flex flex-col items-center text-center mb-14 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
       <div class="flex items-center gap-3 mb-4">
-        <span class="text-5xl md:text-6xl font-bold tracking-tighter gradient-text opacity-20 select-none">02</span>
+        <span class="text-5xl md:text-6xl font-bold tracking-tighter gradient-text opacity-20 select-none">01</span>
         <span class="h-px w-12 bg-gradient-to-r from-sapphire to-cyan2"></span>
         <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text">{tagline}</p>
       </div>
@@ -79,7 +80,15 @@ const statusColors: Record<string, string> = {
               {project.title}
             </h3>
             {project.excerpt && (
-              <p class="text-sm text-muted leading-relaxed mb-4 line-clamp-2">{project.excerpt}</p>
+              <p class="text-sm text-muted leading-relaxed mb-3 line-clamp-2">{project.excerpt}</p>
+            )}
+
+            <!-- Metric / outcome line -->
+            {project.metric && (
+              <p class="flex items-center gap-1.5 text-sm font-bold text-heading mb-4">
+                <Icon name="tabler:chart-arrows-vertical" class="w-4 h-4 text-emerald2 flex-shrink-0" aria-hidden="true" />
+                {project.metric}
+              </p>
             )}
 
             <!-- Technologies as gradient pills -->

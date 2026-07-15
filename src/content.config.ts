@@ -68,6 +68,7 @@ const projectCollection = defineCollection({
     tags: z.array(z.string()).optional(),
     technologies: z.array(z.string()).optional(),
     status: z.string().optional(),
+    metric: z.string().optional(),
     github: z.string().optional(),
     demo: z.string().optional(),
     problem: z.string().optional(),
@@ -206,6 +207,21 @@ const pageContentCollection = defineCollection({
             })
           )
           .optional(),
+      })
+      .optional(),
+    stats: z
+      .array(
+        z.object({
+          label: z.string(),
+          value: z.string(),
+          icon: z.string().optional(),
+        })
+      )
+      .optional(),
+    exploreMore: z
+      .object({
+        label: z.string().optional(),
+        subtitle: z.string().optional(),
       })
       .optional(),
     now: z

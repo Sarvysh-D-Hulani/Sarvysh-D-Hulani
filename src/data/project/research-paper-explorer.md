@@ -21,6 +21,7 @@ learnings: 'Semantic search dramatically improves discovery compared to keyword 
 startDate: 2025-03-01
 featured: false
 order: 4
+metric: '10k+ papers indexed'
 ---
 
 ## Overview

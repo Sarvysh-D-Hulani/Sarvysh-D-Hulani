@@ -1,0 +1,33 @@
+---
+import { Icon } from 'astro-icon/components';
+
+export interface StatItem {
+  label: string;
+  value: string;
+  icon?: string;
+}
+
+export interface Props {
+  items?: StatItem[];
+}
+
+const { items = [] } = Astro.props;
+---
+
+{items.length > 0 && (
+  <section class="relative bg-midnight border-t border-ivory/5" aria-label="Credentials">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <ul class="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 py-6 md:py-7 divide-ivory/10">
+        {items.map((item) => (
+          <li class="flex items-center gap-2.5">
+            {item.icon && (
+              <Icon name={item.icon} class="w-4 h-4 text-cyan2 flex-shrink-0" aria-hidden="true" />
+            )}
+            <span class="text-sm text-ivory/50 font-medium">{item.label}</span>
+            <span class="text-sm font-semibold text-ivory">{item.value}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+)}

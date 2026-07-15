@@ -22,6 +22,7 @@ startDate: 2024-06-01
 endDate: 2024-08-30
 featured: true
 order: 3
+metric: '1,200+ students onboarded'
 ---
 
 ## Overview

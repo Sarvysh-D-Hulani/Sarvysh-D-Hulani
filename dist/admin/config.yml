@@ -81,6 +81,24 @@ collections:
               - { label: 'Link', name: 'href', widget: 'string' }
               - { label: 'Style', name: 'variant', widget: 'select', options: ['primary', 'secondary'], default: 'secondary' }
               - { label: 'Icon (Tabler icon name)', name: 'icon', widget: 'string', required: false }
+      - label: 'Credentials Strip (below hero)'
+        name: 'stats'
+        widget: 'list'
+        allow_add: true
+        allow_delete: true
+        collapsed: false
+        hint: 'The compact stat items shown in a row directly below the hero (e.g. "BITS Pilani · Engineering"). Recommended 3-4 items.'
+        fields:
+          - { label: 'Label (small text)', name: 'label', widget: 'string' }
+          - { label: 'Value (bold text)', name: 'value', widget: 'string' }
+          - { label: 'Icon (Tabler icon name)', name: 'icon', widget: 'string', required: false, default: 'tabler:point' }
+      - label: 'Explore More Divider'
+        name: 'exploreMore'
+        widget: 'object'
+        hint: 'The subtle label/divider shown before the secondary sections (Journey, Knowledge Hub, etc.).'
+        fields:
+          - { label: 'Label', name: 'label', widget: 'string', required: false }
+          - { label: 'Subtitle', name: 'subtitle', widget: 'text', required: false }
       - label: 'Now Section'
         name: 'now'
         widget: 'object'
@@ -160,15 +178,19 @@ collections:
               - { label: 'Label', name: 'label', widget: 'string' }
               - { label: 'URL', name: 'href', widget: 'string' }
               - { label: 'Icon (Tabler icon name)', name: 'icon', widget: 'string', required: false }
-      - label: 'Homepage Sections Visibility'
+      - label: 'Homepage Sections (order, headings & visibility)'
         name: 'sections'
         widget: 'list'
         allow_add: true
         allow_delete: true
-        collapsed: false
+        collapsed: true
+        summary: '{{fields.title}}'
+        hint: 'Reorder by dragging. Edit each section''s heading, sub-heading and small tagline label, or hide it entirely. Section ID must not be changed — it links the block to the page.'
         fields:
-          - { label: 'Section ID', name: 'id', widget: 'string' }
-          - { label: 'Title', name: 'title', widget: 'string' }
+          - { label: 'Section ID (do not change)', name: 'id', widget: 'string' }
+          - { label: 'Heading (H2)', name: 'title', widget: 'string' }
+          - { label: 'Sub-heading', name: 'subtitle', widget: 'text', required: false }
+          - { label: 'Small Label / Tagline', name: 'tagline', widget: 'string', required: false }
           - { label: 'Visible', name: 'visible', widget: 'boolean', default: true }
 
   # ─── Projects ───
@@ -200,6 +222,7 @@ collections:
         required: false
         field: { label: 'Technology', name: 'tech', widget: 'string' }
       - { label: 'Status', name: 'status', widget: 'select', options: ['In Progress', 'Shipped', 'Archived'], default: 'In Progress' }
+      - { label: 'Metric / Outcome', name: 'metric', widget: 'string', required: false, hint: 'A single headline stat shown on the project card (e.g. "500+ questions answered", "87% accuracy").' }
       - { label: 'GitHub URL', name: 'github', widget: 'string', required: false }
       - { label: 'Demo URL', name: 'demo', widget: 'string', required: false }
       - { label: 'Problem', name: 'problem', widget: 'text', required: false }

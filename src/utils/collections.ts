@@ -11,6 +11,7 @@ export interface Project {
   tags?: string[];
   technologies?: string[];
   status?: string;
+  metric?: string;
   github?: string;
   demo?: string;
   problem?: string;

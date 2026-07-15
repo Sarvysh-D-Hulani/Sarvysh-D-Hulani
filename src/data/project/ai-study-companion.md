@@ -27,6 +27,7 @@ futureImprovements: 'Add multi-modal support for diagrams and equations. Impleme
 startDate: 2025-01-15
 featured: true
 order: 1
+metric: '500+ questions answered in beta'
 ---
 
 ## Overview

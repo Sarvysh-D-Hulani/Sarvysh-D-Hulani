@@ -122,6 +122,12 @@ const metadata = {
     )
   }
 
+  {
+    isVisible('about-preview') && (
+      <AboutPreview name={hero.name} story={about.story} values={about.values} interests={about.interests} />
+    )
+  }
+
   {/* ── Explore More divider ── */}
   <div class="relative py-12 md:py-16 flex flex-col items-center gap-4 bg-page dark:bg-midnight">
     <div class="flex items-center gap-4 w-full max-w-2xl px-6">
@@ -199,12 +205,6 @@ const metadata = {
   }
 
   {isVisible('reading') && readingItems.length > 0 && <ReadingSection items={readingItems} limit={4} />}
-
-  {
-    isVisible('about-preview') && (
-      <AboutPreview name={hero.name} story={about.story} values={about.values} interests={about.interests} />
-    )
-  }
 
   {
     isVisible('contact') && (

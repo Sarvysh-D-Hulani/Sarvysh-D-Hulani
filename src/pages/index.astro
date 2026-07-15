@@ -9,11 +9,10 @@ import KnowledgeHub from '~/components/widgets/KnowledgeHub.astro';
 import ResourceLibrary from '~/components/widgets/ResourceLibrary.astro';
 import GallerySection from '~/components/widgets/GallerySection.astro';
 import ReadingSection from '~/components/widgets/ReadingSection.astro';
-import NewsletterSection from '~/components/widgets/NewsletterSection.astro';
 import AboutPreview from '~/components/widgets/AboutPreview.astro';
 import ContactSection from '~/components/widgets/ContactSection.astro';
 
-import { fetchPageContent, fetchFeaturedProjects, fetchJourney, fetchKnowledge, fetchResources, fetchGallery, fetchReading, fetchNewsletters, fetchResume } from '~/utils/collections';
+import { fetchPageContent, fetchFeaturedProjects, fetchJourney, fetchKnowledge, fetchResources, fetchGallery, fetchReading } from '~/utils/collections';
 import { findLatestPosts } from '~/utils/blog';
 import { APP_BLOG } from 'astrowind:config';
 
@@ -24,7 +23,6 @@ const knowledgeItems = await fetchKnowledge();
 const resourceItems = await fetchResources();
 const galleryItems = await fetchGallery();
 const readingItems = await fetchReading();
-const newsletterItems = await fetchNewsletters();
 const latestPosts = APP_BLOG.isEnabled ? await findLatestPosts({ count: 3 }) : [];
 
 const hero = pageContent?.hero || {};
@@ -165,10 +163,6 @@ const metadata = {
 
   {isVisible('reading') && readingItems.length > 0 && (
     <ReadingSection items={readingItems} limit={4} />
-  )}
-
-  {isVisible('newsletter') && (
-    <NewsletterSection items={newsletterItems} limit={3} />
   )}
 
   {isVisible('about-preview') && (

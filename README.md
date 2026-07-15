@@ -94,8 +94,7 @@ I'd rather understand something deeply and build with it than collect credential
 
 ## Connect
 
-- **Email:** [sarvyshdhulani9@example.com](mailto:sarvyshdhulani9@example.com)
-- **X (Twitter):** [@sarvysh](https://x.com)
+- **Email:** [sarvyshdhulani9@gmail.com](mailto:sarvyshdhulani9@gmail.com)
 - **LinkedIn / GitHub:** linked on the [site footer](https://sarvysh-d-hulani.vercel.app/)
 
 ---

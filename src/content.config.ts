@@ -81,6 +81,7 @@ const projectCollection = defineCollection({
     featured: z.boolean().optional(),
     order: z.number().optional(),
     draft: z.boolean().optional(),
+    attachedFile: z.string().optional(),
     metadata: metadataDefinition(),
   }),
 });

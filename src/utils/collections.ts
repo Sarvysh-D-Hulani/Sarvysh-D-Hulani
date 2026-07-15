@@ -24,6 +24,7 @@ export interface Project {
   featured?: boolean;
   order?: number;
   draft?: boolean;
+  attachedFile?: string;
   Content?: any;
 }
 

@@ -1,0 +1,329 @@
+---
+// DocumentPreviewModal — renders inline previews for .xlsx, .docx, and .pptx files.
+// Usage: drop <DocumentPreviewModal /> once anywhere in your layout (e.g. just before </body>).
+// Trigger: dispatch a CustomEvent 'open-doc-preview' with detail { fileUrl, fileName }
+---
+
+<!-- Modal backdrop -->
+<div
+  id="doc-preview-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Document Preview"
+  class="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"
+>
+  <!-- Modal panel -->
+  <div
+    id="doc-preview-panel"
+    class="relative w-full max-w-5xl max-h-[90vh] flex flex-col rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-[#0f172a] translate-y-4 transition-transform duration-300"
+  >
+    <!-- Header bar -->
+    <div class="flex items-center justify-between px-5 py-3.5 border-b border-white/8 bg-[#0d1425] shrink-0">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <!-- File type icon -->
+        <span id="doc-preview-icon" class="text-lg shrink-0">📄</span>
+        <span id="doc-preview-title" class="text-sm font-semibold text-white/90 truncate max-w-[24rem]"></span>
+        <!-- Sheet selector (xlsx only) -->
+        <select
+          id="doc-sheet-select"
+          class="ml-2 hidden text-xs bg-[#1e2d4a] border border-white/10 text-white/80 rounded-lg px-2.5 py-1 focus:outline-none focus:ring-1 focus:ring-sapphire cursor-pointer"
+        ></select>
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <!-- Download link -->
+        <a
+          id="doc-download-link"
+          href="#"
+          download
+          class="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border border-sapphire/30 text-sapphire hover:bg-sapphire/10 transition-colors duration-200 font-medium"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download
+        </a>
+        <!-- Close button -->
+        <button
+          id="doc-preview-close"
+          aria-label="Close preview"
+          class="w-8 h-8 flex items-center justify-center rounded-full border border-white/10 text-white/50 hover:text-white hover:border-white/30 transition-all duration-200"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Loading state -->
+    <div id="doc-preview-loading" class="flex flex-col items-center justify-center gap-3 py-20 text-white/50 shrink-0">
+      <svg class="w-8 h-8 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+      </svg>
+      <span class="text-sm">Loading preview…</span>
+    </div>
+
+    <!-- Error state -->
+    <div id="doc-preview-error" class="hidden flex-col items-center justify-center gap-3 py-20 text-white/60">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-red-400/70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <p class="text-sm font-medium text-white/70">Preview failed to load.</p>
+      <a id="doc-error-download" href="#" download class="text-xs text-sapphire hover:underline">Download Original File</a>
+    </div>
+
+    <!-- Content area -->
+    <div id="doc-preview-content" class="hidden flex-1 overflow-auto min-h-0">
+      <!-- xlsx table output -->
+      <div id="doc-xlsx-container" class="hidden overflow-auto w-full h-full p-4">
+        <div id="doc-xlsx-table" class="text-xs text-white/80 w-max"></div>
+      </div>
+      <!-- docx html output -->
+      <div
+        id="doc-docx-container"
+        class="hidden w-full h-full overflow-auto bg-white"
+        style="--docx-bg: #fff;"
+      ></div>
+      <!-- pptx / fallback iframe -->
+      <iframe
+        id="doc-iframe"
+        class="hidden w-full h-full border-0"
+        title="Document Preview"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Scoped table styles for xlsx preview */
+  #doc-xlsx-table table {
+    border-collapse: collapse;
+    font-family: ui-monospace, monospace;
+    font-size: 0.75rem;
+    color: rgb(255 255 255 / 85%);
+  }
+  #doc-xlsx-table th,
+  #doc-xlsx-table td {
+    border: 1px solid rgb(255 255 255 / 10%);
+    padding: 0.35rem 0.75rem;
+    white-space: nowrap;
+    max-width: 20rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  #doc-xlsx-table th {
+    background: rgb(15 76 160 / 20%);
+    color: rgb(96 165 250);
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+  #doc-xlsx-table tr:nth-child(even) td {
+    background: rgb(255 255 255 / 2%);
+  }
+  /* Make docx output readable */
+  #doc-docx-container .docx-wrapper {
+    background: #fff !important;
+    padding: 2rem !important;
+  }
+</style>
+
+<script>
+  // ── helpers ─────────────────────────────────────────────────────────────────
+  function ext(url: string) {
+    return (url.split('?')[0].split('.').pop() ?? '').toLowerCase();
+  }
+
+  function fileIcon(extension: string) {
+    if (extension === 'xlsx' || extension === 'xls') return '📊';
+    if (extension === 'docx' || extension === 'doc') return '📝';
+    if (extension === 'pptx' || extension === 'ppt') return '📊';
+    return '📄';
+  }
+
+  // ── DOM references ───────────────────────────────────────────────────────────
+  const modal       = document.getElementById('doc-preview-modal')!;
+  const panel       = document.getElementById('doc-preview-panel')!;
+  const titleEl     = document.getElementById('doc-preview-title')!;
+  const iconEl      = document.getElementById('doc-preview-icon')!;
+  const loadingEl   = document.getElementById('doc-preview-loading')!;
+  const errorEl     = document.getElementById('doc-preview-error')!;
+  const contentEl   = document.getElementById('doc-preview-content')!;
+  const closeBtn    = document.getElementById('doc-preview-close')!;
+  const downloadLink = document.getElementById('doc-download-link') as HTMLAnchorElement;
+  const errorDownload = document.getElementById('doc-error-download') as HTMLAnchorElement;
+  const sheetSelect  = document.getElementById('doc-sheet-select') as HTMLSelectElement;
+  const xlsxContainer = document.getElementById('doc-xlsx-container')!;
+  const xlsxTable   = document.getElementById('doc-xlsx-table')!;
+  const docxContainer = document.getElementById('doc-docx-container')!;
+  const iframeEl    = document.getElementById('doc-iframe') as HTMLIFrameElement;
+
+  // ── State ────────────────────────────────────────────────────────────────────
+  let currentWorkbook: any = null;
+
+  // ── Open / close ─────────────────────────────────────────────────────────────
+  function openModal() {
+    modal.classList.remove('opacity-0', 'pointer-events-none');
+    panel.classList.remove('translate-y-4');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.classList.add('opacity-0', 'pointer-events-none');
+    panel.classList.add('translate-y-4');
+    document.body.style.overflow = '';
+    // Reset
+    currentWorkbook = null;
+    sheetSelect.classList.add('hidden');
+    sheetSelect.innerHTML = '';
+    xlsxContainer.classList.add('hidden');
+    docxContainer.classList.add('hidden');
+    iframeEl.classList.add('hidden');
+    iframeEl.src = '';
+    contentEl.classList.add('hidden');
+    errorEl.classList.add('hidden');
+    errorEl.style.display = '';
+    loadingEl.classList.remove('hidden');
+  }
+
+  closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  // ── Sheet switching (xlsx) ───────────────────────────────────────────────────
+  function renderSheet(sheetName: string) {
+    if (!currentWorkbook) return;
+    const XLSX = (window as any).__XLSX__;
+    const ws = currentWorkbook.Sheets[sheetName];
+    xlsxTable.innerHTML = XLSX.utils.sheet_to_html(ws, { editable: false });
+  }
+
+  sheetSelect.addEventListener('change', () => renderSheet(sheetSelect.value));
+
+  // ── Show error helper ────────────────────────────────────────────────────────
+  function showError(fileUrl: string) {
+    loadingEl.classList.add('hidden');
+    contentEl.classList.add('hidden');
+    errorEl.classList.remove('hidden');
+    errorEl.style.display = 'flex';
+    errorDownload.href = fileUrl;
+  }
+
+  // ── Main loader ──────────────────────────────────────────────────────────────
+  async function loadPreview(fileUrl: string, fileName: string) {
+    const extension = ext(fileUrl);
+    iconEl.textContent = fileIcon(extension);
+    titleEl.textContent = fileName;
+    downloadLink.href = fileUrl;
+    downloadLink.download = fileName;
+    errorDownload.href = fileUrl;
+    openModal();
+
+    try {
+      if (extension === 'xlsx' || extension === 'xls') {
+        // Lazy-load SheetJS
+        if (!(window as any).__XLSX__) {
+          const XLSX = await import('xlsx');
+          (window as any).__XLSX__ = XLSX;
+        }
+        const XLSX = (window as any).__XLSX__;
+
+        const res = await fetch(fileUrl);
+        if (!res.ok) throw new Error('fetch failed');
+        const buf = await res.arrayBuffer();
+        const wb = XLSX.read(buf, { type: 'array' });
+        currentWorkbook = wb;
+
+        // Populate sheet selector
+        if (wb.SheetNames.length > 1) {
+          sheetSelect.innerHTML = wb.SheetNames.map((n: string) => `<option value="${n}">${n}</option>`).join('');
+          sheetSelect.classList.remove('hidden');
+        }
+
+        renderSheet(wb.SheetNames[0]);
+
+        loadingEl.classList.add('hidden');
+        xlsxContainer.classList.remove('hidden');
+        contentEl.classList.remove('hidden');
+
+      } else if (extension === 'docx' || extension === 'doc') {
+        // Lazy-load docx-preview
+        if (!(window as any).__docxPreview__) {
+          const mod = await import('docx-preview');
+          (window as any).__docxPreview__ = mod;
+        }
+        const { renderAsync } = (window as any).__docxPreview__;
+
+        const res = await fetch(fileUrl);
+        if (!res.ok) throw new Error('fetch failed');
+        const blob = await res.blob();
+
+        docxContainer.innerHTML = '';
+        await renderAsync(blob, docxContainer as HTMLElement, undefined, {
+          className: 'docx-preview',
+          inWrapper: true,
+          ignoreWidth: false,
+          ignoreHeight: false,
+          ignoreFonts: false,
+          breakPages: true,
+          useBase64URL: true,
+        });
+
+        loadingEl.classList.add('hidden');
+        docxContainer.classList.remove('hidden');
+        contentEl.classList.remove('hidden');
+
+      } else if (extension === 'pptx' || extension === 'ppt') {
+        // Use Microsoft Office Online viewer
+        const encoded = encodeURIComponent(fileUrl);
+        const viewerUrl = `https://view.officeapps.live.com/op/embed.aspx?src=${encoded}`;
+
+        iframeEl.src = viewerUrl;
+        iframeEl.onload = () => {
+          loadingEl.classList.add('hidden');
+          iframeEl.classList.remove('hidden');
+          contentEl.classList.remove('hidden');
+        };
+        iframeEl.onerror = () => showError(fileUrl);
+        // Timeout fallback if iframe never fires onload
+        setTimeout(() => {
+          if (loadingEl.classList.contains('hidden')) return;
+          loadingEl.classList.add('hidden');
+          iframeEl.classList.remove('hidden');
+          contentEl.classList.remove('hidden');
+        }, 3000);
+
+      } else {
+        // Unknown type — use Office Online viewer as generic fallback
+        const encoded = encodeURIComponent(fileUrl);
+        iframeEl.src = `https://view.officeapps.live.com/op/embed.aspx?src=${encoded}`;
+        iframeEl.onload = () => {
+          loadingEl.classList.add('hidden');
+          iframeEl.classList.remove('hidden');
+          contentEl.classList.remove('hidden');
+        };
+        setTimeout(() => {
+          loadingEl.classList.add('hidden');
+          iframeEl.classList.remove('hidden');
+          contentEl.classList.remove('hidden');
+        }, 3000);
+      }
+    } catch (err) {
+      console.error('[v0] DocumentPreviewModal error:', err);
+      showError(fileUrl);
+    }
+  }
+
+  // ── Listen for open events ───────────────────────────────────────────────────
+  window.addEventListener('open-doc-preview', (e: Event) => {
+    const { fileUrl, fileName } = (e as CustomEvent<{ fileUrl: string; fileName: string }>).detail;
+    loadPreview(fileUrl, fileName);
+  });
+</script>

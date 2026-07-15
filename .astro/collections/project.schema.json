@@ -73,6 +73,9 @@
     "draft": {
       "type": "boolean"
     },
+    "attachedFile": {
+      "type": "string"
+    },
     "metadata": {
       "type": "object",
       "properties": {

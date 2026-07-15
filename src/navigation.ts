@@ -28,8 +28,8 @@ export const headerData = {
       href: getBlogPermalink(),
     },
     {
-      text: 'Newsletter',
-      href: getPermalink('/newsletter'),
+      text: 'Resume',
+      href: getPermalink('/resume'),
     },
   ],
   actions: [{ text: 'Contact', href: getPermalink('/contact'), variant: 'primary' }],
@@ -58,7 +58,7 @@ export const footerData = {
     {
       title: 'Connect',
       links: [
-        { text: 'Newsletter', href: getPermalink('/newsletter') },
+        { text: 'Resume', href: getPermalink('/resume') },
         { text: 'Contact', href: getPermalink('/contact') },
       ],
     },

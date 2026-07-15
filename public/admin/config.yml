@@ -357,6 +357,59 @@ collections:
       - { label: 'Draft', name: 'draft', widget: 'boolean', default: false }
       - { label: 'Content', name: 'body', widget: 'markdown' }
 
+  # ─── Resume ───
+  - name: 'resume'
+    label: 'Resume'
+    folder: 'src/data/resume'
+    create: false
+    delete: false
+    extension: 'yml'
+    format: 'yml'
+    slug: '{{slug}}'
+    fields:
+      - { label: 'Page Title', name: 'title', widget: 'string' }
+      - { label: 'Subtitle / Tagline', name: 'subtitle', widget: 'string', required: false }
+      - label: 'Education'
+        name: 'education'
+        widget: 'list'
+        allow_add: true
+        allow_delete: true
+        collapsed: false
+        fields:
+          - { label: 'School', name: 'school', widget: 'string' }
+          - { label: 'Degree', name: 'degree', widget: 'string' }
+          - { label: 'Graduation Year', name: 'graduationYear', widget: 'string', required: false }
+          - label: 'Relevant Coursework'
+            name: 'coursework'
+            widget: 'list'
+            required: false
+            field: { label: 'Course', name: 'course', widget: 'string' }
+      - label: 'Experience'
+        name: 'experience'
+        widget: 'list'
+        allow_add: true
+        allow_delete: true
+        collapsed: false
+        fields:
+          - { label: 'Role / Title', name: 'role', widget: 'string' }
+          - { label: 'Company / Organisation', name: 'company', widget: 'string' }
+          - { label: 'Start Date', name: 'startDate', widget: 'string', required: false, hint: 'e.g. Jun 2025' }
+          - { label: 'End Date', name: 'endDate', widget: 'string', required: false, hint: 'e.g. Aug 2025 or Present' }
+          - { label: 'Description', name: 'description', widget: 'text', required: false }
+      - label: 'Skills'
+        name: 'skills'
+        widget: 'list'
+        allow_add: true
+        allow_delete: true
+        collapsed: false
+        fields:
+          - { label: 'Category', name: 'category', widget: 'string' }
+          - label: 'Items'
+            name: 'items'
+            widget: 'list'
+            field: { label: 'Skill', name: 'skill', widget: 'string' }
+      - { label: "What I'm Looking For", name: 'lookingFor', widget: 'text', required: false }
+
   # ─── Writing (Blog Posts) ───
   - name: 'post'
     label: 'Writing'

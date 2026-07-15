@@ -1,6 +1,6 @@
 <div align="center">
 
-# Digital HQ
+# Digital HQ OF SARVYSH D HULANI
 ### The Evolving World of an Ambitious Student
 
 **A living archive of projects, writing, and thinking — built in public, one commit at a time.**

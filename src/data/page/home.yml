@@ -159,6 +159,9 @@ contact:
     - label: Instagram
       href: https://instagram.com
       icon: tabler:brand-instagram
+    - label: Substack
+      href: '[add your Substack URL]'
+      icon: tabler:brand-substack
     - label: Email
       href: mailto:sarvysh@example.com
       icon: tabler:mail
@@ -203,7 +206,7 @@ sections:
     visible: true
   - id: newsletter
     title: Newsletter
-    visible: true
+    visible: false
   - id: about-preview
     title: About Preview
     visible: true

@@ -1,6 +1,5 @@
 ---
 import { Icon } from 'astro-icon/components';
-import Button from '~/components/ui/Button.astro';
 
 export interface Props {
   title?: string;
@@ -20,11 +19,17 @@ const {
 ---
 
 <section class="relative py-20 md:py-28 bg-section-alt overflow-hidden">
-  <div class="absolute top-0 left-1/4 w-[400px] h-[300px] rounded-full bg-sapphire/5 blur-[120px] pointer-events-none" aria-hidden="true"></div>
+  <div
+    class="absolute top-0 left-1/4 w-[400px] h-[300px] rounded-full bg-sapphire/5 blur-[120px] pointer-events-none"
+    aria-hidden="true"
+  >
+  </div>
 
   <div class="relative max-w-5xl mx-auto px-4 sm:px-6">
     <!-- Section header with number badge -->
-    <div class="flex flex-col items-center text-center mb-14 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+    <div
+      class="flex flex-col items-center text-center mb-14 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
+    >
       <div class="flex items-center gap-3 mb-4">
         <span class="text-5xl md:text-6xl font-bold tracking-tighter gradient-text opacity-20 select-none">10</span>
         <span class="h-px w-12 bg-gradient-to-r from-sapphire to-cyan2"></span>
@@ -36,7 +41,9 @@ const {
 
     <div class="grid md:grid-cols-2 gap-6 md:gap-8">
       <!-- Contact form with premium styling -->
-      <div class="premium-card rounded-2xl p-6 md:p-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+      <div
+        class="premium-card rounded-2xl p-6 md:p-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
+      >
         <form class="space-y-5">
           <div class="relative">
             <input
@@ -46,7 +53,10 @@ const {
               placeholder=" "
               class="peer w-full px-4 pt-6 pb-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-page dark:bg-slate-900 text-default focus:outline-none focus:border-sapphire focus:ring-2 focus:ring-sapphire/20 transition placeholder-transparent"
             />
-            <label for="name" class="absolute left-4 top-4 text-muted text-sm transition-all duration-200 peer-focus:top-2 peer-focus:text-xs peer-focus:text-sapphire peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:text-xs">
+            <label
+              for="name"
+              class="absolute left-4 top-4 text-muted text-sm transition-all duration-200 peer-focus:top-2 peer-focus:text-xs peer-focus:text-sapphire peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:text-xs"
+            >
               Name
             </label>
           </div>
@@ -58,7 +68,10 @@ const {
               placeholder=" "
               class="peer w-full px-4 pt-6 pb-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-page dark:bg-slate-900 text-default focus:outline-none focus:border-sapphire focus:ring-2 focus:ring-sapphire/20 transition placeholder-transparent"
             />
-            <label for="email" class="absolute left-4 top-4 text-muted text-sm transition-all duration-200 peer-focus:top-2 peer-focus:text-xs peer-focus:text-sapphire peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:text-xs">
+            <label
+              for="email"
+              class="absolute left-4 top-4 text-muted text-sm transition-all duration-200 peer-focus:top-2 peer-focus:text-xs peer-focus:text-sapphire peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:text-xs"
+            >
               Email
             </label>
           </div>
@@ -70,7 +83,10 @@ const {
               placeholder=" "
               class="peer w-full px-4 pt-6 pb-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-page dark:bg-slate-900 text-default focus:outline-none focus:border-sapphire focus:ring-2 focus:ring-sapphire/20 transition resize-none placeholder-transparent"
             ></textarea>
-            <label for="message" class="absolute left-4 top-4 text-muted text-sm transition-all duration-200 peer-focus:top-2 peer-focus:text-xs peer-focus:text-sapphire peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:text-xs">
+            <label
+              for="message"
+              class="absolute left-4 top-4 text-muted text-sm transition-all duration-200 peer-focus:top-2 peer-focus:text-xs peer-focus:text-sapphire peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:text-xs"
+            >
               Message
             </label>
           </div>
@@ -79,41 +95,54 @@ const {
             class="group w-full px-6 py-3.5 rounded-full bg-gradient-to-r from-sapphire to-cyan2 text-white font-semibold hover:shadow-lg hover:shadow-sapphire/30 transition-all cursor-pointer flex items-center justify-center gap-2"
           >
             Send Message
-            <Icon name="tabler:send" class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5" />
+            <Icon
+              name="tabler:send"
+              class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5"
+            />
           </button>
         </form>
       </div>
 
       <!-- Contact info cards with gradient icon circles -->
-      <div class="flex flex-col gap-4 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
-        {email && (
-          <a href={`mailto:${email}`} class="premium-card card-glow rounded-2xl p-6 group flex items-center gap-4">
-            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-sapphire to-cyan2 flex items-center justify-center shadow-lg shadow-sapphire/20 transition-transform duration-300 group-hover:scale-110">
-              <Icon name="tabler:mail" class="w-7 h-7 text-white" />
-            </div>
-            <div>
-              <p class="text-xs font-bold tracking-[0.15em] uppercase text-muted mb-1">Email</p>
-              <p class="text-base font-medium text-heading group-hover:text-sapphire transition-colors duration-300">{email}</p>
-            </div>
-          </a>
-        )}
+      <div
+        class="flex flex-col gap-4 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
+      >
+        {
+          email && (
+            <a href={`mailto:${email}`} class="premium-card card-glow rounded-2xl p-6 group flex items-center gap-4">
+              <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-sapphire to-cyan2 flex items-center justify-center shadow-lg shadow-sapphire/20 transition-transform duration-300 group-hover:scale-110">
+                <Icon name="tabler:mail" class="w-7 h-7 text-white" />
+              </div>
+              <div>
+                <p class="text-xs font-bold tracking-[0.15em] uppercase text-muted mb-1">Email</p>
+                <p class="text-base font-medium text-heading group-hover:text-sapphire transition-colors duration-300">
+                  {email}
+                </p>
+              </div>
+            </a>
+          )
+        }
 
-        {socials.map((social) => (
-          <a
-            href={social.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="premium-card card-glow rounded-2xl p-6 group flex items-center gap-4"
-          >
-            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-navy to-sapphire dark:from-sapphire dark:to-cyan2 flex items-center justify-center shadow-lg shadow-sapphire/20 transition-transform duration-300 group-hover:scale-110">
-              <Icon name={social.icon || 'tabler:link'} class="w-7 h-7 text-white" />
-            </div>
-            <div>
-              <p class="text-xs font-bold tracking-[0.15em] uppercase text-muted mb-1">Social</p>
-              <p class="text-base font-medium text-heading group-hover:text-sapphire dark:group-hover:text-cyan2 transition-colors duration-300">{social.label}</p>
-            </div>
-          </a>
-        ))}
+        {
+          socials.map((social) => (
+            <a
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="premium-card card-glow rounded-2xl p-6 group flex items-center gap-4"
+            >
+              <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-navy to-sapphire dark:from-sapphire dark:to-cyan2 flex items-center justify-center shadow-lg shadow-sapphire/20 transition-transform duration-300 group-hover:scale-110">
+                <Icon name={social.icon || 'tabler:link'} class="w-7 h-7 text-white" />
+              </div>
+              <div>
+                <p class="text-xs font-bold tracking-[0.15em] uppercase text-muted mb-1">Social</p>
+                <p class="text-base font-medium text-heading group-hover:text-sapphire dark:group-hover:text-cyan2 transition-colors duration-300">
+                  {social.label}
+                </p>
+              </div>
+            </a>
+          ))
+        }
       </div>
     </div>
   </div>

@@ -1,6 +1,5 @@
 ---
 import { Icon } from 'astro-icon/components';
-import Button from '~/components/ui/Button.astro';
 
 export interface NewsletterItem {
   title: string;
@@ -28,7 +27,8 @@ const {
 
 const limitedItems = [...items].sort((a, b) => b.publishDate.valueOf() - a.publishDate.valueOf()).slice(0, limit);
 
-const formatDate = (date: Date) => new Intl.DateTimeFormat('en', { month: 'long', day: 'numeric', year: 'numeric' }).format(date);
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('en', { month: 'long', day: 'numeric', year: 'numeric' }).format(date);
 ---
 
 <section class="relative py-20 md:py-28 gradient-deep-sea overflow-hidden">
@@ -40,9 +40,12 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('en', { month: 'long'
 
   <div class="relative max-w-7xl mx-auto px-4 sm:px-6">
     <!-- Section header with number badge -->
-    <div class="flex flex-col items-center text-center mb-14 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+    <div
+      class="flex flex-col items-center text-center mb-14 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
+    >
       <div class="flex items-center gap-3 mb-4">
-        <span class="text-5xl md:text-6xl font-bold tracking-tighter gradient-text-gold opacity-30 select-none">08</span>
+        <span class="text-5xl md:text-6xl font-bold tracking-tighter gradient-text-gold opacity-30 select-none">08</span
+        >
         <span class="h-px w-12 bg-gradient-to-r from-gold to-amber-400"></span>
         <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text-gold">{tagline}</p>
       </div>
@@ -51,10 +54,14 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('en', { month: 'long'
     </div>
 
     <!-- Subscribe box with glass effect -->
-    <div class="max-w-xl mx-auto mb-14 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-scale-in">
+    <div
+      class="max-w-xl mx-auto mb-14 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-scale-in"
+    >
       <div class="glass rounded-2xl p-6 md:p-8">
         <div class="flex items-center gap-3 mb-4">
-          <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-gold to-amber-400 flex items-center justify-center shadow-lg shadow-gold/20">
+          <div
+            class="w-12 h-12 rounded-2xl bg-gradient-to-br from-gold to-amber-400 flex items-center justify-center shadow-lg shadow-gold/20"
+          >
             <Icon name="tabler:mail-fast" class="w-6 h-6 text-midnight" />
           </div>
           <div>
@@ -62,7 +69,9 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('en', { month: 'long'
             <p class="text-xs text-ivory/50">Join the weekly dispatch</p>
           </div>
         </div>
-        <p class="text-sm text-ivory/60 mb-5">Get a weekly email with what I'm building, learning, and thinking about.</p>
+        <p class="text-sm text-ivory/60 mb-5">
+          Get a weekly email with what I'm building, learning, and thinking about.
+        </p>
         <form class="flex flex-col sm:flex-row gap-3">
           <input
             type="email"
@@ -75,44 +84,56 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('en', { month: 'long'
           >
             <span class="relative z-10 flex items-center gap-2">
               Subscribe
-              <Icon name="tabler:arrow-right" class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+              <Icon
+                name="tabler:arrow-right"
+                class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+              />
             </span>
             <!-- Shimmer animation -->
-            <span class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent"></span>
+            <span
+              class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+            ></span>
           </button>
         </form>
       </div>
     </div>
 
     <!-- Archive -->
-    {limitedItems.length > 0 && (
-      <div class="max-w-3xl mx-auto space-y-4">
-        <h3 class="text-xs font-bold tracking-[0.2em] uppercase text-ivory/40 mb-6 text-center">Recent Issues</h3>
-        {limitedItems.map((item, index) => (
-          <a
-            href={item.slug ? `/newsletter/${item.slug}` : '#'}
-            class="block glass rounded-2xl p-5 hover:border-gold/30 transition-all intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade group"
-            style={`animation-delay: ${index * 100}ms;`}
-          >
-            <div class="flex items-start justify-between gap-4">
-              <div>
-                <div class="flex items-center gap-3 mb-2">
-                  {item.issue && (
-                    <span class="text-lg font-bold gradient-text-gold leading-none">
-                      #{String(item.issue).padStart(2, '0')}
-                    </span>
-                  )}
-                  <span class="text-xs text-ivory/40">{formatDate(item.publishDate)}</span>
+    {
+      limitedItems.length > 0 && (
+        <div class="max-w-3xl mx-auto space-y-4">
+          <h3 class="text-xs font-bold tracking-[0.2em] uppercase text-ivory/40 mb-6 text-center">Recent Issues</h3>
+          {limitedItems.map((item, index) => (
+            <a
+              href={item.slug ? `/newsletter/${item.slug}` : '#'}
+              class="block glass rounded-2xl p-5 hover:border-gold/30 transition-all intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade group"
+              style={`animation-delay: ${index * 100}ms;`}
+            >
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <div class="flex items-center gap-3 mb-2">
+                    {item.issue && (
+                      <span class="text-lg font-bold gradient-text-gold leading-none">
+                        #{String(item.issue).padStart(2, '0')}
+                      </span>
+                    )}
+                    <span class="text-xs text-ivory/40">{formatDate(item.publishDate)}</span>
+                  </div>
+                  <h4 class="text-base font-semibold text-ivory mb-1 group-hover:text-gold transition-colors duration-300">
+                    {item.title}
+                  </h4>
+                  {item.excerpt && <p class="text-sm text-ivory/60 line-clamp-2">{item.excerpt}</p>}
                 </div>
-                <h4 class="text-base font-semibold text-ivory mb-1 group-hover:text-gold transition-colors duration-300">{item.title}</h4>
-                {item.excerpt && <p class="text-sm text-ivory/60 line-clamp-2">{item.excerpt}</p>}
+                <Icon
+                  name="tabler:arrow-right"
+                  class="w-5 h-5 text-ivory/40 flex-shrink-0 mt-1 group-hover:text-gold group-hover:translate-x-1 transition-all duration-300"
+                />
               </div>
-              <Icon name="tabler:arrow-right" class="w-5 h-5 text-ivory/40 flex-shrink-0 mt-1 group-hover:text-gold group-hover:translate-x-1 transition-all duration-300" />
-            </div>
-          </a>
-        ))}
-      </div>
-    )}
+            </a>
+          ))}
+        </div>
+      )
+    }
 
     <div class="text-center mt-10">
       <a

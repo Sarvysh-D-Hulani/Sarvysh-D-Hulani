@@ -31,40 +31,79 @@ const difficultyColors: Record<string, string> = {
 
 <PageLayout metadata={metadata}>
   <!-- Hero header -->
-  <section class="relative pt-20 md:pt-28 pb-12 md:pb-16 bg-gradient-to-b from-section-alt to-page dark:from-midnight dark:to-midnight overflow-hidden">
-    <div class="absolute top-0 left-1/4 w-[400px] h-[300px] rounded-full bg-sapphire/5 blur-[120px] pointer-events-none" aria-hidden="true"></div>
+  <section
+    class="relative pt-20 md:pt-28 pb-12 md:pb-16 bg-gradient-to-b from-section-alt to-page dark:from-midnight dark:to-midnight overflow-hidden"
+  >
+    <div
+      class="absolute top-0 left-1/4 w-[400px] h-[300px] rounded-full bg-sapphire/5 blur-[120px] pointer-events-none"
+      aria-hidden="true"
+    >
+    </div>
     <div class="relative max-w-3xl mx-auto px-4 sm:px-6">
-      <a href="/knowledge-hub" class="inline-flex items-center gap-1.5 text-sm text-muted hover:text-sapphire dark:hover:text-cyan2 transition mb-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+      <a
+        href="/knowledge-hub"
+        class="inline-flex items-center gap-1.5 text-sm text-muted hover:text-sapphire dark:hover:text-cyan2 transition mb-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
+      >
         <Icon name="tabler:arrow-left" class="w-4 h-4" />
         Back to Knowledge Hub
       </a>
-      <div class="flex items-center gap-3 mb-4 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
-        {item.category && <span class="px-3 py-1 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-sapphire to-cyan2 shadow-sm">{item.category}</span>}
-        {item.difficulty && <span class={`px-2.5 py-0.5 rounded-full text-xs font-medium border ${difficultyColors[item.difficulty] || difficultyColors.Beginner}`}>{item.difficulty}</span>}
+      <div
+        class="flex items-center gap-3 mb-4 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
+      >
+        {
+          item.category && (
+            <span class="px-3 py-1 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-sapphire to-cyan2 shadow-sm">
+              {item.category}
+            </span>
+          )
+        }
+        {
+          item.difficulty && (
+            <span
+              class={`px-2.5 py-0.5 rounded-full text-xs font-medium border ${difficultyColors[item.difficulty] || difficultyColors.Beginner}`}
+            >
+              {item.difficulty}
+            </span>
+          )
+        }
       </div>
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-heading mb-4 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">{item.title}</h1>
-      {item.excerpt && <p class="text-lg lg:text-xl text-muted leading-relaxed intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">{item.excerpt}</p>}
+      <h1
+        class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-heading mb-4 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
+      >
+        {item.title}
+      </h1>
+      {
+        item.excerpt && (
+          <p class="text-lg lg:text-xl text-muted leading-relaxed intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+            {item.excerpt}
+          </p>
+        )
+      }
     </div>
   </section>
 
   <article class="pb-20 bg-page dark:bg-midnight">
     <div class="max-w-3xl mx-auto px-4 sm:px-6">
-      {Content && (
-        <div class="prose prose-lg dark:prose-invert max-w-none prose-headings:tracking-tight prose-headings:text-heading prose-a:text-sapphire prose-a:no-underline hover:prose-a:underline prose-img:rounded-2xl prose-code:text-sapphire prose-code:bg-navy/5 prose-code:rounded prose-code:px-1.5 prose-code:py-0.5 prose-code:before:content-none prose-code:after:content-none">
-          <Content />
-        </div>
-      )}
-
-      {item.tags && item.tags.length > 0 && (
-        <div class="mt-10 pt-8 border-t border-navy/10 dark:border-sapphire/10">
-          <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text mb-3">Tags</p>
-          <div class="flex flex-wrap gap-2">
-            {item.tags.map((tag) => (
-              <span class="px-3 py-1.5 rounded-full text-sm text-muted bg-navy/5 dark:bg-sapphire/5">#{tag}</span>
-            ))}
+      {
+        Content && (
+          <div class="prose prose-lg dark:prose-invert max-w-none prose-headings:tracking-tight prose-headings:text-heading prose-a:text-sapphire prose-a:no-underline hover:prose-a:underline prose-img:rounded-2xl prose-code:text-sapphire prose-code:bg-navy/5 prose-code:rounded prose-code:px-1.5 prose-code:py-0.5 prose-code:before:content-none prose-code:after:content-none">
+            <Content />
           </div>
-        </div>
-      )}
+        )
+      }
+
+      {
+        item.tags && item.tags.length > 0 && (
+          <div class="mt-10 pt-8 border-t border-navy/10 dark:border-sapphire/10">
+            <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text mb-3">Tags</p>
+            <div class="flex flex-wrap gap-2">
+              {item.tags.map((tag) => (
+                <span class="px-3 py-1.5 rounded-full text-sm text-muted bg-navy/5 dark:bg-sapphire/5">#{tag}</span>
+              ))}
+            </div>
+          </div>
+        )
+      }
     </div>
   </article>
 </PageLayout>

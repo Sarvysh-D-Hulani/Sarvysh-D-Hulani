@@ -32,7 +32,7 @@ export const headerData = {
       href: getPermalink('/resume'),
     },
   ],
-  actions: [{ text: 'Contact', href: getPermalink('/contact'), variant: 'primary' }],
+  actions: [{ text: 'Contact', href: getPermalink('/contact'), variant: 'primary' as const }],
 };
 
 export const footerData = {

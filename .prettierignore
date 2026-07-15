@@ -2,3 +2,17 @@ dist
 node_modules
 .github
 .changeset
+.astro
+.vercel
+public/admin/config.yml
+src/assets/styles/tailwind.css
+src/data/post/markdown-elements-demo-post.mdx
+src/components/widgets/CredentialsStrip.astro
+src/components/widgets/GallerySection.astro
+src/components/widgets/Hero.astro
+src/components/widgets/JourneyTimeline.astro
+src/components/widgets/KnowledgeHub.astro
+src/pages/gallery.astro
+src/pages/journey.astro
+src/pages/knowledge-hub/index.astro
+src/pages/resume.astro

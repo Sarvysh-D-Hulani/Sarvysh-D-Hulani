@@ -57,7 +57,13 @@ collections:
           - { label: 'Tagline', name: 'tagline', widget: 'string' }
           - { label: 'Identity Statement', name: 'identity', widget: 'text' }
           - { label: 'Current Focus', name: 'currentFocus', widget: 'text' }
-          - { label: 'Profile Image', name: 'profileImage', widget: 'image', choose_url: true, hint: 'Upload a JPG/PNG or paste an image URL.' }
+          - {
+              label: 'Profile Image',
+              name: 'profileImage',
+              widget: 'image',
+              choose_url: true,
+              hint: 'Upload a JPG/PNG or paste an image URL.',
+            }
           - label: 'Floating Cards'
             name: 'floatingCards'
             widget: 'list'
@@ -69,7 +75,13 @@ collections:
             fields:
               - { label: 'Label (small text)', name: 'label', widget: 'string' }
               - { label: 'Value (bold text)', name: 'value', widget: 'string' }
-              - { label: 'Icon (Tabler icon name)', name: 'icon', widget: 'string', required: false, default: 'tabler:sparkles' }
+              - {
+                  label: 'Icon (Tabler icon name)',
+                  name: 'icon',
+                  widget: 'string',
+                  required: false,
+                  default: 'tabler:sparkles',
+                }
           - label: 'Action Buttons'
             name: 'actions'
             widget: 'list'
@@ -79,7 +91,13 @@ collections:
             fields:
               - { label: 'Button Text', name: 'text', widget: 'string' }
               - { label: 'Link', name: 'href', widget: 'string' }
-              - { label: 'Style', name: 'variant', widget: 'select', options: ['primary', 'secondary'], default: 'secondary' }
+              - {
+                  label: 'Style',
+                  name: 'variant',
+                  widget: 'select',
+                  options: ['primary', 'secondary'],
+                  default: 'secondary',
+                }
               - { label: 'Icon (Tabler icon name)', name: 'icon', widget: 'string', required: false }
       - label: 'Credentials Strip'
         name: 'credentials'
@@ -94,9 +112,20 @@ collections:
             collapsed: false
             max: 5
             fields:
-              - { label: 'Label', name: 'label', widget: 'string', hint: 'Short label shown in small caps, e.g. University' }
+              - {
+                  label: 'Label',
+                  name: 'label',
+                  widget: 'string',
+                  hint: 'Short label shown in small caps, e.g. University',
+                }
               - { label: 'Value', name: 'value', widget: 'string', hint: 'Bold text, e.g. BITS Pilani' }
-              - { label: 'Icon (Tabler icon name)', name: 'icon', widget: 'string', required: false, default: 'tabler:sparkles' }
+              - {
+                  label: 'Icon (Tabler icon name)',
+                  name: 'icon',
+                  widget: 'string',
+                  required: false,
+                  default: 'tabler:sparkles',
+                }
       - label: 'Now Section'
         name: 'now'
         widget: 'object'
@@ -107,12 +136,48 @@ collections:
           - { label: 'Current Goal (value)', name: 'goal', widget: 'string' }
           - { label: 'Current Semester (value)', name: 'semester', widget: 'string' }
           - { label: 'Current Experiments (value)', name: 'experiments', widget: 'string' }
-          - { label: 'Building — Card Label', name: 'buildingLabel', widget: 'string', default: 'Currently Building', required: false }
-          - { label: 'Learning — Card Label', name: 'learningLabel', widget: 'string', default: 'Currently Learning', required: false }
-          - { label: 'Reading — Card Label', name: 'readingLabel', widget: 'string', default: 'Currently Reading', required: false }
-          - { label: 'Goal — Card Label', name: 'goalLabel', widget: 'string', default: 'Current Goal', required: false }
-          - { label: 'Semester — Card Label', name: 'semesterLabel', widget: 'string', default: 'Current Semester', required: false }
-          - { label: 'Experiments — Card Label', name: 'experimentsLabel', widget: 'string', default: 'Current Experiments', required: false }
+          - {
+              label: 'Building — Card Label',
+              name: 'buildingLabel',
+              widget: 'string',
+              default: 'Currently Building',
+              required: false,
+            }
+          - {
+              label: 'Learning — Card Label',
+              name: 'learningLabel',
+              widget: 'string',
+              default: 'Currently Learning',
+              required: false,
+            }
+          - {
+              label: 'Reading — Card Label',
+              name: 'readingLabel',
+              widget: 'string',
+              default: 'Currently Reading',
+              required: false,
+            }
+          - {
+              label: 'Goal — Card Label',
+              name: 'goalLabel',
+              widget: 'string',
+              default: 'Current Goal',
+              required: false,
+            }
+          - {
+              label: 'Semester — Card Label',
+              name: 'semesterLabel',
+              widget: 'string',
+              default: 'Current Semester',
+              required: false,
+            }
+          - {
+              label: 'Experiments — Card Label',
+              name: 'experimentsLabel',
+              widget: 'string',
+              default: 'Current Experiments',
+              required: false,
+            }
       - label: 'About Section'
         name: 'about'
         widget: 'object'
@@ -188,7 +253,12 @@ collections:
         hint: 'The "Explore More" divider between the primary content (hero/projects/now) and secondary content (journey, gallery, etc.).'
         fields:
           - { label: 'Label (pill text)', name: 'label', widget: 'string', default: 'Explore More' }
-          - { label: 'Description (line below pill)', name: 'description', widget: 'string', default: "Journey, knowledge, gallery, writing and more — there's a lot going on. Dig in." }
+          - {
+              label: 'Description (line below pill)',
+              name: 'description',
+              widget: 'string',
+              default: "Journey, knowledge, gallery, writing and more — there's a lot going on. Dig in.",
+            }
       - label: 'Homepage Sections'
         name: 'sections'
         widget: 'list'
@@ -197,13 +267,36 @@ collections:
         collapsed: false
         hint: 'Controls order, visibility, and all text for each homepage section.'
         fields:
-          - { label: 'Section ID', name: 'id', widget: 'string', hint: 'e.g. hero, featured-projects, now, journey-timeline' }
+          - {
+              label: 'Section ID',
+              name: 'id',
+              widget: 'string',
+              hint: 'e.g. hero, featured-projects, now, journey-timeline',
+            }
           - { label: 'Display Title (section heading)', name: 'title', widget: 'string', required: false }
           - { label: 'Subtitle / Description', name: 'subtitle', widget: 'string', required: false }
           - { label: 'Tagline (small caps label above title)', name: 'tagline', widget: 'string', required: false }
-          - { label: 'Section Number (e.g. 01, 02)', name: 'sectionNumber', widget: 'string', required: false, hint: 'The large watermark number shown in the section header.' }
-          - { label: '"View All" Button Text', name: 'viewAllText', widget: 'string', required: false, hint: 'e.g. View All Projects' }
-          - { label: '"View All" Button Link', name: 'viewAllHref', widget: 'string', required: false, hint: 'e.g. /projects' }
+          - {
+              label: 'Section Number (e.g. 01, 02)',
+              name: 'sectionNumber',
+              widget: 'string',
+              required: false,
+              hint: 'The large watermark number shown in the section header.',
+            }
+          - {
+              label: '"View All" Button Text',
+              name: 'viewAllText',
+              widget: 'string',
+              required: false,
+              hint: 'e.g. View All Projects',
+            }
+          - {
+              label: '"View All" Button Link',
+              name: 'viewAllHref',
+              widget: 'string',
+              required: false,
+              hint: 'e.g. /projects',
+            }
           - { label: 'Visible', name: 'visible', widget: 'boolean', default: true }
 
   # ─── Projects ───
@@ -218,7 +311,14 @@ collections:
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Excerpt', name: 'excerpt', widget: 'text', required: false }
-      - { label: 'Cover Image', name: 'coverImage', widget: 'image', required: false, choose_url: true, hint: 'Upload a JPG/PNG or paste an image URL.' }
+      - {
+          label: 'Cover Image',
+          name: 'coverImage',
+          widget: 'image',
+          required: false,
+          choose_url: true,
+          hint: 'Upload a JPG/PNG or paste an image URL.',
+        }
       - label: 'Gallery Images'
         name: 'gallery'
         widget: 'list'
@@ -234,7 +334,13 @@ collections:
         widget: 'list'
         required: false
         field: { label: 'Technology', name: 'tech', widget: 'string' }
-      - { label: 'Status', name: 'status', widget: 'select', options: ['In Progress', 'Shipped', 'Archived'], default: 'In Progress' }
+      - {
+          label: 'Status',
+          name: 'status',
+          widget: 'select',
+          options: ['In Progress', 'Shipped', 'Archived'],
+          default: 'In Progress',
+        }
       - { label: 'GitHub URL', name: 'github', widget: 'string', required: false }
       - { label: 'Demo URL', name: 'demo', widget: 'string', required: false }
       - { label: 'Problem', name: 'problem', widget: 'text', required: false }
@@ -243,7 +349,13 @@ collections:
       - { label: 'Challenges', name: 'challenges', widget: 'text', required: false }
       - { label: 'Learnings', name: 'learnings', widget: 'text', required: false }
       - { label: 'Future Improvements', name: 'futureImprovements', widget: 'text', required: false }
-      - { label: 'Key Outcome / Metric', name: 'outcome', widget: 'string', required: false, hint: 'One bold result line shown on the homepage card — e.g. "68% directional accuracy on 30-day backtest".' }
+      - {
+          label: 'Key Outcome / Metric',
+          name: 'outcome',
+          widget: 'string',
+          required: false,
+          hint: 'One bold result line shown on the homepage card — e.g. "68% directional accuracy on 30-day backtest".',
+        }
       - { label: 'Start Date', name: 'startDate', widget: 'datetime', required: false }
       - { label: 'End Date', name: 'endDate', widget: 'datetime', required: false }
       - { label: 'Featured', name: 'featured', widget: 'boolean', default: false }
@@ -271,8 +383,21 @@ collections:
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Date', name: 'date', widget: 'datetime' }
-      - { label: 'Type', name: 'type', widget: 'select', options: ['milestone', 'failure', 'lesson', 'achievement'], default: 'milestone' }
-      - { label: 'Image', name: 'image', widget: 'image', required: false, choose_url: true, hint: 'Upload a JPG/PNG or paste an image URL.' }
+      - {
+          label: 'Type',
+          name: 'type',
+          widget: 'select',
+          options: ['milestone', 'failure', 'lesson', 'achievement'],
+          default: 'milestone',
+        }
+      - {
+          label: 'Image',
+          name: 'image',
+          widget: 'image',
+          required: false,
+          choose_url: true,
+          hint: 'Upload a JPG/PNG or paste an image URL.',
+        }
       - { label: 'Description', name: 'description', widget: 'text', required: false }
       - { label: 'Reflection', name: 'reflection', widget: 'text', required: false }
       - { label: 'Is Achievement', name: 'achievement', widget: 'boolean', default: false }
@@ -293,7 +418,13 @@ collections:
     slug: '{{slug}}'
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
-      - { label: 'Image', name: 'image', widget: 'image', choose_url: true, hint: 'Upload a JPG/PNG or paste an image URL.' }
+      - {
+          label: 'Image',
+          name: 'image',
+          widget: 'image',
+          choose_url: true,
+          hint: 'Upload a JPG/PNG or paste an image URL.',
+        }
       - { label: 'Caption', name: 'caption', widget: 'string', required: false }
       - { label: 'Album', name: 'album', widget: 'string', required: false }
       - { label: 'Category', name: 'category', widget: 'string', required: false }
@@ -314,15 +445,35 @@ collections:
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Excerpt', name: 'excerpt', widget: 'text', required: false }
-      - { label: 'Category', name: 'category', widget: 'select', options: ['AI', 'Engineering', 'Finance', 'Consulting', 'Productivity', 'Career', 'Learning', 'Research', 'Notes'], default: 'AI' }
+      - {
+          label: 'Category',
+          name: 'category',
+          widget: 'select',
+          options:
+            ['AI', 'Engineering', 'Finance', 'Consulting', 'Productivity', 'Career', 'Learning', 'Research', 'Notes'],
+          default: 'AI',
+        }
       - label: 'Tags'
         name: 'tags'
         widget: 'list'
         required: false
         field: { label: 'Tag', name: 'tag', widget: 'string' }
-      - { label: 'Image', name: 'image', widget: 'image', required: false, choose_url: true, hint: 'Upload a JPG/PNG or paste an image URL.' }
+      - {
+          label: 'Image',
+          name: 'image',
+          widget: 'image',
+          required: false,
+          choose_url: true,
+          hint: 'Upload a JPG/PNG or paste an image URL.',
+        }
       - { label: 'Publish Date', name: 'publishDate', widget: 'datetime', required: false }
-      - { label: 'Difficulty', name: 'difficulty', widget: 'select', options: ['Beginner', 'Intermediate', 'Advanced'], default: 'Beginner' }
+      - {
+          label: 'Difficulty',
+          name: 'difficulty',
+          widget: 'select',
+          options: ['Beginner', 'Intermediate', 'Advanced'],
+          default: 'Beginner',
+        }
       - { label: 'Draft', name: 'draft', widget: 'boolean', default: false }
       - { label: 'Content', name: 'body', widget: 'markdown' }
 
@@ -339,11 +490,30 @@ collections:
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Description', name: 'description', widget: 'text', required: false }
       - { label: 'Category', name: 'category', widget: 'string' }
-      - { label: 'Difficulty', name: 'difficulty', widget: 'select', options: ['Beginner', 'Intermediate', 'Advanced'], default: 'Beginner' }
-      - { label: 'Recommendation', name: 'recommendation', widget: 'select', options: ['Essential', 'Highly Recommended', 'Recommended'], default: 'Recommended' }
+      - {
+          label: 'Difficulty',
+          name: 'difficulty',
+          widget: 'select',
+          options: ['Beginner', 'Intermediate', 'Advanced'],
+          default: 'Beginner',
+        }
+      - {
+          label: 'Recommendation',
+          name: 'recommendation',
+          widget: 'select',
+          options: ['Essential', 'Highly Recommended', 'Recommended'],
+          default: 'Recommended',
+        }
       - { label: 'Personal Notes', name: 'personalNotes', widget: 'text', required: false }
       - { label: 'Link', name: 'link', widget: 'string', required: false }
-      - { label: 'Image', name: 'image', widget: 'image', required: false, choose_url: true, hint: 'Upload a JPG/PNG or paste an image URL.' }
+      - {
+          label: 'Image',
+          name: 'image',
+          widget: 'image',
+          required: false,
+          choose_url: true,
+          hint: 'Upload a JPG/PNG or paste an image URL.',
+        }
       - { label: 'Display Order', name: 'order', widget: 'number', default: 100, required: false }
       - { label: 'Draft', name: 'draft', widget: 'boolean', default: false }
       - { label: 'Content', name: 'body', widget: 'markdown', required: false }
@@ -360,9 +530,22 @@ collections:
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Author', name: 'author', widget: 'string', required: false }
-      - { label: 'Status', name: 'status', widget: 'select', options: ['Currently Reading', 'Finished', 'Want to Read'], default: 'Want to Read' }
+      - {
+          label: 'Status',
+          name: 'status',
+          widget: 'select',
+          options: ['Currently Reading', 'Finished', 'Want to Read'],
+          default: 'Want to Read',
+        }
       - { label: 'Rating (1-5)', name: 'rating', widget: 'number', min: 1, max: 5, required: false }
-      - { label: 'Cover Image', name: 'coverImage', widget: 'image', required: false, choose_url: true, hint: 'Upload a JPG/PNG or paste an image URL.' }
+      - {
+          label: 'Cover Image',
+          name: 'coverImage',
+          widget: 'image',
+          required: false,
+          choose_url: true,
+          hint: 'Upload a JPG/PNG or paste an image URL.',
+        }
       - { label: 'Start Date', name: 'startDate', widget: 'datetime', required: false }
       - { label: 'Finish Date', name: 'finishDate', widget: 'datetime', required: false }
       - { label: 'Notes', name: 'notes', widget: 'text', required: false }
@@ -464,7 +647,14 @@ collections:
         widget: 'list'
         required: false
         field: { label: 'Tag', name: 'tag', widget: 'string' }
-      - { label: 'Image', name: 'image', widget: 'image', required: false, choose_url: true, hint: 'Upload a JPG/PNG or paste an image URL.' }
+      - {
+          label: 'Image',
+          name: 'image',
+          widget: 'image',
+          required: false,
+          choose_url: true,
+          hint: 'Upload a JPG/PNG or paste an image URL.',
+        }
       - { label: 'Publish Date', name: 'publishDate', widget: 'datetime', required: false }
       - { label: 'Author', name: 'author', widget: 'string', required: false }
       - { label: 'Draft', name: 'draft', widget: 'boolean', default: false }

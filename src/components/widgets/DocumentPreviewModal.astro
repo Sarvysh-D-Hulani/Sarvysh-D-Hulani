@@ -37,8 +37,18 @@
           download
           class="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border border-sapphire/30 text-sapphire hover:bg-sapphire/10 transition-colors duration-200 font-medium"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-3.5 h-3.5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"
+            ></polyline><line x1="12" y1="15" x2="12" y2="3"></line>
           </svg>
           Download
         </a>
@@ -48,8 +58,17 @@
           aria-label="Close preview"
           class="w-8 h-8 flex items-center justify-center rounded-full border border-white/10 text-white/50 hover:text-white hover:border-white/30 transition-all duration-200"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-4 h-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
         </button>
       </div>
@@ -66,11 +85,24 @@
 
     <!-- Error state -->
     <div id="doc-preview-error" class="hidden flex-col items-center justify-center gap-3 py-20 text-white/60">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-red-400/70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-10 h-10 text-red-400/70"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+      >
+        <circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line
+          x1="12"
+          y1="16"
+          x2="12.01"
+          y2="16"></line>
       </svg>
       <p class="text-sm font-medium text-white/70">Preview failed to load.</p>
-      <a id="doc-error-download" href="#" download class="text-xs text-sapphire hover:underline">Download Original File</a>
+      <a id="doc-error-download" href="#" download class="text-xs text-sapphire hover:underline"
+        >Download Original File</a
+      >
     </div>
 
     <!-- Content area -->
@@ -80,18 +112,9 @@
         <div id="doc-xlsx-table" class="text-xs text-white/80 w-max"></div>
       </div>
       <!-- docx html output -->
-      <div
-        id="doc-docx-container"
-        class="hidden w-full h-full overflow-auto bg-white"
-        style="--docx-bg: #fff;"
-      ></div>
+      <div id="doc-docx-container" class="hidden w-full h-full overflow-auto bg-white" style="--docx-bg: #fff;"></div>
       <!-- pptx / fallback iframe -->
-      <iframe
-        id="doc-iframe"
-        class="hidden w-full h-full border-0"
-        title="Document Preview"
-        allowfullscreen
-      ></iframe>
+      <iframe id="doc-iframe" class="hidden w-full h-full border-0" title="Document Preview" allowfullscreen></iframe>
     </div>
   </div>
 </div>
@@ -145,24 +168,24 @@
   }
 
   // ── DOM references ───────────────────────────────────────────────────────────
-  const modal       = document.getElementById('doc-preview-modal')!;
-  const panel       = document.getElementById('doc-preview-panel')!;
-  const titleEl     = document.getElementById('doc-preview-title')!;
-  const iconEl      = document.getElementById('doc-preview-icon')!;
-  const loadingEl   = document.getElementById('doc-preview-loading')!;
-  const errorEl     = document.getElementById('doc-preview-error')!;
-  const contentEl   = document.getElementById('doc-preview-content')!;
-  const closeBtn    = document.getElementById('doc-preview-close')!;
+  const modal = document.getElementById('doc-preview-modal')!;
+  const panel = document.getElementById('doc-preview-panel')!;
+  const titleEl = document.getElementById('doc-preview-title')!;
+  const iconEl = document.getElementById('doc-preview-icon')!;
+  const loadingEl = document.getElementById('doc-preview-loading')!;
+  const errorEl = document.getElementById('doc-preview-error')!;
+  const contentEl = document.getElementById('doc-preview-content')!;
+  const closeBtn = document.getElementById('doc-preview-close')!;
   const downloadLink = document.getElementById('doc-download-link') as HTMLAnchorElement;
   const errorDownload = document.getElementById('doc-error-download') as HTMLAnchorElement;
-  const sheetSelect  = document.getElementById('doc-sheet-select') as HTMLSelectElement;
+  const sheetSelect = document.getElementById('doc-sheet-select') as HTMLSelectElement;
   const xlsxContainer = document.getElementById('doc-xlsx-container')!;
-  const xlsxTable   = document.getElementById('doc-xlsx-table')!;
+  const xlsxTable = document.getElementById('doc-xlsx-table')!;
   const docxContainer = document.getElementById('doc-docx-container')!;
-  const iframeEl    = document.getElementById('doc-iframe') as HTMLIFrameElement;
+  const iframeEl = document.getElementById('doc-iframe') as HTMLIFrameElement;
 
   // ── State ────────────────────────────────────────────────────────────────────
-  let currentWorkbook: any = null;
+  let currentWorkbook: unknown = null;
 
   // ── Open / close ─────────────────────────────────────────────────────────────
   function openModal() {
@@ -200,8 +223,11 @@
   // ── Sheet switching (xlsx) ───────────────────────────────────────────────────
   function renderSheet(sheetName: string) {
     if (!currentWorkbook) return;
-    const XLSX = (window as any).__XLSX__;
-    const ws = currentWorkbook.Sheets[sheetName];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const XLSX = (window as any).__XLSX__ as Record<string, any>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const wb = currentWorkbook as Record<string, any>;
+    const ws = wb.Sheets[sheetName];
     xlsxTable.innerHTML = XLSX.utils.sheet_to_html(ws, { editable: false });
   }
 
@@ -229,37 +255,47 @@
     try {
       if (extension === 'xlsx' || extension === 'xls') {
         // Lazy-load SheetJS
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         if (!(window as any).__XLSX__) {
           const XLSX = await import('xlsx');
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (window as any).__XLSX__ = XLSX;
         }
-        const XLSX = (window as any).__XLSX__;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const XLSX = (window as any).__XLSX__ as Record<string, any>;
 
         const res = await fetch(fileUrl);
         if (!res.ok) throw new Error('fetch failed');
         const buf = await res.arrayBuffer();
-        const wb = XLSX.read(buf, { type: 'array' });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const wb = XLSX.read(buf, { type: 'array' }) as Record<string, any>;
         currentWorkbook = wb;
 
         // Populate sheet selector
         if (wb.SheetNames.length > 1) {
-          sheetSelect.innerHTML = wb.SheetNames.map((n: string) => `<option value="${n}">${n}</option>`).join('');
+          sheetSelect.innerHTML = (wb.SheetNames as string[])
+            .map((n: string) => `<option value="${n}">${n}</option>`)
+            .join('');
           sheetSelect.classList.remove('hidden');
         }
 
-        renderSheet(wb.SheetNames[0]);
+        renderSheet(wb.SheetNames[0] as string);
 
         loadingEl.classList.add('hidden');
         xlsxContainer.classList.remove('hidden');
         contentEl.classList.remove('hidden');
-
       } else if (extension === 'docx' || extension === 'doc') {
         // Lazy-load docx-preview
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         if (!(window as any).__docxPreview__) {
           const mod = await import('docx-preview');
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (window as any).__docxPreview__ = mod;
         }
-        const { renderAsync } = (window as any).__docxPreview__;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const { renderAsync } = (window as any).__docxPreview__ as {
+          renderAsync: (...args: unknown[]) => Promise<void>;
+        };
 
         const res = await fetch(fileUrl);
         if (!res.ok) throw new Error('fetch failed');
@@ -279,7 +315,6 @@
         loadingEl.classList.add('hidden');
         docxContainer.classList.remove('hidden');
         contentEl.classList.remove('hidden');
-
       } else if (extension === 'pptx' || extension === 'ppt') {
         // Use Microsoft Office Online viewer
         const encoded = encodeURIComponent(fileUrl);
@@ -299,7 +334,6 @@
           iframeEl.classList.remove('hidden');
           contentEl.classList.remove('hidden');
         }, 3000);
-
       } else {
         // Unknown type — use Office Online viewer as generic fallback
         const encoded = encodeURIComponent(fileUrl);

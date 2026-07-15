@@ -4,7 +4,7 @@ subtitle: Seeking internships in AI Engineering & Product
 education:
   - school: BITS Pilani
     degree: B.E. Computer Science (Hons.)
-    graduationYear: "Expected May 2027"
+    graduationYear: 'Expected May 2027'
     coursework:
       - Data Structures & Algorithms
       - Machine Learning
@@ -15,16 +15,16 @@ education:
 
 experience:
   - role: Software Engineering Intern
-    company: "[Company Name]"
-    startDate: "Jun 2025"
-    endDate: "Aug 2025"
+    company: '[Company Name]'
+    startDate: 'Jun 2025'
+    endDate: 'Aug 2025'
     description: >
       Built end-to-end features for [product], improving key metrics by X%.
       Collaborated with cross-functional teams across engineering and design.
   - role: Research Assistant
-    company: "[Lab / Institute]"
-    startDate: "Jan 2025"
-    endDate: "May 2025"
+    company: '[Lab / Institute]'
+    startDate: 'Jan 2025'
+    endDate: 'May 2025'
     description: >
       Contributed to research on [topic]. Implemented experiments using Python
       and PyTorch, and co-authored a report on findings.

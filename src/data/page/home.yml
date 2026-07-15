@@ -49,7 +49,7 @@ credentials:
       icon: tabler:rocket
 now:
   building: An AI-powered study companion for BITS students
-  learning: "How to understand and analyze annual reports. "
+  learning: 'How to understand and analyze annual reports. '
   reading: The Psychology of Money by Morgan Housel
   goal: Ship three production-grade AI projects before semester end
   semester: Third Semester, BITS Pilani
@@ -96,12 +96,12 @@ about:
       description: I go deep on the things that matter rather than skimming everything.
     - title: Genuine Always
       description: No personas, no pretending. What you see is what you get.
-  philosophy: "The best way to predict your future is to build it, one project at
+  philosophy: 'The best way to predict your future is to build it, one project at
     a time, one lesson at a time. I believe in compounding: small daily
     improvements that, over years, create something remarkable. I believe in
     sharing: the best way to learn is to teach, and the best way to grow is to
     give. And I believe in patience: great things take time, and the journey is
-    the destination."
+    the destination.'
   interests:
     - Artificial Intelligence & Machine Learning
     - Product Design & UX

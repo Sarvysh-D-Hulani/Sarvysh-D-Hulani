@@ -13,113 +13,186 @@ const metadata = {
   title: 'Reading',
   description: 'Books that shaped my thinking. Notes, quotes, and ratings.',
 };
-
 ---
 
 <PageLayout metadata={metadata}>
   <!-- Hero header -->
-  <section class="relative pt-20 md:pt-28 pb-16 md:pb-20 bg-gradient-to-b from-section-alt to-page dark:from-midnight dark:to-midnight overflow-hidden">
-    <div class="absolute top-0 left-1/4 w-[400px] h-[300px] rounded-full bg-sapphire/5 blur-[120px] pointer-events-none" aria-hidden="true"></div>
+  <section
+    class="relative pt-20 md:pt-28 pb-16 md:pb-20 bg-gradient-to-b from-section-alt to-page dark:from-midnight dark:to-midnight overflow-hidden"
+  >
+    <div
+      class="absolute top-0 left-1/4 w-[400px] h-[300px] rounded-full bg-sapphire/5 blur-[120px] pointer-events-none"
+      aria-hidden="true"
+    >
+    </div>
     <div class="relative max-w-4xl mx-auto px-4 sm:px-6 text-center">
-      <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text mb-4 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">Reading</p>
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-heading mb-6 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">Reading</h1>
-      <p class="text-lg lg:text-xl text-muted leading-relaxed max-w-2xl mx-auto intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">Books that shaped my thinking. Notes, quotes, and ratings included.</p>
+      <p
+        class="text-xs font-bold tracking-[0.2em] uppercase gradient-text mb-4 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
+      >
+        Reading
+      </p>
+      <h1
+        class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-heading mb-6 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
+      >
+        Reading
+      </h1>
+      <p
+        class="text-lg lg:text-xl text-muted leading-relaxed max-w-2xl mx-auto intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
+      >
+        Books that shaped my thinking. Notes, quotes, and ratings included.
+      </p>
     </div>
   </section>
 
   <section class="py-16 md:py-24 bg-page dark:bg-midnight">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 space-y-16">
-      {currentlyReading.length > 0 && (
-        <div>
-          <div class="flex items-center gap-3 mb-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
-            <span class="h-px w-12 bg-gradient-to-r from-sapphire to-cyan2"></span>
-            <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-heading">Currently Reading</h2>
-          </div>
-          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {currentlyReading.map((item, index) => (
-              <div class="premium-card card-glow overflow-hidden intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade" style={`animation-delay: ${index * 80}ms;`}>
-                {item.coverImage && (
-                  <div class="relative h-48 overflow-hidden">
-                    <Image src={item.coverImage} alt={item.title} layout="cover" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110" />
-                    <div class="absolute top-2 right-2"><span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-sapphire/10 text-sapphire backdrop-blur-sm">Reading</span></div>
-                  </div>
-                )}
-                <div class="p-5">
-                  <h3 class="text-base font-bold text-heading mb-1">{item.title}</h3>
-                  {item.author && <p class="text-sm text-muted mb-2">{item.author}</p>}
-                  {item.rating && (
-                    <div class="flex items-center gap-0.5 mb-3">
-                      {Array.from({ length: 5 }).map((_, i) => <Icon name={i < item.rating! ? 'tabler:star-filled' : 'tabler:star'} class={`w-4 h-4 ${i < item.rating! ? 'text-gold' : 'text-slate-300 dark:text-slate-600'}`} />)}
+      {
+        currentlyReading.length > 0 && (
+          <div>
+            <div class="flex items-center gap-3 mb-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+              <span class="h-px w-12 bg-gradient-to-r from-sapphire to-cyan2" />
+              <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-heading">Currently Reading</h2>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {currentlyReading.map((item, index) => (
+                <div
+                  class="premium-card card-glow overflow-hidden intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
+                  style={`animation-delay: ${index * 80}ms;`}
+                >
+                  {item.coverImage && (
+                    <div class="relative h-48 overflow-hidden">
+                      <Image
+                        src={item.coverImage}
+                        alt={item.title}
+                        layout="cover"
+                        class="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+                      />
+                      <div class="absolute top-2 right-2">
+                        <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-sapphire/10 text-sapphire backdrop-blur-sm">
+                          Reading
+                        </span>
+                      </div>
                     </div>
                   )}
-                  {item.notes && <p class="text-xs text-muted line-clamp-3">{item.notes}</p>}
+                  <div class="p-5">
+                    <h3 class="text-base font-bold text-heading mb-1">{item.title}</h3>
+                    {item.author && <p class="text-sm text-muted mb-2">{item.author}</p>}
+                    {item.rating && (
+                      <div class="flex items-center gap-0.5 mb-3">
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <Icon
+                            name={i < item.rating! ? 'tabler:star-filled' : 'tabler:star'}
+                            class={`w-4 h-4 ${i < item.rating! ? 'text-gold' : 'text-slate-300 dark:text-slate-600'}`}
+                          />
+                        ))}
+                      </div>
+                    )}
+                    {item.notes && <p class="text-xs text-muted line-clamp-3">{item.notes}</p>}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )
+      }
 
-      {finished.length > 0 && (
-        <div>
-          <div class="flex items-center gap-3 mb-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
-            <span class="h-px w-12 bg-gradient-to-r from-emerald2 to-cyan2"></span>
-            <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-heading">Finished</h2>
-          </div>
-          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {finished.map((item, index) => (
-              <div class="premium-card card-glow overflow-hidden intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade" style={`animation-delay: ${index * 80}ms;`}>
-                {item.coverImage && (
-                  <div class="relative h-48 overflow-hidden">
-                    <Image src={item.coverImage} alt={item.title} layout="cover" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110" />
-                    <div class="absolute top-2 right-2"><span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald2/10 text-emerald2 backdrop-blur-sm">Finished</span></div>
+      {
+        finished.length > 0 && (
+          <div>
+            <div class="flex items-center gap-3 mb-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+              <span class="h-px w-12 bg-gradient-to-r from-emerald2 to-cyan2" />
+              <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-heading">Finished</h2>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {finished.map((item, index) => (
+                <div
+                  class="premium-card card-glow overflow-hidden intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
+                  style={`animation-delay: ${index * 80}ms;`}
+                >
+                  {item.coverImage && (
+                    <div class="relative h-48 overflow-hidden">
+                      <Image
+                        src={item.coverImage}
+                        alt={item.title}
+                        layout="cover"
+                        class="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+                      />
+                      <div class="absolute top-2 right-2">
+                        <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald2/10 text-emerald2 backdrop-blur-sm">
+                          Finished
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                  <div class="p-5">
+                    <h3 class="text-base font-bold text-heading mb-1">{item.title}</h3>
+                    {item.author && <p class="text-sm text-muted mb-2">{item.author}</p>}
+                    {item.rating && (
+                      <div class="flex items-center gap-0.5 mb-3">
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <Icon
+                            name={i < item.rating! ? 'tabler:star-filled' : 'tabler:star'}
+                            class={`w-4 h-4 ${i < item.rating! ? 'text-gold' : 'text-slate-300 dark:text-slate-600'}`}
+                          />
+                        ))}
+                      </div>
+                    )}
+                    {item.notes && <p class="text-xs text-muted line-clamp-3">{item.notes}</p>}
+                    {item.quotes && item.quotes.length > 0 && (
+                      <div class="mt-3 space-y-1.5">
+                        {item.quotes.slice(0, 2).map((quote) => (
+                          <blockquote class="text-xs italic text-sapphire dark:text-cyan2 border-l-2 border-gold/40 pl-2">
+                            {quote}
+                          </blockquote>
+                        ))}
+                      </div>
+                    )}
                   </div>
-                )}
-                <div class="p-5">
-                  <h3 class="text-base font-bold text-heading mb-1">{item.title}</h3>
-                  {item.author && <p class="text-sm text-muted mb-2">{item.author}</p>}
-                  {item.rating && (
-                    <div class="flex items-center gap-0.5 mb-3">
-                      {Array.from({ length: 5 }).map((_, i) => <Icon name={i < item.rating! ? 'tabler:star-filled' : 'tabler:star'} class={`w-4 h-4 ${i < item.rating! ? 'text-gold' : 'text-slate-300 dark:text-slate-600'}`} />)}
-                    </div>
-                  )}
-                  {item.notes && <p class="text-xs text-muted line-clamp-3">{item.notes}</p>}
-                  {item.quotes && item.quotes.length > 0 && (
-                    <div class="mt-3 space-y-1.5">
-                      {item.quotes.slice(0, 2).map((quote) => <blockquote class="text-xs italic text-sapphire dark:text-cyan2 border-l-2 border-gold/40 pl-2">{quote}</blockquote>)}
-                    </div>
-                  )}
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )
+      }
 
-      {wantToRead.length > 0 && (
-        <div>
-          <div class="flex items-center gap-3 mb-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
-            <span class="h-px w-12 bg-gradient-to-r from-gold to-amber-400"></span>
-            <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-heading">Want to Read</h2>
-          </div>
-          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {wantToRead.map((item, index) => (
-              <div class="premium-card card-glow overflow-hidden intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade" style={`animation-delay: ${index * 80}ms;`}>
-                {item.coverImage && (
-                  <div class="relative h-48 overflow-hidden">
-                    <Image src={item.coverImage} alt={item.title} layout="cover" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110" />
-                    <div class="absolute top-2 right-2"><span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-gold/10 text-gold backdrop-blur-sm">Want to Read</span></div>
+      {
+        wantToRead.length > 0 && (
+          <div>
+            <div class="flex items-center gap-3 mb-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+              <span class="h-px w-12 bg-gradient-to-r from-gold to-amber-400" />
+              <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-heading">Want to Read</h2>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {wantToRead.map((item, index) => (
+                <div
+                  class="premium-card card-glow overflow-hidden intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
+                  style={`animation-delay: ${index * 80}ms;`}
+                >
+                  {item.coverImage && (
+                    <div class="relative h-48 overflow-hidden">
+                      <Image
+                        src={item.coverImage}
+                        alt={item.title}
+                        layout="cover"
+                        class="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+                      />
+                      <div class="absolute top-2 right-2">
+                        <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-gold/10 text-gold backdrop-blur-sm">
+                          Want to Read
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                  <div class="p-5">
+                    <h3 class="text-base font-bold text-heading mb-1">{item.title}</h3>
+                    {item.author && <p class="text-sm text-muted">{item.author}</p>}
                   </div>
-                )}
-                <div class="p-5">
-                  <h3 class="text-base font-bold text-heading mb-1">{item.title}</h3>
-                  {item.author && <p class="text-sm text-muted">{item.author}</p>}
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )
+      }
     </div>
   </section>
 </PageLayout>

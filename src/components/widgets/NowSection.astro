@@ -40,25 +40,67 @@ const {
 } = Astro.props;
 
 const items = [
-  { label: buildingLabel, value: building, icon: 'tabler:hammer', color: 'text-sapphire', gradient: 'from-sapphire to-azure' },
-  { label: learningLabel, value: learning, icon: 'tabler:book-2', color: 'text-cyan2', gradient: 'from-cyan2 to-sapphire' },
+  {
+    label: buildingLabel,
+    value: building,
+    icon: 'tabler:hammer',
+    color: 'text-sapphire',
+    gradient: 'from-sapphire to-azure',
+  },
+  {
+    label: learningLabel,
+    value: learning,
+    icon: 'tabler:book-2',
+    color: 'text-cyan2',
+    gradient: 'from-cyan2 to-sapphire',
+  },
   { label: readingLabel, value: reading, icon: 'tabler:bookmarks', color: 'text-gold', gradient: 'from-gold to-amber' },
-  { label: goalLabel, value: goal, icon: 'tabler:target-arrow', color: 'text-emerald2', gradient: 'from-emerald2 to-cyan2' },
-  { label: semesterLabel, value: semester, icon: 'tabler:school', color: 'text-sapphire', gradient: 'from-sapphire to-cyan2' },
-  { label: experimentsLabel, value: experiments, icon: 'tabler:flask', color: 'text-cyan2', gradient: 'from-cyan2 to-emerald2' },
+  {
+    label: goalLabel,
+    value: goal,
+    icon: 'tabler:target-arrow',
+    color: 'text-emerald2',
+    gradient: 'from-emerald2 to-cyan2',
+  },
+  {
+    label: semesterLabel,
+    value: semester,
+    icon: 'tabler:school',
+    color: 'text-sapphire',
+    gradient: 'from-sapphire to-cyan2',
+  },
+  {
+    label: experimentsLabel,
+    value: experiments,
+    icon: 'tabler:flask',
+    color: 'text-cyan2',
+    gradient: 'from-cyan2 to-emerald2',
+  },
 ].filter((item) => item.value);
 ---
 
 <section class="relative py-20 md:py-28 bg-section-alt overflow-hidden">
   <!-- Subtle gradient strip at top -->
-  <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-sapphire/30 to-transparent" aria-hidden="true"></div>
-  <div class="absolute top-0 left-1/4 w-[500px] h-[300px] rounded-full bg-sapphire/5 blur-[120px] pointer-events-none" aria-hidden="true"></div>
+  <div
+    class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-sapphire/30 to-transparent"
+    aria-hidden="true"
+  >
+  </div>
+  <div
+    class="absolute top-0 left-1/4 w-[500px] h-[300px] rounded-full bg-sapphire/5 blur-[120px] pointer-events-none"
+    aria-hidden="true"
+  >
+  </div>
 
   <div class="relative max-w-7xl mx-auto px-4 sm:px-6">
     <!-- Section header with number badge -->
-    <div class="flex flex-col items-center text-center mb-14 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+    <div
+      class="flex flex-col items-center text-center mb-14 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
+    >
       <div class="flex items-center gap-3 mb-4">
-        <span class="text-5xl md:text-6xl font-bold tracking-tighter gradient-text opacity-20 select-none">{sectionNumber}</span>
+        <span class="text-5xl md:text-6xl font-bold tracking-tighter gradient-text opacity-20 select-none"
+          >{sectionNumber}</span
+        >
         <span class="h-px w-12 bg-gradient-to-r from-sapphire to-cyan2"></span>
         <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text">{tagline}</p>
       </div>
@@ -72,22 +114,26 @@ const items = [
 
     <!-- Dashboard grid -->
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
-      {items.map((item, index) => (
-        <div
-          class="premium-card card-glow rounded-2xl p-6 md:p-7 group intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
-          style={`animation-delay: ${index * 80}ms;`}
-        >
-          <div class="flex items-start gap-4">
-            <div class={`flex-shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-br ${item.gradient} flex items-center justify-center shadow-lg shadow-sapphire/10 transition-transform duration-300 group-hover:scale-110`}>
-              <Icon name={item.icon} class="w-7 h-7 text-white" />
-            </div>
-            <div class="pt-1">
-              <p class="text-[0.7rem] font-bold tracking-[0.15em] uppercase text-muted mb-2">{item.label}</p>
-              <p class="text-base font-semibold text-heading leading-snug">{item.value}</p>
+      {
+        items.map((item, index) => (
+          <div
+            class="premium-card card-glow rounded-2xl p-6 md:p-7 group intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
+            style={`animation-delay: ${index * 80}ms;`}
+          >
+            <div class="flex items-start gap-4">
+              <div
+                class={`flex-shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-br ${item.gradient} flex items-center justify-center shadow-lg shadow-sapphire/10 transition-transform duration-300 group-hover:scale-110`}
+              >
+                <Icon name={item.icon} class="w-7 h-7 text-white" />
+              </div>
+              <div class="pt-1">
+                <p class="text-[0.7rem] font-bold tracking-[0.15em] uppercase text-muted mb-2">{item.label}</p>
+                <p class="text-base font-semibold text-heading leading-snug">{item.value}</p>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))
+      }
     </div>
   </div>
 </section>

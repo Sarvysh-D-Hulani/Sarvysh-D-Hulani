@@ -1,5 +1,4 @@
 import { getCollection } from 'astro:content';
-import type { CollectionEntry } from 'astro:content';
 
 export interface Project {
   id: string;
@@ -26,7 +25,8 @@ export interface Project {
   draft?: boolean;
   attachedFile?: string;
   outcome?: string;
-  Content?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  Content?: (props: Record<string, unknown>) => any;
 }
 
 export async function fetchProjects(): Promise<Project[]> {
@@ -38,7 +38,7 @@ export async function fetchProjects(): Promise<Project[]> {
       slug: p.id.replace(/\.md$/, '').replace(/\.mdx$/, ''),
       ...p.data,
     }))
-    .sort((a, b) => (a.order || 100) - (b.order || 100));
+    .sort((a, b) => ((a as { order?: number }).order || 100) - ((b as { order?: number }).order || 100));
   return normalized as Project[];
 }
 
@@ -66,7 +66,8 @@ export interface JourneyEntry {
   lesson?: string;
   order?: number;
   draft?: boolean;
-  Content?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  Content?: (props: Record<string, unknown>) => any;
 }
 
 export async function fetchJourney(): Promise<JourneyEntry[]> {
@@ -117,7 +118,8 @@ export interface KnowledgeEntry {
   publishDate?: Date;
   difficulty?: string;
   draft?: boolean;
-  Content?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  Content?: (props: Record<string, unknown>) => any;
 }
 
 export async function fetchKnowledge(): Promise<KnowledgeEntry[]> {
@@ -196,7 +198,8 @@ export interface NewsletterIssue {
   publishDate: Date;
   issue?: number;
   draft?: boolean;
-  Content?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  Content?: (props: Record<string, unknown>) => any;
 }
 
 export async function fetchNewsletters(): Promise<NewsletterIssue[]> {

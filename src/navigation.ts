@@ -72,7 +72,7 @@ export const footerData = {
     { ariaLabel: 'GitHub', icon: 'tabler:brand-github', href: 'https://github.com' },
     { ariaLabel: 'LinkedIn', icon: 'tabler:brand-linkedin', href: 'https://linkedin.com' },
     { ariaLabel: 'Instagram', icon: 'tabler:brand-instagram', href: 'https://instagram.com' },
-    { ariaLabel: 'Substack', icon: 'tabler:brand-substack', href: '[add your Substack URL]' },
+    { ariaLabel: 'Substack', icon: 'tabler:news', href: '[add your Substack URL]' },
     { ariaLabel: 'RSS', icon: 'tabler:rss', href: getAsset('/rss.xml') },
   ],
   footNote: `

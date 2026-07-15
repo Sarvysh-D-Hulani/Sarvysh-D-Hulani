@@ -161,7 +161,7 @@ contact:
       icon: tabler:brand-instagram
     - label: Substack
       href: '[add your Substack URL]'
-      icon: tabler:brand-substack
+      icon: tabler:news
     - label: Email
       href: mailto:sarvysh@example.com
       icon: tabler:mail

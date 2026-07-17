@@ -18,7 +18,7 @@ hero:
       value: BITS Pilani
       icon: tabler:school
     - label: Focus
-      value: AI Engineering
+      value: Finance & Consulting
       icon: tabler:brain
   actions:
     - text: View My Work
@@ -48,18 +48,18 @@ credentials:
       value: Internships & Collabs
       icon: tabler:rocket
 now:
-  building: An AI-powered study companion for BITS students
-  learning: 'How to understand and analyze annual reports. '
+  buildingLabel: Currently Building
+  goalLabel: Current Goal
+  readingLabel: Currently Reading
   reading: The Psychology of Money by Morgan Housel
   goal: Ship three production-grade AI projects before semester end
-  semester: Third Semester, BITS Pilani
+  building: An AI-powered study companion for BITS students
   experiments: Testing fine-tuned embeddings vs. OpenAI embeddings for domain-specific RAG
-  buildingLabel: Currently Building
   learningLabel: Currently Learning
-  readingLabel: Currently Reading
-  goalLabel: Current Goal
+  semester: Third Semester, BITS Pilani
   semesterLabel: Current Semester
   experimentsLabel: Current Experiments
+  learning: "How to understand and analyze annual reports. "
 about:
   story: >-
     I was the kid who took things apart before I understood how they went
@@ -96,12 +96,12 @@ about:
       description: I go deep on the things that matter rather than skimming everything.
     - title: Genuine Always
       description: No personas, no pretending. What you see is what you get.
-  philosophy: 'The best way to predict your future is to build it, one project at
+  philosophy: "The best way to predict your future is to build it, one project at
     a time, one lesson at a time. I believe in compounding: small daily
     improvements that, over years, create something remarkable. I believe in
     sharing: the best way to learn is to teach, and the best way to grow is to
     give. And I believe in patience: great things take time, and the journey is
-    the destination.'
+    the destination."
   interests:
     - Artificial Intelligence & Machine Learning
     - Product Design & UX
@@ -160,14 +160,15 @@ contact:
       href: https://instagram.com
       icon: tabler:brand-instagram
     - label: Substack
-      href: '[add your Substack URL]'
+      href: "[add your Substack URL]"
       icon: tabler:news
     - label: Email
       href: mailto:sarvysh@example.com
       icon: tabler:mail
 exploreDivider:
   label: Explore More
-  description: "Journey, knowledge, gallery, writing and more — there's a lot going on. Dig in."
+  description: Journey, knowledge, gallery, writing and more — there's a lot going
+    on. Dig in.
 sections:
   - id: hero
     title: Hero
@@ -175,15 +176,16 @@ sections:
   - id: featured-projects
     title: Featured Projects
     tagline: Projects
-    sectionNumber: '01'
-    subtitle: Things I am building right now. Each project is a step toward becoming the engineer I want to be.
+    sectionNumber: "01"
+    subtitle: Things I am building right now. Each project is a step toward becoming
+      the engineer I want to be.
     viewAllText: View All Projects
     viewAllHref: /projects
     visible: true
   - id: now
-    title: "What I'm Doing Right Now"
+    title: What I'm Doing Right Now
     tagline: Now
-    sectionNumber: '02'
+    sectionNumber: "02"
     subtitle: A living snapshot of my current focus, updated as things change.
     visible: true
   - id: journey-timeline

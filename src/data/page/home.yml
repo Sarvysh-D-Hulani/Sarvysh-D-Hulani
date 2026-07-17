@@ -1,14 +1,13 @@
 hero:
   name: Sarvysh D Hulani
   tagline: Explorer · Builder · BITS Pilani
-  identity: >-
-    I'm an engineering student at BITS Pilani with a deep curiosity about the
-    world and how it works. I'm fascinated by finance, technology, business,
-    creativity, and the ideas that shape our lives, but what really excites me
-    is learning how seemingly unrelated things connect.
-
-
-    This is my digital garden and field journal: a living record of what I'm learning, building, creating, and discovering along the way. It's a place to think out loud, share ideas, document experiments, and make sense of the world one thought at a time.
+  identity: |-
+    Engineering student at BITS Pilani, exploring finance, AI, and the ideas
+    that shape how things actually work — and building in public while I do it.
+    I follow questions wherever they lead — investment banking, AI tools,
+    how great businesses get built — and I'd rather understand something
+    deeply and build with it than collect credentials and call that
+    understanding.
   currentFocus: I'm designing my own education to understand the world more
     deeply—and documenting the process of becoming through curiosity, not
     certainty
@@ -39,13 +38,13 @@ credentials:
       value: BITS Pilani
       icon: tabler:school
     - label: Expected Grad
-      value: 2027
+      value: "2030"
       icon: tabler:calendar-event
     - label: Focus
       value: AI Engineering
       icon: tabler:brain
     - label: Open to
-      value: Internships & Collabs
+      value: IB / Consulting internships
       icon: tabler:rocket
 now:
   buildingLabel: Currently Building

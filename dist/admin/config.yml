@@ -343,12 +343,48 @@ collections:
         }
       - { label: 'GitHub URL', name: 'github', widget: 'string', required: false }
       - { label: 'Demo URL', name: 'demo', widget: 'string', required: false }
-      - { label: 'Problem', name: 'problem', widget: 'text', required: false }
-      - { label: 'Why I Built It', name: 'whyBuilt', widget: 'text', required: false }
-      - { label: 'Process', name: 'process', widget: 'text', required: false }
-      - { label: 'Challenges', name: 'challenges', widget: 'text', required: false }
-      - { label: 'Learnings', name: 'learnings', widget: 'text', required: false }
-      - { label: 'Future Improvements', name: 'futureImprovements', widget: 'text', required: false }
+      - {
+          label: 'Problem',
+          name: 'problem',
+          widget: 'markdown',
+          required: false,
+          hint: 'Supports bullet points — start a line with "- " to create a list.',
+        }
+      - {
+          label: 'Why I Built It',
+          name: 'whyBuilt',
+          widget: 'markdown',
+          required: false,
+          hint: 'Supports bullet points — start a line with "- " to create a list.',
+        }
+      - {
+          label: 'Process',
+          name: 'process',
+          widget: 'markdown',
+          required: false,
+          hint: 'Supports bullet points — start a line with "- " to create a list.',
+        }
+      - {
+          label: 'Challenges',
+          name: 'challenges',
+          widget: 'markdown',
+          required: false,
+          hint: 'Supports bullet points — start a line with "- " to create a list.',
+        }
+      - {
+          label: 'Learnings',
+          name: 'learnings',
+          widget: 'markdown',
+          required: false,
+          hint: 'Supports bullet points — start a line with "- " to create a list.',
+        }
+      - {
+          label: 'Future Improvements',
+          name: 'futureImprovements',
+          widget: 'markdown',
+          required: false,
+          hint: 'Supports bullet points — start a line with "- " to create a list.',
+        }
       - {
           label: 'Key Outcome / Metric',
           name: 'outcome',

@@ -38,6 +38,35 @@
     "demo": {
       "type": "string"
     },
+    "attachments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "github",
+              "demo",
+              "pdf",
+              "xlsx",
+              "docx",
+              "pptx"
+            ]
+          },
+          "url": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "url"
+        ]
+      }
+    },
     "problem": {
       "type": "string"
     },

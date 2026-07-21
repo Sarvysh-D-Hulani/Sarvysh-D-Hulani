@@ -1,5 +1,11 @@
 import { getCollection } from 'astro:content';
 
+export interface Attachment {
+  type: 'github' | 'demo' | 'pdf' | 'xlsx' | 'docx' | 'pptx';
+  url: string;
+  label?: string;
+}
+
 export interface Project {
   id: string;
   slug: string;
@@ -24,6 +30,7 @@ export interface Project {
   order?: number;
   draft?: boolean;
   attachedFile?: string;
+  attachments?: Attachment[];
   outcome?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   Content?: (props: Record<string, unknown>) => any;

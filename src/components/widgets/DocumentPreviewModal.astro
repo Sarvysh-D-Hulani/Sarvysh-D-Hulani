@@ -113,7 +113,7 @@
       </div>
       <!-- docx html output -->
       <div id="doc-docx-container" class="hidden w-full h-full overflow-auto bg-white" style="--docx-bg: #fff;"></div>
-      <!-- pptx / fallback iframe -->
+      <!-- pdf / pptx / fallback iframe -->
       <iframe id="doc-iframe" class="hidden w-full h-full border-0" title="Document Preview" allowfullscreen></iframe>
     </div>
   </div>
@@ -315,6 +315,23 @@
         loadingEl.classList.add('hidden');
         docxContainer.classList.remove('hidden');
         contentEl.classList.remove('hidden');
+      } else if (extension === 'pdf') {
+        // PDF — render inline via iframe
+        iframeEl.src = fileUrl;
+        iframeEl.onload = () => {
+          loadingEl.classList.add('hidden');
+          iframeEl.classList.remove('hidden');
+          contentEl.classList.remove('hidden');
+        };
+        iframeEl.onerror = () => showError(fileUrl);
+        // Timeout fallback — some browsers fire onload before rendering
+        setTimeout(() => {
+          if (!loadingEl.classList.contains('hidden')) {
+            loadingEl.classList.add('hidden');
+            iframeEl.classList.remove('hidden');
+            contentEl.classList.remove('hidden');
+          }
+        }, 2000);
       } else if (extension === 'pptx' || extension === 'ppt') {
         // Use Microsoft Office Online viewer
         const encoded = encodeURIComponent(fileUrl);
@@ -360,4 +377,22 @@
     const { fileUrl, fileName } = (e as CustomEvent<{ fileUrl: string; fileName: string }>).detail;
     loadPreview(fileUrl, fileName);
   });
+
+  // ── Wire all .doc-preview-btn buttons on the page ───────────────────────────
+  function wireButtons() {
+    document.querySelectorAll<HTMLButtonElement>('.doc-preview-btn').forEach((btn) => {
+      if (btn.dataset.wired) return;
+      btn.dataset.wired = '1';
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const fileUrl = btn.dataset.previewUrl ?? '';
+        const fileName = btn.dataset.previewName ?? 'Document';
+        window.dispatchEvent(new CustomEvent('open-doc-preview', { detail: { fileUrl, fileName } }));
+      });
+    });
+  }
+
+  wireButtons();
+  // Re-wire after any Astro view transitions
+  document.addEventListener('astro:page-load', wireButtons);
 </script>

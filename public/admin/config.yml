@@ -397,14 +397,32 @@ collections:
       - { label: 'Featured', name: 'featured', widget: 'boolean', default: false }
       - { label: 'Display Order', name: 'order', widget: 'number', default: 100, required: false }
       - { label: 'Draft', name: 'draft', widget: 'boolean', default: false }
-      - label: 'Attached Document'
-        name: 'attachedFile'
-        widget: 'file'
+      - label: 'Attachments'
+        name: 'attachments'
+        widget: 'list'
         required: false
-        media_folder: 'public/files/projects'
-        public_folder: '/files/projects'
-        choose_url: false
-        hint: 'Upload a .xlsx, .docx, or .pptx file to enable the document preview button on the project card.'
+        hint: 'Add any combination of GitHub, Demo, PDF, XLSX, DOCX, or PPTX attachments. Each renders as a compact button on the project card.'
+        fields:
+          - label: 'Type'
+            name: 'type'
+            widget: 'select'
+            options:
+              - { label: 'GitHub Repo', value: 'github' }
+              - { label: 'Live Demo', value: 'demo' }
+              - { label: 'PDF Document', value: 'pdf' }
+              - { label: 'Excel Spreadsheet (.xlsx)', value: 'xlsx' }
+              - { label: 'Word Document (.docx)', value: 'docx' }
+              - { label: 'PowerPoint (.pptx)', value: 'pptx' }
+            default: 'github'
+          - label: 'URL / File'
+            name: 'url'
+            widget: 'string'
+            hint: 'For GitHub/Demo: paste a URL. For PDF/XLSX/DOCX/PPTX: upload a file using the media library and paste its public path (e.g. /files/projects/report.pdf).'
+          - label: 'Label (optional)'
+            name: 'label'
+            widget: 'string'
+            required: false
+            hint: 'Custom button label, e.g. "Financial Model", "Certificate". Leave blank for the default.'
       - { label: 'Content', name: 'body', widget: 'markdown' }
 
   # ─── Journey ───

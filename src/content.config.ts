@@ -70,6 +70,15 @@ const projectCollection = defineCollection({
     status: z.string().optional(),
     github: z.string().optional(),
     demo: z.string().optional(),
+    attachments: z
+      .array(
+        z.object({
+          type: z.enum(['github', 'demo', 'pdf', 'xlsx', 'docx', 'pptx']),
+          url: z.string(),
+          label: z.string().optional(),
+        })
+      )
+      .optional(),
     problem: z.string().optional(),
     whyBuilt: z.string().optional(),
     process: z.string().optional(),

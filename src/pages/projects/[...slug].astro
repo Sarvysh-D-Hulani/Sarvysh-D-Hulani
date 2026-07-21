@@ -2,6 +2,8 @@
 import PageLayout from '~/layouts/PageLayout.astro';
 import { Icon } from 'astro-icon/components';
 import Image from '~/components/common/Image.astro';
+import DocumentPreviewModal from '~/components/widgets/DocumentPreviewModal.astro';
+import ProjectAttachments from '~/components/widgets/ProjectAttachments.astro';
 import { fetchProjects } from '~/utils/collections';
 
 export async function getStaticPaths() {
@@ -127,35 +129,23 @@ function applyInline(s: string): string {
         )
       }
 
-      <!-- Links -->
-      <div
-        class="flex flex-wrap gap-3 mb-10 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
-      >
-        {
-          project.github && (
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-navy/5 dark:bg-sapphire/10 text-sapphire dark:text-cyan2 text-sm font-medium hover:bg-navy/10 transition"
-            >
-              <Icon name="tabler:brand-github" class="w-4 h-4" /> GitHub
-            </a>
-          )
-        }
-        {
-          project.demo && (
-            <a
-              href={project.demo}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-navy/5 dark:bg-sapphire/10 text-sapphire dark:text-cyan2 text-sm font-medium hover:bg-navy/10 transition"
-            >
-              <Icon name="tabler:external-link" class="w-4 h-4" /> Live Demo
-            </a>
-          )
-        }
-      </div>
+      <!-- Attachments row (github, demo, pdf, xlsx, docx, pptx) -->
+      {
+        (project.attachments?.length || project.github || project.demo || project.attachedFile) && (
+          <div class="mb-10 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+            <ProjectAttachments
+              attachments={[
+                ...(project.github ? [{ type: 'github' as const, url: project.github }] : []),
+                ...(project.demo ? [{ type: 'demo' as const, url: project.demo }] : []),
+                ...(project.attachments ?? []),
+              ]}
+              attachedFile={project.attachedFile}
+              projectTitle={project.title}
+              variant="detail"
+            />
+          </div>
+        )
+      }
 
       <!-- Tech stack -->
       {
@@ -259,4 +249,6 @@ function applyInline(s: string): string {
       }
     </div>
   </article>
+
+  <DocumentPreviewModal />
 </PageLayout>

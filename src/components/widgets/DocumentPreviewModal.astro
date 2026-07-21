@@ -114,7 +114,7 @@
       <!-- docx html output -->
       <div id="doc-docx-container" class="hidden w-full h-full overflow-auto bg-white" style="--docx-bg: #fff;"></div>
       <!-- pdf / pptx / fallback iframe -->
-      <iframe id="doc-iframe" class="hidden w-full h-full border-0" title="Document Preview" allowfullscreen></iframe>
+      <iframe id="doc-iframe" class="hidden w-full border-0" style="min-height:70vh;height:75vh;" title="Document Preview" allowfullscreen></iframe>
     </div>
   </div>
 </div>
@@ -316,55 +316,73 @@
         docxContainer.classList.remove('hidden');
         contentEl.classList.remove('hidden');
       } else if (extension === 'pdf') {
-        // PDF — render inline via iframe
-        iframeEl.src = fileUrl;
+        // PDF — embed via Google Docs viewer for reliable cross-browser display.
+        // Direct <iframe src="file.pdf"> is blocked in many browsers/sandboxes;
+        // Google Docs viewer renders it consistently without needing a plugin.
+        const absoluteUrl = fileUrl.startsWith('http')
+          ? fileUrl
+          : `${window.location.origin}${fileUrl.startsWith('/') ? '' : '/'}${fileUrl}`;
+        const viewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(absoluteUrl)}&embedded=true`;
+
+        // Assign events BEFORE setting src so we never miss the event
         iframeEl.onload = () => {
           loadingEl.classList.add('hidden');
           iframeEl.classList.remove('hidden');
           contentEl.classList.remove('hidden');
         };
         iframeEl.onerror = () => showError(fileUrl);
-        // Timeout fallback — some browsers fire onload before rendering
+
+        iframeEl.src = viewerUrl;
+
+        // Generous timeout fallback — Google Docs viewer can be slow
         setTimeout(() => {
           if (!loadingEl.classList.contains('hidden')) {
             loadingEl.classList.add('hidden');
             iframeEl.classList.remove('hidden');
             contentEl.classList.remove('hidden');
           }
-        }, 2000);
+        }, 5000);
       } else if (extension === 'pptx' || extension === 'ppt') {
-        // Use Microsoft Office Online viewer
-        const encoded = encodeURIComponent(fileUrl);
-        const viewerUrl = `https://view.officeapps.live.com/op/embed.aspx?src=${encoded}`;
+        // Use Microsoft Office Online viewer (requires absolute URL)
+        const absoluteUrl = fileUrl.startsWith('http')
+          ? fileUrl
+          : `${window.location.origin}${fileUrl.startsWith('/') ? '' : '/'}${fileUrl}`;
+        const viewerUrl = `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(absoluteUrl)}`;
 
-        iframeEl.src = viewerUrl;
+        // Assign events BEFORE setting src
         iframeEl.onload = () => {
           loadingEl.classList.add('hidden');
           iframeEl.classList.remove('hidden');
           contentEl.classList.remove('hidden');
         };
         iframeEl.onerror = () => showError(fileUrl);
+        iframeEl.src = viewerUrl;
+
         // Timeout fallback if iframe never fires onload
         setTimeout(() => {
           if (loadingEl.classList.contains('hidden')) return;
           loadingEl.classList.add('hidden');
           iframeEl.classList.remove('hidden');
           contentEl.classList.remove('hidden');
-        }, 3000);
+        }, 4000);
       } else {
-        // Unknown type — use Office Online viewer as generic fallback
-        const encoded = encodeURIComponent(fileUrl);
-        iframeEl.src = `https://view.officeapps.live.com/op/embed.aspx?src=${encoded}`;
+        // Unknown type — use Google Docs viewer as generic fallback
+        const absoluteUrl = fileUrl.startsWith('http')
+          ? fileUrl
+          : `${window.location.origin}${fileUrl.startsWith('/') ? '' : '/'}${fileUrl}`;
+        const viewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(absoluteUrl)}&embedded=true`;
+
         iframeEl.onload = () => {
           loadingEl.classList.add('hidden');
           iframeEl.classList.remove('hidden');
           contentEl.classList.remove('hidden');
         };
+        iframeEl.src = viewerUrl;
         setTimeout(() => {
           loadingEl.classList.add('hidden');
           iframeEl.classList.remove('hidden');
           contentEl.classList.remove('hidden');
-        }, 3000);
+        }, 5000);
       }
     } catch (err) {
       console.error('[v0] DocumentPreviewModal error:', err);

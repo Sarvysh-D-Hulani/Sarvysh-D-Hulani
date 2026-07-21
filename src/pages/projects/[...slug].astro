@@ -25,6 +25,39 @@ const metadata = {
 
 const formatDate = (date?: Date) =>
   date ? new Intl.DateTimeFormat('en', { month: 'short', year: 'numeric' }).format(date) : '';
+
+// Render a frontmatter markdown string to HTML (handles bullet lists, bold, etc.)
+function mdToHtml(src: string | undefined): string {
+  if (!src) return '';
+  // Bold: **text** → <strong>text</strong>
+  let html = src
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+  // Convert lines that start with "- " into a <ul><li> list
+  const lines = html.split('\n');
+  const out: string[] = [];
+  let inList = false;
+  for (const raw of lines) {
+    const line = raw.trimEnd();
+    if (/^[-*]\s+/.test(line)) {
+      if (!inList) { out.push('<ul class="list-disc list-outside pl-5 space-y-1.5">'); inList = true; }
+      out.push(`<li>${applyInline(line.replace(/^[-*]\s+/, ''))}</li>`);
+    } else {
+      if (inList) { out.push('</ul>'); inList = false; }
+      if (line.trim() !== '') out.push(`<p>${applyInline(line)}</p>`);
+    }
+  }
+  if (inList) out.push('</ul>');
+  return out.join('\n');
+}
+
+function applyInline(s: string): string {
+  return s
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/`(.+?)`/g, '<code>$1</code>');
+}
 ---
 
 <PageLayout metadata={metadata}>
@@ -145,48 +178,48 @@ const formatDate = (date?: Date) =>
         {
           project.problem && (
             <div class="premium-card p-6 md:p-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
-              <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text mb-2">The Problem</p>
-              <p class="text-base text-muted leading-relaxed">{project.problem}</p>
+              <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text mb-3">The Problem</p>
+              <div class="text-base text-muted leading-relaxed project-rich-field" set:html={mdToHtml(project.problem)} />
             </div>
           )
         }
         {
           project.whyBuilt && (
             <div class="premium-card p-6 md:p-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
-              <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text mb-2">Why I Built It</p>
-              <p class="text-base text-muted leading-relaxed">{project.whyBuilt}</p>
+              <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text mb-3">Why I Built It</p>
+              <div class="text-base text-muted leading-relaxed project-rich-field" set:html={mdToHtml(project.whyBuilt)} />
             </div>
           )
         }
         {
           project.process && (
             <div class="premium-card p-6 md:p-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
-              <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text mb-2">Process</p>
-              <p class="text-base text-muted leading-relaxed whitespace-pre-line">{project.process}</p>
+              <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text mb-3">Process</p>
+              <div class="text-base text-muted leading-relaxed project-rich-field" set:html={mdToHtml(project.process)} />
             </div>
           )
         }
         {
           project.challenges && (
             <div class="premium-card p-6 md:p-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
-              <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text mb-2">Challenges</p>
-              <p class="text-base text-muted leading-relaxed">{project.challenges}</p>
+              <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text mb-3">Challenges</p>
+              <div class="text-base text-muted leading-relaxed project-rich-field" set:html={mdToHtml(project.challenges)} />
             </div>
           )
         }
         {
           project.learnings && (
             <div class="premium-card p-6 md:p-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
-              <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text mb-2">What I Learned</p>
-              <p class="text-base text-muted leading-relaxed">{project.learnings}</p>
+              <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text mb-3">What I Learned</p>
+              <div class="text-base text-muted leading-relaxed project-rich-field" set:html={mdToHtml(project.learnings)} />
             </div>
           )
         }
         {
           project.futureImprovements && (
             <div class="premium-card p-6 md:p-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
-              <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text mb-2">Future Improvements</p>
-              <p class="text-base text-muted leading-relaxed">{project.futureImprovements}</p>
+              <p class="text-xs font-bold tracking-[0.2em] uppercase gradient-text mb-3">Future Improvements</p>
+              <div class="text-base text-muted leading-relaxed project-rich-field" set:html={mdToHtml(project.futureImprovements)} />
             </div>
           )
         }

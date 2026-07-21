@@ -30,7 +30,7 @@ learnings: >-
 startDate: 2026-07-21T19:24:00.000+05:30
 endDate: 2026-07-21T21:14:00.000+05:30
 featured: true
-order: ""
+order: 100
 draft: false
 attachedFile: /files/projects/smwfytx3mclboa9bf_2snmyuurxgpfyawco_6a4ba9bdf872f8b5972bfe20_1784648403554_completion_certificate.pdf
 ---

@@ -79,7 +79,7 @@ const projectCollection = defineCollection({
     startDate: z.date().optional(),
     endDate: z.date().optional(),
     featured: z.boolean().optional(),
-    order: z.number().optional(),
+    order: z.union([z.number(), z.string()]).transform((v) => (v === '' || v === null || v === undefined ? 100 : Number(v))).optional(),
     draft: z.boolean().optional(),
     attachedFile: z.string().optional(),
     outcome: z.string().optional(),
@@ -99,7 +99,7 @@ const journeyCollection = defineCollection({
     achievement: z.boolean().optional(),
     failure: z.boolean().optional(),
     lesson: z.string().optional(),
-    order: z.number().optional(),
+    order: z.union([z.number(), z.string()]).transform((v) => (v === '' || v === null || v === undefined ? 100 : Number(v))).optional(),
     draft: z.boolean().optional(),
   }),
 });
@@ -113,7 +113,7 @@ const galleryCollection = defineCollection({
     caption: z.string().optional(),
     date: z.date().optional(),
     category: z.string().optional(),
-    order: z.number().optional(),
+    order: z.union([z.number(), z.string()]).transform((v) => (v === '' || v === null || v === undefined ? 100 : Number(v))).optional(),
     draft: z.boolean().optional(),
   }),
 });
@@ -144,7 +144,7 @@ const resourceCollection = defineCollection({
     personalNotes: z.string().optional(),
     link: z.string().optional(),
     image: z.string().optional(),
-    order: z.number().optional(),
+    order: z.union([z.number(), z.string()]).transform((v) => (v === '' || v === null || v === undefined ? 100 : Number(v))).optional(),
     draft: z.boolean().optional(),
   }),
 });
@@ -162,7 +162,7 @@ const readingCollection = defineCollection({
     notes: z.string().optional(),
     quotes: z.array(z.string()).optional(),
     category: z.string().optional(),
-    order: z.number().optional(),
+    order: z.union([z.number(), z.string()]).transform((v) => (v === '' || v === null || v === undefined ? 100 : Number(v))).optional(),
     draft: z.boolean().optional(),
   }),
 });

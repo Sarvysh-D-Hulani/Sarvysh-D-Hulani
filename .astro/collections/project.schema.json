@@ -68,7 +68,14 @@
       "type": "boolean"
     },
     "order": {
-      "type": "number"
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ]
     },
     "draft": {
       "type": "boolean"

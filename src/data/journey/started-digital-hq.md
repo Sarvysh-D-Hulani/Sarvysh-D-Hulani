@@ -1,6 +1,6 @@
 ---
-title: 'Started Building Digital HQ : My Own Corner Of The Internet'
-date: 2026-07-14T18:49:00.000+05:30
+title: "Started Building Digital HQ : My Own Corner Of The Internet"
+date: 2026-07-26T13:12:00.000+05:30
 type: milestone
 image: https://images.pexels.com/photos/1964451/pexels-photo-1964451.jpeg?auto=compress&cs=tinysrgb&w=800
 description: Launched this website — my digital headquarters. The beginning of a

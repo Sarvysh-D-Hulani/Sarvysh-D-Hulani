@@ -75,7 +75,7 @@ const statusColors: Record<string, string> = {
             style={`animation-delay: ${index * 100}ms;`}
           >
             {/* Clickable image + content area */}
-            <a href={project.slug ? `/projects/${project.slug}` : '#'} class="block">
+            <a href={project.slug ? `/projects/${project.slug}` : '#'} class="block h-full">
               {/* Cover image with 16:9 ratio */}
               {project.coverImage && (
                 <div class="relative aspect-[16/9] overflow-hidden">

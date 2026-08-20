@@ -54,6 +54,9 @@ const isDetail = variant === 'detail';
 function defaultLabel(type: Attachment['type']): string {
   if (type === 'github') return 'View Code';
   if (type === 'demo') return 'Live Demo';
+  if (type === 'video') return 'Watch Video';
+  if (type === 'image') return 'View Image';
+  if (type === 'text') return 'View File';
   return 'View Document';
 }
 

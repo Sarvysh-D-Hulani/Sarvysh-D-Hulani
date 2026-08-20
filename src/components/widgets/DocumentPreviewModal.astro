@@ -178,6 +178,8 @@
     if (extension === 'xlsx' || extension === 'xls') return '📊';
     if (extension === 'docx' || extension === 'doc') return '📝';
     if (extension === 'pptx' || extension === 'ppt') return '📊';
+    if (['mp4', 'webm', 'mov', 'm4v', 'ogg'].includes(extension)) return '▶';
+    if (['png', 'jpg', 'jpeg', 'webp', 'gif', 'svg'].includes(extension)) return '▧';
     return '📄';
   }
 

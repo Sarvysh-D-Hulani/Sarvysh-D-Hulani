@@ -14,7 +14,7 @@
  */
 
 export interface Attachment {
-  type: 'github' | 'demo' | 'pdf' | 'xlsx' | 'docx' | 'pptx';
+  type: 'github' | 'demo' | 'pdf' | 'xlsx' | 'docx' | 'pptx' | 'video' | 'image' | 'text';
   url: string;
   label?: string;
 }
@@ -71,7 +71,7 @@ function iconFor(type: Attachment['type']): string {
 
 // Determine if an attachment needs a modal (pdf/xlsx/docx/pptx)
 function needsModal(type: Attachment['type']): boolean {
-  return type === 'pdf' || type === 'xlsx' || type === 'docx' || type === 'pptx';
+  return !['github', 'demo'].includes(type);
 }
 
 const baseBtn = isDetail

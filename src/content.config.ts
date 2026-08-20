@@ -73,7 +73,7 @@ const projectCollection = defineCollection({
     attachments: z
       .array(
         z.object({
-          type: z.enum(['github', 'demo', 'pdf', 'xlsx', 'docx', 'pptx']),
+          type: z.enum(['github', 'demo', 'pdf', 'xlsx', 'docx', 'pptx', 'video', 'image', 'text']),
           url: z.string(),
           label: z.string().optional(),
         })

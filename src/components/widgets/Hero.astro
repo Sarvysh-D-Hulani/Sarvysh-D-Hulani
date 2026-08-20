@@ -32,8 +32,6 @@ const {
 } = Astro.props;
 
 const taglineParts = tagline.split('·').map((s) => s.trim());
-const roleData = JSON.stringify(rotatingRoles.length > 0 ? rotatingRoles : ['Builder', 'AI Engineer', 'Explorer', 'Student Investor', 'Creator']);
-
 // Alternating visual styles for the floating accent cards
 const cardStyles = [
   { position: '-top-3 -right-3', delay: '0s', ring: 'from-sapphire to-cyan2', iconColor: 'text-white' },
@@ -183,8 +181,8 @@ const cardStyles = [
   }
 </style>
 
-<script>
-  const roles = JSON.parse('{roleData}');
+<script define:vars={{ rotatingRoles }} is:inline>
+  const roles = rotatingRoles.length > 0 ? rotatingRoles : ['Builder', 'AI Engineer', 'Explorer', 'Student Investor', 'Creator'];
   let idx = 0;
   const el = document.getElementById('rotating-role');
   if (el) {

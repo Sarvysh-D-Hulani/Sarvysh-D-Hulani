@@ -3,6 +3,8 @@ import PageLayout from '~/layouts/PageLayout.astro';
 import { Icon } from 'astro-icon/components';
 import { fetchKnowledge } from '~/utils/collections';
 
+export const prerender = true;
+
 export async function getStaticPaths() {
   const items = await fetchKnowledge();
   return items.map((item) => ({

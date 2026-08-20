@@ -1,7 +1,7 @@
 import { getCollection } from 'astro:content';
 
 export interface Attachment {
-  type: 'github' | 'demo' | 'pdf' | 'xlsx' | 'docx' | 'pptx';
+  type: 'github' | 'demo' | 'pdf' | 'xlsx' | 'docx' | 'pptx' | 'video' | 'image' | 'text';
   url: string;
   label?: string;
 }

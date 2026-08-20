@@ -11,6 +11,15 @@ hero:
   currentFocus: I'm designing my own education to understand the world more
     deeply—and documenting the process of becoming through curiosity, not
     certainty
+  availabilityLabel: Available for opportunities
+  rolePrefix: I am a
+  rotatingRoles:
+    - Builder
+    - AI Engineer
+    - Explorer
+    - Student Investor
+    - Creator
+  scrollLabel: Scroll
   profileImage: /images/uploads/chatgpt-image-jul-12-2026-05_11_58-pm.png
   floatingCards:
     - label: Studying at

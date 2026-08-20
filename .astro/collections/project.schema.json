@@ -51,7 +51,10 @@
               "pdf",
               "xlsx",
               "docx",
-              "pptx"
+              "pptx",
+              "video",
+              "image",
+              "text"
             ]
           },
           "url": {

@@ -30,6 +30,12 @@
         ></select>
       </div>
       <div class="flex items-center gap-2 shrink-0">
+        <div id="doc-viewer-controls" class="hidden items-center gap-1 rounded-full border border-white/10 px-1 py-0.5">
+          <button id="doc-zoom-out" type="button" aria-label="Zoom out" class="w-7 h-7 rounded-full text-white/70 hover:bg-white/10">−</button>
+          <span id="doc-zoom-value" class="min-w-10 text-center text-xs text-white/60">100%</span>
+          <button id="doc-zoom-in" type="button" aria-label="Zoom in" class="w-7 h-7 rounded-full text-white/70 hover:bg-white/10">+</button>
+        </div>
+        <button id="doc-fullscreen" type="button" aria-label="Enter fullscreen" class="hidden w-8 h-8 items-center justify-center rounded-full border border-white/10 text-white/60 hover:text-white hover:border-white/30">⛶</button>
         <!-- Download link -->
         <a
           id="doc-download-link"
@@ -113,8 +119,16 @@
       </div>
       <!-- docx html output -->
       <div id="doc-docx-container" class="hidden w-full h-full overflow-auto bg-white" style="--docx-bg: #fff;"></div>
+      <!-- Native media/document surfaces -->
+      <div id="doc-native-container" class="hidden h-full w-full overflow-auto bg-page p-4 md:p-8">
+        <div id="doc-native-stage" class="mx-auto min-h-full w-fit origin-top transition-transform duration-200">
+          <img id="doc-image" class="hidden max-h-[70vh] w-auto object-contain" alt="" />
+          <video id="doc-video" class="hidden max-h-[70vh] max-w-full" controls playsinline preload="metadata"></video>
+          <pre id="doc-text" class="hidden max-w-4xl whitespace-pre-wrap break-words text-sm leading-7 text-heading"></pre>
+        </div>
+      </div>
       <!-- pdf / pptx / fallback iframe -->
-      <iframe id="doc-iframe" class="hidden w-full h-full border-0" title="Document Preview" allowfullscreen></iframe>
+      <iframe id="doc-iframe" class="hidden h-full w-full border-0" title="Document Preview" allowfullscreen></iframe>
     </div>
   </div>
 </div>
@@ -183,8 +197,30 @@
   const xlsxTable = document.getElementById('doc-xlsx-table')!;
   const docxContainer = document.getElementById('doc-docx-container')!;
   const iframeEl = document.getElementById('doc-iframe') as HTMLIFrameElement;
+  const nativeContainer = document.getElementById('doc-native-container')!;
+  const nativeStage = document.getElementById('doc-native-stage')!;
+  const imageEl = document.getElementById('doc-image') as HTMLImageElement;
+  const videoEl = document.getElementById('doc-video') as HTMLVideoElement;
+  const textEl = document.getElementById('doc-text')!;
+  const viewerControls = document.getElementById('doc-viewer-controls')!;
+  const zoomValue = document.getElementById('doc-zoom-value')!;
+  const zoomIn = document.getElementById('doc-zoom-in')!;
+  const zoomOut = document.getElementById('doc-zoom-out')!;
+  const fullscreenBtn = document.getElementById('doc-fullscreen')!;
 
   // ── State ────────────────────────────────────────────────────────────────────
+  let zoom = 1;
+
+  function setZoom(next: number) {
+    zoom = Math.min(2.5, Math.max(0.5, next));
+    nativeStage.style.transform = `scale(${zoom})`;
+    nativeStage.style.transformOrigin = 'top center';
+    zoomValue.textContent = `${Math.round(zoom * 100)}%`;
+  }
+
+  zoomIn.addEventListener('click', () => setZoom(zoom + 0.1));
+  zoomOut.addEventListener('click', () => setZoom(zoom - 0.1));
+  fullscreenBtn.addEventListener('click', () => panel.requestFullscreen?.());
   let currentWorkbook: unknown = null;
 
   // ── Open / close ─────────────────────────────────────────────────────────────
@@ -206,6 +242,18 @@
     docxContainer.classList.add('hidden');
     iframeEl.classList.add('hidden');
     iframeEl.src = '';
+    nativeContainer.classList.add('hidden');
+    imageEl.classList.add('hidden');
+    videoEl.classList.add('hidden');
+    textEl.classList.add('hidden');
+    imageEl.src = '';
+    videoEl.pause();
+    videoEl.removeAttribute('src');
+    viewerControls.classList.add('hidden');
+    viewerControls.classList.remove('flex');
+    fullscreenBtn.classList.add('hidden');
+    fullscreenBtn.classList.remove('flex');
+    setZoom(1);
     contentEl.classList.add('hidden');
     errorEl.classList.add('hidden');
     errorEl.style.display = '';
@@ -253,7 +301,32 @@
     openModal();
 
     try {
-      if (extension === 'xlsx' || extension === 'xls') {
+      const nativeImage = ['png', 'jpg', 'jpeg', 'webp', 'gif', 'svg'].includes(extension);
+      const nativeVideo = ['mp4', 'webm', 'mov', 'm4v', 'ogg'].includes(extension);
+      const nativeText = ['txt', 'csv', 'json', 'md', 'log'].includes(extension);
+
+      if (nativeImage || nativeVideo || nativeText) {
+        if (nativeImage) {
+          imageEl.src = fileUrl;
+          imageEl.alt = fileName;
+          imageEl.classList.remove('hidden');
+        } else if (nativeVideo) {
+          videoEl.src = fileUrl;
+          videoEl.classList.remove('hidden');
+        } else {
+          const res = await fetch(fileUrl);
+          if (!res.ok) throw new Error('fetch failed');
+          textEl.textContent = await res.text();
+          textEl.classList.remove('hidden');
+        }
+        nativeContainer.classList.remove('hidden');
+        viewerControls.classList.remove('hidden');
+        viewerControls.classList.add('flex');
+        fullscreenBtn.classList.remove('hidden');
+        fullscreenBtn.classList.add('flex');
+        loadingEl.classList.add('hidden');
+        contentEl.classList.remove('hidden');
+      } else if (extension === 'xlsx' || extension === 'xls') {
         // Lazy-load SheetJS
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         if (!(window as any).__XLSX__) {

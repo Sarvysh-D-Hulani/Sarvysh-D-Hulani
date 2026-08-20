@@ -12,5 +12,20 @@ const adminConfig = '/admin/config.yml';
   </head>
   <body>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script is:inline>
+      window.__directBlobUpload = async function (file, token) {
+        const response = await fetch('https://blob.vercel-storage.com/upload', {
+          method: 'POST',
+          headers: {
+            'content-type': file.type || 'application/octet-stream',
+            'x-api-version': '4',
+            authorization: `Bearer ${token.clientToken}`,
+          },
+          body: file,
+        });
+        if (!response.ok) throw new Error('Direct upload failed');
+        return response.json();
+      };
+    </script>
   </body>
 </html>

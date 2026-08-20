@@ -1,4 +1,0 @@
-User-agent: *
-Disallow:
-
-Sitemap: https://sarvysh.vercel.app/sitemap-index.xml

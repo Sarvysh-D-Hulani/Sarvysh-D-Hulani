@@ -17,6 +17,21 @@
         "currentFocus": {
           "type": "string"
         },
+        "availabilityLabel": {
+          "type": "string"
+        },
+        "rolePrefix": {
+          "type": "string"
+        },
+        "rotatingRoles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "scrollLabel": {
+          "type": "string"
+        },
         "profileImage": {
           "type": "string"
         },

@@ -8,6 +8,10 @@ export interface Props {
   tagline?: string;
   identity?: string;
   currentFocus?: string;
+  availabilityLabel?: string;
+  rolePrefix?: string;
+  rotatingRoles?: string[];
+  scrollLabel?: string;
   profileImage?: string;
   actions?: Array<{ text: string; href: string; variant?: 'primary' | 'secondary' | 'tertiary' | 'link'; icon?: string }>;
   floatingCards?: Array<{ label: string; value: string; icon?: string }>;
@@ -18,12 +22,17 @@ const {
   tagline = '',
   identity = '',
   currentFocus = '',
+  availabilityLabel = 'Available for opportunities',
+  rolePrefix = 'I am a',
+  rotatingRoles = ['Builder', 'AI Engineer', 'Explorer', 'Student Investor', 'Creator'],
+  scrollLabel = 'Scroll',
   profileImage = '',
   actions = [],
   floatingCards = [],
 } = Astro.props;
 
 const taglineParts = tagline.split('·').map((s) => s.trim());
+const roleData = JSON.stringify(rotatingRoles.length > 0 ? rotatingRoles : ['Builder', 'AI Engineer', 'Explorer', 'Student Investor', 'Creator']);
 
 // Alternating visual styles for the floating accent cards
 const cardStyles = [
@@ -61,7 +70,7 @@ const cardStyles = [
             <span class="absolute inline-flex w-full h-full rounded-full bg-emerald2 opacity-75 animate-ping"></span>
             <span class="relative inline-flex w-2 h-2 rounded-full bg-emerald2"></span>
           </span>
-          <span class="text-sm text-ivory/85 font-medium tracking-wide">Available for opportunities</span>
+          <span class="text-sm text-ivory/85 font-medium tracking-wide">{availabilityLabel}</span>
         </div>
 
         <!-- Name with refined typography -->
@@ -80,7 +89,7 @@ const cardStyles = [
 
         <!-- Animated rotating role line -->
         <div class="flex items-center gap-2 mb-5 justify-center lg:justify-start intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
-          <span class="text-ivory/50 text-base font-medium">I am a</span>
+          <span class="text-ivory/50 text-base font-medium">{rolePrefix}</span>
           <span id="rotating-role" class="text-base font-bold text-cyan2 min-w-[14ch] inline-block transition-all duration-500"></span>
         </div>
 
@@ -161,7 +170,7 @@ const cardStyles = [
 
     <!-- Scroll cue -->
     <div class="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2.5 text-ivory/30">
-      <span class="text-[0.65rem] uppercase tracking-[0.3em] font-medium">Scroll</span>
+      <span class="text-[0.65rem] uppercase tracking-[0.3em] font-medium">{scrollLabel}</span>
       <div class="w-px h-14 bg-gradient-to-b from-ivory/30 to-transparent"></div>
     </div>
   </div>
@@ -175,7 +184,7 @@ const cardStyles = [
 </style>
 
 <script>
-  const roles = ['Builder', 'AI Engineer', 'Explorer', 'Student Investor', 'Creator'];
+  const roles = JSON.parse('{roleData}');
   let idx = 0;
   const el = document.getElementById('rotating-role');
   if (el) {

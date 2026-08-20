@@ -35,7 +35,9 @@ site_url: https://sarvysh-d-hulani.vercel.app
 media_folder: 'public/images/uploads'
 public_folder: '/images/uploads'
 
-local_backend: true
+# Keep the CMS on DecapBridge in production. Enabling the local backend on the
+# deployed site makes Decap try to reach localhost:8081 and close the connection.
+local_backend: false
 
 collections:
   # ─── Global Site Settings ───
@@ -57,6 +59,16 @@ collections:
           - { label: 'Tagline', name: 'tagline', widget: 'string' }
           - { label: 'Identity Statement', name: 'identity', widget: 'text' }
           - { label: 'Current Focus', name: 'currentFocus', widget: 'text' }
+          - { label: 'Availability Label', name: 'availabilityLabel', widget: 'string', default: 'Available for opportunities', required: false }
+          - { label: 'Role Prefix', name: 'rolePrefix', widget: 'string', default: 'I am a', required: false }
+          - label: 'Rotating Roles'
+            name: 'rotatingRoles'
+            widget: 'list'
+            required: false
+            allow_add: true
+            allow_delete: true
+            field: { label: 'Role', name: 'role', widget: 'string' }
+          - { label: 'Scroll Cue', name: 'scrollLabel', widget: 'string', default: 'Scroll', required: false }
           - {
               label: 'Profile Image',
               name: 'profileImage',

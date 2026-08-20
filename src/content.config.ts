@@ -235,6 +235,10 @@ const pageContentCollection = defineCollection({
         tagline: z.string().optional(),
         identity: z.string().optional(),
         currentFocus: z.string().optional(),
+        availabilityLabel: z.string().optional(),
+        rolePrefix: z.string().optional(),
+        rotatingRoles: z.array(z.string()).optional(),
+        scrollLabel: z.string().optional(),
         profileImage: z.string().optional(),
         floatingCards: z
           .array(

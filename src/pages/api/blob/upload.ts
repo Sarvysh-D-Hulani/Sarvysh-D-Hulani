@@ -20,14 +20,8 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     const body = await request.json();
     const pathname = String(body.pathname ?? '');
-    const type = String(body.type ?? '');
-    const size = Number(body.size ?? 0);
-
     if (!pathname.startsWith('projects/') || pathname.includes('..')) {
       return new Response(JSON.stringify({ error: 'Invalid project file path' }), { status: 400 });
-    }
-    if (!ALLOWED_TYPES.has(type) || !Number.isFinite(size) || size <= 0 || size > MAX_FILE_SIZE) {
-      return new Response(JSON.stringify({ error: 'Unsupported file type or file is too large' }), { status: 400 });
     }
 
     const jsonResponse = await handleUpload({

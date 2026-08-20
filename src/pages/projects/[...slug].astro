@@ -6,6 +6,8 @@ import DocumentPreviewModal from '~/components/widgets/DocumentPreviewModal.astr
 import ProjectAttachments from '~/components/widgets/ProjectAttachments.astro';
 import { fetchProjects } from '~/utils/collections';
 
+export const prerender = true;
+
 export async function getStaticPaths() {
   const projects = await fetchProjects();
   return projects.map((project) => ({
